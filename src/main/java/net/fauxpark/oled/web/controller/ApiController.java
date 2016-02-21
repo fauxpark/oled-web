@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.fauxpark.oled.SSD1306;
+import net.fauxpark.oled.web.entity.DisplayBuffer;
 import net.fauxpark.oled.web.entity.JsonResponse;
 import net.fauxpark.oled.web.entity.request.SetContrastRequest;
 import net.fauxpark.oled.web.entity.request.SetPixelRequest;
@@ -151,6 +152,45 @@ public class ApiController {
 		ssd1306.setPixel(request.getX(), request.getY(), request.isOn());
 		ssd1306.display();
 		response.setResult(ssd1306.getPixel(request.getX(), request.getY()));
+
+		return response;
+	}
+
+	/**
+	 * Get the display buffer.
+	 *
+	 * @return A JSON response containing the width, height, and contents of the display buffer.
+	 */
+	@RequestMapping("/buffer")
+	@ResponseBody
+	public JsonResponse<DisplayBuffer> getBuffer() {
+		log.info("======== getBuffer");
+
+		JsonResponse<DisplayBuffer> response = new JsonResponse<>();
+		response.setOk(true);
+		DisplayBuffer buffer = new DisplayBuffer(ssd1306.getWidth(), ssd1306.getHeight(), null);
+		buffer.setBuffer(DisplayBuffer.toIntArray(ssd1306.getBuffer()));
+		response.setResult(buffer);
+
+		return response;
+	}
+
+	/**
+	 * Set the display buffer.
+	 *
+	 * @param buffer A JSON object containing the width, height, and contents of the buffer to set.
+	 */
+	@RequestMapping(value="/buffer", method=RequestMethod.POST)
+	@ResponseBody
+	public JsonResponse<Void> setBuffer(@RequestBody DisplayBuffer buffer) {
+		log.info("======== setBuffer");
+		log.info("buffer.getWidth()={}", buffer.getWidth());
+		log.info("buffer.getHeight()={}", buffer.getHeight());
+		log.info("buffer.getBuffer().length={}", buffer.getBuffer().length);
+
+		JsonResponse<Void> response = new JsonResponse<>();
+		response.setOk(true);
+		ssd1306.setBuffer(DisplayBuffer.toByteArray(buffer.getBuffer()));
 
 		return response;
 	}
