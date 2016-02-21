@@ -30,7 +30,19 @@
 						<div class="panel-body">
 							<div class="form-group"><button class="btn btn-primary btn-block" ng-click="startup()">Startup</button></div>
 							<div class="form-group"><button class="btn btn-primary btn-block" ng-click="shutdown()">Shutdown</button></div>
+							<div class="form-group"><button class="btn btn-primary btn-block" ng-click="displayOn()">Display On</button></div>
+							<div class="form-group"><button class="btn btn-primary btn-block" ng-click="displayOff()">Display Off</button></div>
 							<div class="form-group"><button class="btn btn-primary btn-block" ng-click="invert()">Invert</button></div>
+							<div class="form-group">
+								<input class="form-control" type="number" min="0" max="255" step="1"/>
+								<button class="btn btn-primary btn-block" ng-click="setContrast(state.contrast)">Set Contrast</button>
+							</div>
+							<div class="form-group">
+								<input class="form-control" type="number" min="0" max="127" step="1"/>
+								<input class="form-control" type="number" min="0" max="63" step="1"/>
+								<input class="form-control" type="checkbox" checked/>
+								<button class="btn btn-primary btn-block" ng-click="setPixel(state.x, state.y, state.on)">Set Pixel</button>
+							</div>
 						</div>
 					</div>
 				</div>
