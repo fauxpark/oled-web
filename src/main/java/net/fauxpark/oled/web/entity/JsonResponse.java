@@ -3,6 +3,8 @@ package net.fauxpark.oled.web.entity;
 /**
  * A simple JSON response object.
  *
+ * @author fauxpark
+ *
  * @param <T> The type of result the response holds.
  */
 public class JsonResponse<T> {

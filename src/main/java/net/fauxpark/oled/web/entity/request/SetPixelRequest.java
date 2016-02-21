@@ -2,6 +2,8 @@ package net.fauxpark.oled.web.entity.request;
 
 /**
  * A JSON request to turn a pixel on the display on or off.
+ *
+ * @author fauxpark
  */
 public class SetPixelRequest {
 	/**

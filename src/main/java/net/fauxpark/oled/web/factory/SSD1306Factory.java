@@ -14,6 +14,12 @@ import net.fauxpark.oled.SSD1306;
 import net.fauxpark.oled.impl.SSD1306Impl;
 import net.fauxpark.oled.impl.SSD1306MockImpl;
 
+/**
+ * A factory which determines whether the webapp is running on a Raspberry Pi,
+ * and provides the appropriate SSD1306 implementation.
+ *
+ * @author fauxpark
+ */
 public class SSD1306Factory {
 	private static final Logger log = LogManager.getLogger(SSD1306Factory.class);
 

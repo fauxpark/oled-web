@@ -2,6 +2,8 @@ package net.fauxpark.oled.web.entity.request;
 
 /**
  * A JSON request to set the contrast (brightness) of the display.
+ *
+ * @author fauxpark
  */
 public class SetContrastRequest {
 	/**

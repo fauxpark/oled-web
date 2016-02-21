@@ -5,6 +5,11 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * A controller which handles serving webapp pages.
+ *
+ * @author fauxpark
+ */
 @Controller
 @RequestMapping("/")
 public class MainController {

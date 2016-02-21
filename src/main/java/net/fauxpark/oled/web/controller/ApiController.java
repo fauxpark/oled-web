@@ -14,6 +14,11 @@ import net.fauxpark.oled.web.entity.request.SetContrastRequest;
 import net.fauxpark.oled.web.entity.request.SetPixelRequest;
 import net.fauxpark.oled.web.factory.SSD1306Factory;
 
+/**
+ * A controller which handles all of the API calls to interact with the SSD1306.
+ *
+ * @author fauxpark
+ */
 @Controller
 @RequestMapping("/api")
 public class ApiController {
