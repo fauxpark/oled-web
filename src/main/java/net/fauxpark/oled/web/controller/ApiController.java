@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import net.fauxpark.oled.SSD1306;
 import net.fauxpark.oled.web.entity.DisplayBuffer;
 import net.fauxpark.oled.web.entity.JsonResponse;
+import net.fauxpark.oled.web.entity.StatusResponse;
 import net.fauxpark.oled.web.entity.request.FlipRequest;
 import net.fauxpark.oled.web.entity.request.SetContrastRequest;
 import net.fauxpark.oled.web.entity.request.SetPixelRequest;
@@ -27,6 +28,25 @@ public class ApiController {
 	private static final Logger log = LogManager.getLogger(ApiController.class);
 
 	private final SSD1306 ssd1306 = SSD1306Factory.getInstance();
+
+	/**
+	 * Get the display status.
+	 */
+	@RequestMapping("/status")
+	@ResponseBody
+	public StatusResponse status() {
+		log.info("======== status");
+
+		StatusResponse response = new StatusResponse();
+		response.setInitialised(ssd1306.isInitialised());
+		response.setDisplayOn(ssd1306.isDisplayOn());
+		response.setInverted(ssd1306.isInverted());
+		response.setHFlipped(ssd1306.isHFlipped());
+		response.setVFlipped(ssd1306.isVFlipped());
+		response.setContrast(ssd1306.getContrast());
+
+		return response;
+	}
 
 	/**
 	 * Begin the startup procedure for the display.

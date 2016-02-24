@@ -6,6 +6,18 @@ var oled = angular.module('oled', []);
 oled.service('OledService', ['$http', function($http) {
 	return {
 		/**
+		 * Retrieve the display status.
+		 *
+		 * @param {Function} callback An optional callback function, with the response object passed as its only parameter.
+		 */
+		status: function(callback) {
+			$http.get('/oled/api/status').then(function(response) {
+				if(callback) {
+					callback(response);
+				}
+			});
+		},
+		/**
 		 * Start up the display.
 		 *
 		 * @param {Function} callback An optional callback function, with the response object passed as its only parameter.
@@ -225,4 +237,8 @@ oled.controller('OledCtrl', ['$scope', 'OledService', function($scope, OledServi
 			alert('Can\'t do anything while the display is not initialised.');
 		}
 	};
+
+	OledService.status(function(response) {
+		$scope.state = response.data;
+	});
 }]);
