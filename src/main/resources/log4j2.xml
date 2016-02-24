@@ -2,7 +2,7 @@
 <configuration status="INFO">
 	<appenders>
 		<console name="Console" target="SYSTEM_OUT">
-			<patternlayout pattern="%d{HH:mm:ss.SSS} %-5level %t [%c{1}] %msg%n"/>
+			<patternlayout pattern="%d{ABSOLUTE} %-5p [%c{1}:%M:%L] %m%n"/>
 		</console>
 	</appenders>
 	<loggers>
