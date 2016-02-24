@@ -30,10 +30,10 @@
 						<div class="panel-body">
 							<div class="form-group row">
 								<div class="col-md-6">
-									<button id="btn-init" class="btn btn-primary btn-block" ng-click="initialise()">Startup</button>
+									<button id="btn-init" class="btn btn-primary btn-block" ng-bind="state.initialised?'Shutdown':'Startup'" ng-click="initialise()">Startup</button>
 								</div>
 								<div class="col-md-6">
-									<button id="btn-display-on" class="btn btn-primary btn-block" ng-click="toggleDisplay()">Display On</button>
+									<button id="btn-display-on" class="btn btn-primary btn-block" ng-bind="state.displayOn?'Display Off':'Display On'" ng-click="toggleDisplay()">Display On</button>
 								</div>
 							</div>
 							<div class="form-group row">
@@ -60,7 +60,7 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="input-group">
-											<input name="input-contrast" class="form-control" type="number" min="0" max="255" step="1" ng-model="state.contrast"/>
+											<input id="input-contrast" name="input-contrast" class="form-control" type="number" min="0" max="255" step="1" ng-model="state.contrast"/>
 											<span class="input-group-btn">
 												<button class="btn btn-primary" ng-click="setContrast()">Set</button>
 											</span>

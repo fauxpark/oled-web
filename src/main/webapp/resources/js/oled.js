@@ -148,6 +148,7 @@ oled.controller('OledCtrl', ['$scope', 'OledService', function($scope, OledServi
 				alert('Shut down display.');
 
 				$scope.state.initialised = false;
+				$scope.state.displayOn = false;
 				$('#btn-init').html('Startup');
 			});
 		} else {
@@ -155,6 +156,7 @@ oled.controller('OledCtrl', ['$scope', 'OledService', function($scope, OledServi
 				alert('Started up display.');
 
 				$scope.state.initialised = true;
+				$scope.state.displayOn = true;
 				$('#btn-init').html('Shutdown');
 			});
 		}
@@ -218,9 +220,9 @@ oled.controller('OledCtrl', ['$scope', 'OledService', function($scope, OledServi
 		}
 	};
 
-	$scope.setContrast = function(contrast) {
+	$scope.setContrast = function() {
 		if($scope.state.initialised) {
-			OledService.setContrast(contrast, function(response) {
+			OledService.setContrast($('#input-contrast').val(), function(response) {
 				alert('Set contrast.');
 			});
 		} else {
