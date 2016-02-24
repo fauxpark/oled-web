@@ -66,6 +66,21 @@ oled.service('OledService', ['$http', function($http) {
 			});
 		},
 		/**
+		 * Flip the display horizontally or vertically.
+		 *
+		 * @param {String} axis The axis to flip on. Must be either 'h' or 'v'.
+		 * @param {Function} callback An optional callback function, with the response object passed as its only parameter.
+		 */
+		flip: function(axis, callback) {
+			$http.post('/oled/api/flip', {
+				axis: axis
+			}).then(function(response) {
+				if(callback) {
+					callback(response);
+				}
+			});
+		},
+		/**
 		 * Set the contrast level.
 		 *
 		 * @param {Integer} contrast The contrast level to set.
@@ -106,45 +121,108 @@ oled.service('OledService', ['$http', function($http) {
  * A controller for keeping state and calling the OLED API service.
  */
 oled.controller('OledCtrl', ['$scope', 'OledService', function($scope, OledService) {
-	$scope.startup = function() {
-		OledService.startup(function(response) {
-			alert('Started up display.');
-		});
+	$scope.state = {
+		initialised: false,
+		displayOn: false,
+		inverted: false,
+		hFlipped: false,
+		vFlipped: false,
+		contrast: 0
 	};
 
-	$scope.shutdown = function() {
-		OledService.shutdown(function(response) {
-			alert('Shut down display.');
-		});
+	$scope.initialise = function() {
+		if($scope.state.initialised) {
+			OledService.shutdown(function(response) {
+				alert('Shut down display.');
+
+				$scope.state.initialised = false;
+				$('#btn-init').html('Startup');
+			});
+		} else {
+			OledService.startup(function(response) {
+				alert('Started up display.');
+
+				$scope.state.initialised = true;
+				$('#btn-init').html('Shutdown');
+			});
+		}
 	};
 
-	$scope.displayOn = function() {
-		OledService.displayOn(function(response) {
-			alert('Turned display on.');
-		});
-	};
+	$scope.toggleDisplay = function() {
+		if($scope.state.initialised) {
+			if($scope.state.displayOn) {
+				OledService.displayOff(function(response) {
+					alert('Turned display off.');
 
-	$scope.displayOff = function() {
-		OledService.displayOff(function(response) {
-			alert('Turned display off.');
-		});
+					$scope.state.displayOn = false;
+					$('#btn-display-on').html('Display On');
+				});
+			} else {
+				OledService.displayOn(function(response) {
+					alert('Turned display on.');
+
+					$scope.state.displayOn = true;
+					$('#btn-display-on').html('Display Off');
+				});
+			}
+		} else {
+			alert('Can\'t do anything while the display is not initialised.');
+		}
 	};
 
 	$scope.invert = function() {
-		OledService.invert(function(response) {
-			alert('Inverted display.');
-		});
+		if($scope.state.initialised) {
+			OledService.invert(function(response) {
+				alert('Inverted display.');
+
+				$scope.state.inverted = !$scope.state.inverted;
+			});
+		} else {
+			alert('Can\'t do anything while the display is not initialised.');
+		}
+	};
+
+	$scope.horizontalFlip = function() {
+		if($scope.state.initialised) {
+			OledService.flip('h', function(response) {
+				alert('Flipped display horizontally.');
+
+				$scope.state.hFlipped = !$scope.state.hFlipped;
+			});
+		} else {
+			alert('Can\'t do anything while the display is not initialised.');
+		}
+	};
+
+	$scope.verticalFlip = function() {
+		if($scope.state.initialised) {
+			OledService.flip('v', function(response) {
+				alert('Flipped display vertically.');
+
+				$scope.state.vFlipped = !$scope.state.vFlipped;
+			});
+		} else {
+			alert('Can\'t do anything while the display is not initialised.');
+		}
 	};
 
 	$scope.setContrast = function(contrast) {
-		OledService.setContrast(contrast, function(response) {
-			alert('Set contrast.');
-		});
+		if($scope.state.initialised) {
+			OledService.setContrast(contrast, function(response) {
+				alert('Set contrast.');
+			});
+		} else {
+			alert('Can\'t do anything while the display is not initialised.');
+		}
 	};
 
-	$scope.setPixel = function(x, y, on) {
-		OledService.setPixel(x, y, on, function(response) {
-			alert('Set pixel.');
-		});
-	}
+	$scope.setPixel = function() {
+		if($scope.state.initialised) {
+			OledService.setPixel($('#input-pixel-x').val(), $('#input-pixel-y').val(), $('#input-pixel-on').hasClass('active'), function(response) {
+				alert('Set pixel.');
+			});
+		} else {
+			alert('Can\'t do anything while the display is not initialised.');
+		}
+	};
 }]);

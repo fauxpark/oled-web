@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import net.fauxpark.oled.SSD1306;
 import net.fauxpark.oled.web.entity.DisplayBuffer;
 import net.fauxpark.oled.web.entity.JsonResponse;
+import net.fauxpark.oled.web.entity.request.FlipRequest;
 import net.fauxpark.oled.web.entity.request.SetContrastRequest;
 import net.fauxpark.oled.web.entity.request.SetPixelRequest;
 import net.fauxpark.oled.web.factory.SSD1306Factory;
@@ -107,6 +108,26 @@ public class ApiController {
 		response.setOk(true);
 		ssd1306.setInverted(!ssd1306.isInverted());
 		response.setResult(ssd1306.isInverted());
+
+		return response;
+	}
+
+	@RequestMapping(value="/flip", method=RequestMethod.POST)
+	@ResponseBody
+	public JsonResponse<Boolean> flip(@RequestBody FlipRequest request) {
+		log.info("======== flip");
+		log.info("request.getAxis()={}", request.getAxis());
+
+		JsonResponse<Boolean> response = new JsonResponse<>();
+		response.setOk(true);
+
+		if(request.getAxis() == "h") {
+			ssd1306.setHFlipped(!ssd1306.isHFlipped());
+			response.setResult(ssd1306.isHFlipped());
+		} else if(request.getAxis() == "v") {
+			ssd1306.setVFlipped(ssd1306.isVFlipped());
+			response.setResult(ssd1306.isVFlipped());
+		}
 
 		return response;
 	}
