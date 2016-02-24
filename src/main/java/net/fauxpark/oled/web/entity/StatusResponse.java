@@ -60,19 +60,19 @@ public class StatusResponse {
 		this.inverted = inverted;
 	}
 
-	public boolean isHFlipped() {
+	public boolean ishFlipped() {
 		return hFlipped;
 	}
 
-	public void setHFlipped(boolean hFlipped) {
+	public void sethFlipped(boolean hFlipped) {
 		this.hFlipped = hFlipped;
 	}
 
-	public boolean isVFlipped() {
+	public boolean isvFlipped() {
 		return vFlipped;
 	}
 
-	public void setVFlipped(boolean vFlipped) {
+	public void setvFlipped(boolean vFlipped) {
 		this.vFlipped = vFlipped;
 	}
 

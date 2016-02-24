@@ -41,8 +41,8 @@ public class ApiController {
 		response.setInitialised(ssd1306.isInitialised());
 		response.setDisplayOn(ssd1306.isDisplayOn());
 		response.setInverted(ssd1306.isInverted());
-		response.setHFlipped(ssd1306.isHFlipped());
-		response.setVFlipped(ssd1306.isVFlipped());
+		response.sethFlipped(ssd1306.isHFlipped());
+		response.setvFlipped(ssd1306.isVFlipped());
 		response.setContrast(ssd1306.getContrast());
 
 		return response;
@@ -141,11 +141,11 @@ public class ApiController {
 		JsonResponse<Boolean> response = new JsonResponse<>();
 		response.setOk(true);
 
-		if(request.getAxis() == "h") {
+		if(request.getAxis().equals("h")) {
 			ssd1306.setHFlipped(!ssd1306.isHFlipped());
 			response.setResult(ssd1306.isHFlipped());
-		} else if(request.getAxis() == "v") {
-			ssd1306.setVFlipped(ssd1306.isVFlipped());
+		} else if(request.getAxis().equals("v")) {
+			ssd1306.setVFlipped(!ssd1306.isVFlipped());
 			response.setResult(ssd1306.isVFlipped());
 		}
 
