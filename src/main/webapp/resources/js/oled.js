@@ -6,12 +6,12 @@ var oled = angular.module('oled', []);
 oled.service('OledService', ['$http', function($http) {
 	return {
 		/**
-		 * Retrieve the display status.
+		 * Retrieve the display state.
 		 *
 		 * @param {Function} callback An optional callback function, with the response object passed as its only parameter.
 		 */
-		status: function(callback) {
-			$http.get('/oled/api/status').then(function(response) {
+		getState: function(callback) {
+			$http.get('/oled/api/state').then(function(response) {
 				if(callback) {
 					callback(response);
 				}
@@ -142,22 +142,24 @@ oled.controller('OledCtrl', ['$scope', 'OledService', function($scope, OledServi
 		contrast: 0
 	};
 
+	$scope.getState = function() {
+		OledService.getState(function(response) {
+			$scope.state = response.data.result;
+		});
+	};
+
 	$scope.initialise = function() {
 		if($scope.state.initialised) {
 			OledService.shutdown(function(response) {
 				alert('Shut down display.');
 
-				$scope.state.initialised = false;
-				$scope.state.displayOn = false;
-				$('#btn-init').html('Startup');
+				$scope.state = response.data.result;
 			});
 		} else {
 			OledService.startup(function(response) {
 				alert('Started up display.');
 
-				$scope.state.initialised = true;
-				$scope.state.displayOn = true;
-				$('#btn-init').html('Shutdown');
+				$scope.state = response.data.result;
 			});
 		}
 	};
@@ -169,14 +171,12 @@ oled.controller('OledCtrl', ['$scope', 'OledService', function($scope, OledServi
 					alert('Turned display off.');
 
 					$scope.state.displayOn = false;
-					$('#btn-display-on').html('Display On');
 				});
 			} else {
 				OledService.displayOn(function(response) {
 					alert('Turned display on.');
 
 					$scope.state.displayOn = true;
-					$('#btn-display-on').html('Display Off');
 				});
 			}
 		} else {
@@ -240,7 +240,5 @@ oled.controller('OledCtrl', ['$scope', 'OledService', function($scope, OledServi
 		}
 	};
 
-	OledService.status(function(response) {
-		$scope.state = response.data;
-	});
+	$scope.getState();
 }]);

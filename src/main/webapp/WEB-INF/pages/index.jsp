@@ -24,16 +24,18 @@
 				</div>
 				<div class="col-md-7">
 					<div class="panel panel-default">
-						<div class="panel-heading">
-							<div class="panel-title">Controls</div>
-						</div>
 						<div class="panel-body">
 							<div class="form-group row">
+								<div class="col-md-12">
+									<label>Display</label>
+								</div>
+							</div>
+							<div class="form-group row">
 								<div class="col-md-6">
-									<button id="btn-init" class="btn btn-primary btn-block" ng-bind="state.initialised?'Shutdown':'Startup'" ng-click="initialise()">Startup</button>
+									<button id="btn-init" class="btn btn-primary btn-block" ng-click="initialise()">{{state.initialised?'Shutdown':'Startup'}}</button>
 								</div>
 								<div class="col-md-6">
-									<button id="btn-display-on" class="btn btn-primary btn-block" ng-bind="state.displayOn?'Display Off':'Display On'" ng-click="toggleDisplay()">Display On</button>
+									<button id="btn-display-on" class="btn btn-primary btn-block" ng-click="toggleDisplay()">{{'Display '+state.displayOn?'Off':'On'}}</button>
 								</div>
 							</div>
 							<div class="form-group row">
@@ -51,50 +53,49 @@
 									</div>
 								</div>
 							</div>
-							<div class="form-group">
-								<div class="row">
-									<div class="col-md-12">
-										<label for="input-contrast">Contrast</label>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-12">
-										<div class="input-group">
-											<input id="input-contrast" name="input-contrast" class="form-control" type="number" min="0" max="255" step="1" ng-model="state.contrast"/>
-											<span class="input-group-btn">
-												<button class="btn btn-primary" ng-click="setContrast()">Set</button>
-											</span>
-										</div>
-									</div>
+							<hr/>
+							<div class="form-group row">
+								<div class="col-md-12">
+									<label for="input-contrast">Contrast</label>
 								</div>
 							</div>
-							<div class="form-group">
-								<div class="row">
-									<div class="col-md-12">
-										<label>Set Pixel</label>
-									</div>
+							<div class="form-group row">
+								<div class="col-md-9">
+									<input id="input-contrast" name="input-contrast" type="range" min="0" max="255" step="1" ng-model="state.contrast"/>
 								</div>
-								<div class="row">
-									<div class="col-md-1">
-										<p class="form-control-static text-right"><strong>X</strong></p>
-									</div>
-									<div class="col-md-3">
-										<input id="input-pixel-x" class="form-control" type="number" min="0" max="127" step="1" value="0"/>
-									</div>
-									<div class="col-md-1">
-										<p class="form-control-static text-right"><strong>Y</strong></p>
-									</div>
-									<div class="col-md-3">
-										<input id="input-pixel-y" class="form-control" type="number" min="0" max="63" step="1" value="0"/>
-									</div>
-									<div class="col-md-4">
-										<div class="btn-group btn-group-justified">
-											<div class="btn-group">
-												<button id="input-pixel-on" class="btn btn-default active" data-toggle="button">On</button>
-											</div>
-											<div class="btn-group">
-												<button class="btn btn-primary" ng-click="setPixel()">Set</button>
-											</div>
+								<div class="col-md-1">
+									<label>{{state.contrast}}</label>
+								</div>
+								<div class="col-md-2">
+									<button class="btn btn-primary btn-block" ng-click="setContrast()">Set</button>
+								</div>
+							</div>
+							<hr/>
+							<div class="form-group row">
+								<div class="col-md-12">
+									<label>Set Pixel</label>
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-md-1">
+									<p class="form-control-static text-right"><strong>X</strong></p>
+								</div>
+								<div class="col-md-3">
+									<input id="input-pixel-x" class="form-control" type="number" min="0" max="127" step="1" value="0"/>
+								</div>
+								<div class="col-md-1">
+									<p class="form-control-static text-right"><strong>Y</strong></p>
+								</div>
+								<div class="col-md-3">
+									<input id="input-pixel-y" class="form-control" type="number" min="0" max="63" step="1" value="0"/>
+								</div>
+								<div class="col-md-4">
+									<div class="btn-group btn-group-justified">
+										<div class="btn-group">
+											<button id="input-pixel-on" class="btn btn-default active" data-toggle="button">On</button>
+										</div>
+										<div class="btn-group">
+											<button class="btn btn-primary" ng-click="setPixel()">Set</button>
 										</div>
 									</div>
 								</div>

@@ -1,11 +1,11 @@
 package net.fauxpark.oled.web.entity;
 
 /**
- * A JSON response object containing the status of the OLED display.
+ * A JSON result object containing the state of the OLED display.
  *
  * @author fauxpark
  */
-public class StatusResponse {
+public class DisplayState {
 	/**
 	 * Indicates whether the display has been started up.
 	 */
@@ -86,6 +86,6 @@ public class StatusResponse {
 
 	@Override
 	public String toString() {
-		return "StatusResponse [initialised=" + initialised + ", displayOn=" + displayOn + ", inverted=" + inverted + ", hFlipped=" + hFlipped + ", vFlipped=" + vFlipped + ", contrast=" + contrast + "]";
+		return "DisplayState [initialised=" + initialised + ", displayOn=" + displayOn + ", inverted=" + inverted + ", hFlipped=" + hFlipped + ", vFlipped=" + vFlipped + ", contrast=" + contrast + "]";
 	}
 }

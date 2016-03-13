@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.fauxpark.oled.SSD1306;
 import net.fauxpark.oled.web.entity.DisplayBuffer;
+import net.fauxpark.oled.web.entity.DisplayState;
 import net.fauxpark.oled.web.entity.JsonResponse;
-import net.fauxpark.oled.web.entity.StatusResponse;
 import net.fauxpark.oled.web.entity.request.FlipRequest;
 import net.fauxpark.oled.web.entity.request.SetContrastRequest;
 import net.fauxpark.oled.web.entity.request.SetPixelRequest;
@@ -30,35 +30,32 @@ public class ApiController {
 	private final SSD1306 ssd1306 = SSD1306Factory.getInstance();
 
 	/**
-	 * Get the display status.
+	 * Get the display state.
 	 */
-	@RequestMapping("/status")
+	@RequestMapping("/state")
 	@ResponseBody
-	public StatusResponse status() {
-		log.info("======== status");
+	public JsonResponse<DisplayState> getState() {
+		log.info("======== getState");
 
-		StatusResponse response = new StatusResponse();
-		response.setInitialised(ssd1306.isInitialised());
-		response.setDisplayOn(ssd1306.isDisplayOn());
-		response.setInverted(ssd1306.isInverted());
-		response.sethFlipped(ssd1306.isHFlipped());
-		response.setvFlipped(ssd1306.isVFlipped());
-		response.setContrast(ssd1306.getContrast());
+		JsonResponse<DisplayState> response = new JsonResponse<>();
+		response.setOk(true);
+		response.setResult(getDisplayState());
 
 		return response;
 	}
 
-	/**
+	/*
 	 * Begin the startup procedure for the display.
 	 */
 	@RequestMapping(value="/startup", method=RequestMethod.POST)
 	@ResponseBody
-	public JsonResponse<Void> startup() {
+	public JsonResponse<DisplayState> startup() {
 		log.info("======== startup");
 
-		JsonResponse<Void> response = new JsonResponse<>();
+		JsonResponse<DisplayState> response = new JsonResponse<>();
 		response.setOk(true);
 		ssd1306.startup(false);
+		response.setResult(getDisplayState());
 
 		return response;
 	}
@@ -68,12 +65,13 @@ public class ApiController {
 	 */
 	@RequestMapping(value="/shutdown", method=RequestMethod.POST)
 	@ResponseBody
-	public JsonResponse<Void> shutdown() {
+	public JsonResponse<DisplayState> shutdown() {
 		log.info("======== shutdown");
 
-		JsonResponse<Void> response = new JsonResponse<>();
+		JsonResponse<DisplayState> response = new JsonResponse<>();
 		response.setOk(true);
 		ssd1306.shutdown();
+		response.setResult(getDisplayState());
 
 		return response;
 	}
@@ -234,5 +232,17 @@ public class ApiController {
 		ssd1306.setBuffer(DisplayBuffer.toByteArray(buffer.getBuffer()));
 
 		return response;
+	}
+
+	private DisplayState getDisplayState() {
+		DisplayState state = new DisplayState();
+		state.setInitialised(ssd1306.isInitialised());
+		state.setDisplayOn(ssd1306.isDisplayOn());
+		state.setInverted(ssd1306.isInverted());
+		state.sethFlipped(ssd1306.isHFlipped());
+		state.setvFlipped(ssd1306.isVFlipped());
+		state.setContrast(ssd1306.getContrast());
+
+		return state;
 	}
 }
