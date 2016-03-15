@@ -151,13 +151,13 @@ oled.controller('OledCtrl', ['$scope', 'OledService', function($scope, OledServi
 	$scope.initialise = function() {
 		if($scope.state.initialised) {
 			OledService.shutdown(function(response) {
-				alert('Shut down display.');
+				console.log('Shut down display.');
 
 				$scope.state = response.data.result;
 			});
 		} else {
 			OledService.startup(function(response) {
-				alert('Started up display.');
+				console.log('Started up display.');
 
 				$scope.state = response.data.result;
 			});
@@ -168,13 +168,13 @@ oled.controller('OledCtrl', ['$scope', 'OledService', function($scope, OledServi
 		if($scope.state.initialised) {
 			if($scope.state.displayOn) {
 				OledService.displayOff(function(response) {
-					alert('Turned display off.');
+					console.log('Turned display off.');
 
 					$scope.state.displayOn = false;
 				});
 			} else {
 				OledService.displayOn(function(response) {
-					alert('Turned display on.');
+					console.log('Turned display on.');
 
 					$scope.state.displayOn = true;
 				});
@@ -187,7 +187,7 @@ oled.controller('OledCtrl', ['$scope', 'OledService', function($scope, OledServi
 	$scope.invert = function() {
 		if($scope.state.initialised) {
 			OledService.invert(function(response) {
-				alert('Inverted display.');
+				console.log('Inverted display.');
 
 				$scope.state.inverted = !$scope.state.inverted;
 			});
@@ -199,7 +199,7 @@ oled.controller('OledCtrl', ['$scope', 'OledService', function($scope, OledServi
 	$scope.horizontalFlip = function() {
 		if($scope.state.initialised) {
 			OledService.flip('h', function(response) {
-				alert('Flipped display horizontally.');
+				console.log('Flipped display horizontally.');
 
 				$scope.state.hFlipped = !$scope.state.hFlipped;
 			});
@@ -211,7 +211,7 @@ oled.controller('OledCtrl', ['$scope', 'OledService', function($scope, OledServi
 	$scope.verticalFlip = function() {
 		if($scope.state.initialised) {
 			OledService.flip('v', function(response) {
-				alert('Flipped display vertically.');
+				console.log('Flipped display vertically.');
 
 				$scope.state.vFlipped = !$scope.state.vFlipped;
 			});
@@ -223,7 +223,7 @@ oled.controller('OledCtrl', ['$scope', 'OledService', function($scope, OledServi
 	$scope.setContrast = function() {
 		if($scope.state.initialised) {
 			OledService.setContrast($('#input-contrast').val(), function(response) {
-				alert('Set contrast.');
+				console.log('Set contrast.');
 			});
 		} else {
 			alert('Can\'t do anything while the display is not initialised.');
@@ -233,7 +233,7 @@ oled.controller('OledCtrl', ['$scope', 'OledService', function($scope, OledServi
 	$scope.setPixel = function() {
 		if($scope.state.initialised) {
 			OledService.setPixel($('#input-pixel-x').val(), $('#input-pixel-y').val(), $('#input-pixel-on').hasClass('active'), function(response) {
-				alert('Set pixel.');
+				console.log('Set pixel.');
 			});
 		} else {
 			alert('Can\'t do anything while the display is not initialised.');
