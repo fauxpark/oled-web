@@ -40,7 +40,7 @@
 									<button id="btn-init" class="btn btn-primary btn-block" ng-click="initialise()">{{state.initialised?'Shutdown':'Startup'}}</button>
 								</div>
 								<div class="col-md-6">
-									<button id="btn-display-on" class="btn btn-primary btn-block" ng-click="toggleDisplay()">{{'Display '+state.displayOn?'Off':'On'}}</button>
+									<button id="btn-display-on" class="btn btn-primary btn-block" ng-click="toggleDisplay()">Display {{state.displayOn?'Off':'On'}}</button>
 								</div>
 							</div>
 							<div class="form-group row">
