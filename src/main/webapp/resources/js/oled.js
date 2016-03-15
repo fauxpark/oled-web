@@ -8,7 +8,7 @@ oled.service('OledService', ['$http', function($http) {
 		/**
 		 * Retrieve the display state.
 		 *
-		 * @param {Function} callback An optional callback function, with the response object passed as its only parameter.
+		 * @param {Function} callback A callback to pass the response object onto.
 		 */
 		getState: function(callback) {
 			$http.get('/oled/api/state').then(function(response) {
@@ -20,7 +20,7 @@ oled.service('OledService', ['$http', function($http) {
 		/**
 		 * Start up the display.
 		 *
-		 * @param {Function} callback An optional callback function, with the response object passed as its only parameter.
+		 * @param {Function} callback A callback to pass the response object onto.
 		 */
 		startup: function(callback) {
 			$http.post('/oled/api/startup').then(function(response) {
@@ -32,7 +32,7 @@ oled.service('OledService', ['$http', function($http) {
 		/**
 		 * Shut down the display.
 		 *
-		 * @param {Function} callback An optional callback function, with the response object passed as its only parameter.
+		 * @param {Function} callback A callback to pass the response object onto.
 		 */
 		shutdown: function(callback) {
 			$http.post('/oled/api/shutdown').then(function(response) {
@@ -44,7 +44,7 @@ oled.service('OledService', ['$http', function($http) {
 		/**
 		 * Turn the display on.
 		 *
-		 * @param {Function} callback An optional callback function, with the response object passed as its only parameter.
+		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		displayOn: function(callback) {
 			$http.post('/oled/api/on').then(function(response) {
@@ -56,7 +56,7 @@ oled.service('OledService', ['$http', function($http) {
 		/**
 		 * Turn the display off.
 		 *
-		 * @param {Function} callback An optional callback function, with the response object passed as its only parameter.
+		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		displayOff: function(callback) {
 			$http.post('/oled/api/off').then(function(response) {
@@ -68,7 +68,7 @@ oled.service('OledService', ['$http', function($http) {
 		/**
 		 * Invert the display.
 		 *
-		 * @param {Function} callback An optional callback function, with the response object passed as its only parameter.
+		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		invert: function(callback) {
 			$http.post('/oled/api/invert').then(function(response) {
@@ -81,7 +81,7 @@ oled.service('OledService', ['$http', function($http) {
 		 * Flip the display horizontally or vertically.
 		 *
 		 * @param {String} axis The axis to flip on. Must be either 'h' or 'v'.
-		 * @param {Function} callback An optional callback function, with the response object passed as its only parameter.
+		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		flip: function(axis, callback) {
 			$http.post('/oled/api/flip', {
@@ -96,7 +96,7 @@ oled.service('OledService', ['$http', function($http) {
 		 * Set the contrast level.
 		 *
 		 * @param {Integer} contrast The contrast level to set.
-		 * @param {Function} callback An optional callback function, with the response object passed as its only parameter.
+		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		setContrast: function(contrast, callback) {
 			$http.post('/oled/api/contrast', {
@@ -113,7 +113,7 @@ oled.service('OledService', ['$http', function($http) {
 		 * @param {Integer} x The X position of the pixel to set.
 		 * @param {Integer} y The Y position of the pixel to set.
 		 * @param {Boolean} on Whether to turn the pixel on or off.
-		 * @param {Function} callback An optional callback function, with the response object passed as its only parameter.
+		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		setPixel: function(x, y, on, callback) {
 			$http.post('/oled/api/pixel', {
