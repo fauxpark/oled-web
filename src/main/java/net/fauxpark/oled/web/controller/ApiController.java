@@ -208,7 +208,7 @@ public class ApiController {
 		JsonResponse<DisplayBuffer> response = new JsonResponse<>();
 		response.setOk(true);
 		DisplayBuffer buffer = new DisplayBuffer(ssd1306.getWidth(), ssd1306.getHeight(), null);
-		buffer.setBuffer(DisplayBuffer.toIntArray(ssd1306.getBuffer()));
+		buffer.setBufferAsBytes(ssd1306.getBuffer());
 		response.setResult(buffer);
 
 		return response;
@@ -229,11 +229,16 @@ public class ApiController {
 
 		JsonResponse<Void> response = new JsonResponse<>();
 		response.setOk(true);
-		ssd1306.setBuffer(DisplayBuffer.toByteArray(buffer.getBuffer()));
+		ssd1306.setBuffer(buffer.getBufferAsBytes());
 
 		return response;
 	}
 
+	/**
+	 * Constructs a DisplayState object.
+	 *
+	 * @return The current state of the OLED display.
+	 */
 	private DisplayState getDisplayState() {
 		DisplayState state = new DisplayState();
 		state.setInitialised(ssd1306.isInitialised());
