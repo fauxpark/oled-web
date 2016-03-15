@@ -18,6 +18,18 @@ oled.service('OledService', ['$http', function($http) {
 			});
 		},
 		/**
+		 * Retrieve the display buffer.
+		 *
+		 * @param {Function} callback A callback to pass the response object onto.
+		 */
+		getBuffer: function(callback) {
+			$http.get('/oled/api/buffer').then(function(response) {
+				if(callback) {
+					callback(response);
+				}
+			});
+		},
+		/**
 		 * Start up the display.
 		 *
 		 * @param {Function} callback A callback to pass the response object onto.
@@ -145,6 +157,12 @@ oled.controller('OledCtrl', ['$scope', 'OledService', function($scope, OledServi
 	$scope.getState = function() {
 		OledService.getState(function(response) {
 			$scope.state = response.data.result;
+		});
+	};
+
+	$scope.getBuffer = function() {
+		OledService.getBuffer(function(response) {
+			console.log(response.data.result);
 		});
 	};
 

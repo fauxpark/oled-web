@@ -15,7 +15,12 @@
 				<div class="col-md-5">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<div class="panel-title">Preview</div>
+							<div class="panel-title">
+								Preview
+								<div class="pull-right">
+									<button id="btn-preview" class="btn btn-default btn-xs" ng-click="getBuffer()">Refresh</button>
+								</div>
+							</div>
 						</div>
 						<div class="panel-body">
 							<div class="text-center"><canvas id="canvas" height="64" width="128" style="background:#000;"></canvas></div>
