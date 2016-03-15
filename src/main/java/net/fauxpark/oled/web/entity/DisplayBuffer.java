@@ -1,5 +1,7 @@
 package net.fauxpark.oled.web.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * A JSON request/response object that holds the OLED display buffer.
  *
@@ -61,6 +63,7 @@ public class DisplayBuffer {
 	 *
 	 * @return The display buffer downcast to a byte array.
 	 */
+	@JsonIgnore
 	public byte[] getBufferAsBytes() {
 		byte[] byteArray = new byte[buffer.length];
 
