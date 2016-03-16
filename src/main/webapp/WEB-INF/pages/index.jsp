@@ -19,6 +19,7 @@
 								Preview
 								<div class="pull-right">
 									<button id="btn-preview" class="btn btn-default btn-xs" ng-click="getBuffer()">Refresh</button>
+									<button id="btn-preview" class="btn btn-default btn-xs" ng-click="setBuffer()">Send Buffer</button>
 								</div>
 							</div>
 						</div>

@@ -1,6 +1,15 @@
 var oled = angular.module('oled', []);
 
 /**
+ * A simple display buffer object that contains the pixel data for the entire display.
+ *
+ * @typedef {Object} Buffer
+ * @property {Integer} width
+ * @property {Integer} height
+ * @property {Array.<Integer>} buffer The pixel data as an array of bytes, each representing columns of eight pixels.
+ */
+
+/**
  * A service to provide access to the OLED API.
  */
 oled.service('OledService', ['$http', function($http) {
@@ -24,6 +33,19 @@ oled.service('OledService', ['$http', function($http) {
 		 */
 		getBuffer: function(callback) {
 			$http.get('/oled/api/buffer').then(function(response) {
+				if(callback) {
+					callback(response);
+				}
+			});
+		},
+		/**
+		 * Set the display buffer.
+		 *
+		 * @param {Buffer} buffer The buffer to set.
+		 * @param {Function} [callback] A callback to pass the response object onto.
+		 */
+		setBuffer: function(buffer, callback) {
+			$http.post('/oled/api/buffer', buffer).then(function(response) {
 				if(callback) {
 					callback(response);
 				}
@@ -142,9 +164,101 @@ oled.service('OledService', ['$http', function($http) {
 }]);
 
 /**
+ * A service that interacts with the preview canvas.
+ */
+oled.service('BufferService', [function() {
+	var canvas = $('#canvas').get(0);
+	var ctx = canvas.getContext('2d');
+	var img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+	return {
+		/**
+		 * Retrieve the display canvas buffer.
+		 *
+		 * @return {Buffer} A display buffer object.
+		 */
+		getBuffer: function() {
+			var buffer = new Array(1024).fill(0);
+
+			for(var i = 0; i < img.data.length; i += 4) {
+				var x = (i / 4) % canvas.width;
+				var y = parseInt((i / 4) / canvas.width);
+
+				if(img.data[i] == 255) {
+					var idx = x + parseInt(y / 8) * canvas.width;
+					buffer[idx] |= (1 << (y & 7));
+				}
+			}
+
+			return {
+				width: canvas.width,
+				height: canvas.height,
+				buffer: buffer
+			};
+		},
+		/**
+		 * Set the display canvas buffer.
+		 *
+		 * @param {Buffer} buffer The buffer to set.
+		 */
+		setBuffer: function(buffer) {
+			for(var i = 0; i < buffer.buffer.length; i++) {
+				var x = i % buffer.width;
+				var y = parseInt(i / buffer.width) * 8;
+
+				for(var j = 0; j < 8; j++) {
+					var yo = y + j % 8;
+					var offset = 4 * (x + yo * buffer.width);
+					var on = (buffer.buffer[i] & (1 << (yo & 7))) != 0;
+
+					img.data[offset] = on ? 255 : 0;
+					img.data[offset + 1] = on ? 255 : 0;
+					img.data[offset + 2] = on ? 255 : 0;
+					img.data[offset + 3] = on ? 255 : 0;
+				}
+			}
+
+			ctx.putImageData(img, 0, 0);
+		},
+		/**
+		 * Get a pixel on the canvas.
+		 *
+		 * @param {Integer} x The X position of the pixel to get.
+		 * @param {Integer} y The Y position of the pixel to get.
+		 *
+		 * @return {Boolean} Whether the pixel is on or off.
+		 */
+		getPixel: function(x, y) {
+			var offset = 4 * (x + y * canvas.width);
+
+			if(img.data[i] == 255) {
+				return true;
+			}
+
+			return false;
+		},
+		/**
+		 * Set a pixel on the canvas.
+		 *
+		 * @param {Integer} x The X position of the pixel to set.
+		 * @param {Integer} y The Y position of the pixel to set.
+		 * @param {Boolean} on Whether to turn the pixel on or off.
+		 */
+		setPixel: function(x, y, on) {
+			var offset = 4 * (x + y * canvas.width);
+			img.data[offset] = on ? 255 : 0;
+			img.data[offset + 1] = on ? 255 : 0;
+			img.data[offset + 2] = on ? 255 : 0;
+			img.data[offset + 3] = on ? 255 : 0;
+			ctx.putImageData(img, 0, 0);
+		}
+	};
+}]);
+
+/**
  * A controller for keeping state and calling the OLED API service.
  */
-oled.controller('OledCtrl', ['$scope', 'OledService', function($scope, OledService) {
+oled.controller('OledCtrl', ['$scope', 'BufferService', 'OledService', function($scope, BufferService, OledService) {
 	$scope.state = {
 		initialised: false,
 		displayOn: false,
@@ -156,15 +270,25 @@ oled.controller('OledCtrl', ['$scope', 'OledService', function($scope, OledServi
 
 	$scope.getState = function() {
 		OledService.getState(function(response) {
+			console.log('Got state.');
+
 			$scope.state = response.data.result;
 		});
 	};
 
 	$scope.getBuffer = function() {
 		OledService.getBuffer(function(response) {
-			console.log(response.data.result);
+			console.log('Got buffer.');
+
+			BufferService.setBuffer(response.data.result);
 		});
 	};
+
+	$scope.setBuffer = function() {
+		OledService.setBuffer(BufferService.getBuffer(), function(response) {
+			console.log('Set buffer.');
+		});
+	}
 
 	$scope.initialise = function() {
 		if($scope.state.initialised) {
@@ -240,8 +364,10 @@ oled.controller('OledCtrl', ['$scope', 'OledService', function($scope, OledServi
 
 	$scope.setContrast = function() {
 		if($scope.state.initialised) {
-			OledService.setContrast($('#input-contrast').val(), function(response) {
-				console.log('Set contrast.');
+			var contrast = parseInt($('#input-contrast').val());
+
+			OledService.setContrast(contrast, function(response) {
+				console.log('Set contrast level to ' + contrast + '.');
 			});
 		} else {
 			alert('Can\'t do anything while the display is not initialised.');
@@ -250,8 +376,14 @@ oled.controller('OledCtrl', ['$scope', 'OledService', function($scope, OledServi
 
 	$scope.setPixel = function() {
 		if($scope.state.initialised) {
-			OledService.setPixel($('#input-pixel-x').val(), $('#input-pixel-y').val(), $('#input-pixel-on').hasClass('active'), function(response) {
-				console.log('Set pixel.');
+			var x = parseInt($('#input-pixel-x').val());
+			var y = parseInt($('#input-pixel-y').val());
+			var on = $('#input-pixel-on').hasClass('active');
+
+			OledService.setPixel(x, y, on, function(response) {
+				console.log('Turned pixel at ' + x + ',' + y + ' ' + (on ? 'on' : 'off') + '.');
+
+				BufferService.setPixel(x, y, on);
 			});
 		} else {
 			alert('Can\'t do anything while the display is not initialised.');
@@ -259,4 +391,5 @@ oled.controller('OledCtrl', ['$scope', 'OledService', function($scope, OledServi
 	};
 
 	$scope.getState();
+	$scope.getBuffer();
 }]);
