@@ -59,6 +59,11 @@
 									</div>
 								</div>
 							</div>
+							<div class="form-group row">
+								<div class="col-md-6">
+									<button id="btn-clear" class="btn btn-primary btn-block" ng-click="clear()">Clear</button>
+								</div>
+							</div>
 							<hr/>
 							<div class="form-group row">
 								<div class="col-md-12">

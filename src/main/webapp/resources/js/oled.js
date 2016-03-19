@@ -100,6 +100,18 @@ oled.service('OledService', ['$http', function($http) {
 			});
 		},
 		/**
+		 * Clear the display.
+		 *
+		 * @param {Function} [callback] A callback to pass the response object onto.
+		 */
+		clear: function(callback) {
+			$http.post('/oled/api/clear').then(function(response) {
+				if(callback) {
+					callback(response);
+				}
+			});
+		},
+		/**
 		 * Invert the display.
 		 *
 		 * @param {Function} [callback] A callback to pass the response object onto.
@@ -251,6 +263,13 @@ oled.service('BufferService', [function() {
 			img.data[offset + 2] = on ? 255 : 0;
 			img.data[offset + 3] = on ? 255 : 0;
 			ctx.putImageData(img, 0, 0);
+		},
+		/**
+		 * Clear the canvas.
+		 */
+		clear: function() {
+			img = ctx.createImageData(img);
+			ctx.putImageData(img, 0, 0);
 		}
 	};
 }]);
@@ -321,6 +340,18 @@ oled.controller('OledCtrl', ['$scope', 'BufferService', 'OledService', function(
 					$scope.state.displayOn = true;
 				});
 			}
+		} else {
+			alert('Can\'t do anything while the display is not initialised.');
+		}
+	};
+
+	$scope.clear = function() {
+		if($scope.state.initialised) {
+			OledService.clear(function(response) {
+				console.log('Cleared display.');
+
+				BufferService.clear();
+			});
 		} else {
 			alert('Can\'t do anything while the display is not initialised.');
 		}

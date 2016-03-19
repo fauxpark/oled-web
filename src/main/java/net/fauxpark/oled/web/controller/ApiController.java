@@ -113,6 +113,23 @@ public class ApiController {
 	}
 
 	/**
+	 * Clear the display.
+	 *
+	 * @return An empty JSON response.
+	 */
+	@RequestMapping(value="/clear", method=RequestMethod.POST)
+	@ResponseBody
+	public JsonResponse<Void> clear() {
+		log.info("======== clear");
+
+		JsonResponse<Void> response = new JsonResponse<>();
+		response.setOk(true);
+		ssd1306.clear();
+
+		return response;
+	}
+
+	/**
 	 * Invert the display.
 	 *
 	 * @return A JSON object containing the new inverted state of the display.
