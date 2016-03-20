@@ -8,27 +8,21 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1"/>
 		<link rel="stylesheet" href="<c:url value='/assets/css/bootstrap.min.css'/>"/>
 	</head>
-	<body ng-controller="OledCtrl">
+	<body>
 		<%@include file="nav.jsp"%>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-5">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<div class="panel-title">
-								Preview
-								<div class="pull-right">
-									<button id="btn-preview" class="btn btn-default btn-xs" ng-click="getBuffer()">Refresh</button>
-									<button id="btn-preview" class="btn btn-default btn-xs" ng-click="setBuffer()">Send Buffer</button>
-								</div>
-							</div>
+							<div class="panel-title">Preview</div>
 						</div>
 						<div class="panel-body">
 							<div class="text-center"><canvas id="canvas" height="64" width="128" style="background:#000;"></canvas></div>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-7">
+				<div class="col-md-7" ng-controller="OledCtrl">
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<div class="form-group row">
@@ -41,7 +35,7 @@
 									<button id="btn-init" class="btn btn-primary btn-block" ng-click="initialise()">{{state.initialised?'Shutdown':'Startup'}}</button>
 								</div>
 								<div class="col-md-6">
-									<button id="btn-display-on" class="btn btn-primary btn-block" ng-click="toggleDisplay()">Display {{state.displayOn?'Off':'On'}}</button>
+									<button id="btn-display" class="btn btn-primary btn-block" ng-click="toggleDisplay()">Display {{state.displayOn?'Off':'On'}}</button>
 								</div>
 							</div>
 							<div class="form-group row">
@@ -63,6 +57,9 @@
 								<div class="col-md-6">
 									<button id="btn-clear" class="btn btn-primary btn-block" ng-click="clear()">Clear</button>
 								</div>
+								<div class="col-md-6">
+									<button id="btn-refresh" class="btn btn-primary btn-block" ng-click="getBuffer()">Refresh</button>
+								</div>
 							</div>
 							<hr/>
 							<div class="form-group row">
@@ -78,7 +75,7 @@
 									<label>{{state.contrast}}</label>
 								</div>
 								<div class="col-md-2">
-									<button class="btn btn-primary btn-block" ng-click="setContrast()">Set</button>
+									<button id="btn-contrast" class="btn btn-primary btn-block" ng-click="setContrast()">Set</button>
 								</div>
 							</div>
 							<hr/>
@@ -106,7 +103,7 @@
 											<button id="input-pixel-on" class="btn btn-default active" data-toggle="button">On</button>
 										</div>
 										<div class="btn-group">
-											<button class="btn btn-primary" ng-click="setPixel()">Set</button>
+											<button id="btn-pixel" class="btn btn-primary" ng-click="setPixel()">Set</button>
 										</div>
 									</div>
 								</div>
