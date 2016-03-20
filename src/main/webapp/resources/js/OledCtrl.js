@@ -1,7 +1,7 @@
 /**
  * A controller for keeping state and calling the OLED API service.
  */
-oled.controller('OledCtrl', ['$scope', 'BufferService', 'OledService', function($scope, BufferService, OledService) {
+oled.controller('OledCtrl', ['$scope', 'BufferService', 'OledService', 'GraphicsService', function($scope, BufferService, OledService, GraphicsService) {
 	$scope.state = {
 		initialised: false,
 		displayOn: false,
@@ -139,6 +139,22 @@ oled.controller('OledCtrl', ['$scope', 'BufferService', 'OledService', function(
 				console.log('Turned pixel at ' + x + ',' + y + ' ' + (on ? 'on' : 'off') + '.');
 
 				BufferService.setPixel(x, y, on);
+			});
+		} else {
+			alert('Can\'t do anything while the display is not initialised.');
+		}
+	};
+
+	$scope.drawText = function() {
+		if($scope.state.initialised) {
+			var x = parseInt($('#input-text-x').val());
+			var y = parseInt($('#input-text-y').val());
+			var text = $('#input-text-text').val();
+
+			GraphicsService.drawText(x, y, text, function(response) {
+				console.log('Drew text "' + text + '" at ' + x + ',' + y + '.');
+
+				$scope.getBuffer();
 			});
 		} else {
 			alert('Can\'t do anything while the display is not initialised.');

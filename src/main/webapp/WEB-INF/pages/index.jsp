@@ -24,12 +24,10 @@
 				</div>
 				<div class="col-md-7" ng-controller="OledCtrl">
 					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="panel-title">Display</div>
+						</div>
 						<div class="panel-body">
-							<div class="form-group row">
-								<div class="col-md-12">
-									<label>Display</label>
-								</div>
-							</div>
 							<div class="form-group row">
 								<div class="col-md-6">
 									<button id="btn-init" class="btn btn-primary btn-block" ng-click="initialise()">{{state.initialised?'Shutdown':'Startup'}}</button>
@@ -63,16 +61,14 @@
 							</div>
 							<hr/>
 							<div class="form-group row">
-								<div class="col-md-12">
-									<label for="input-contrast">Contrast</label>
+								<div class="col-md-2">
+									<p class="form-control-static text-right"><strong>Contrast</strong></p>
 								</div>
-							</div>
-							<div class="form-group row">
-								<div class="col-md-9">
+								<div class="col-md-7">
 									<input id="input-contrast" name="input-contrast" type="range" min="0" max="255" step="1" ng-model="state.contrast"/>
 								</div>
 								<div class="col-md-1">
-									<label>{{state.contrast}}</label>
+									<p class="form-control-static text-right"><strong>{{state.contrast}}</strong></p>
 								</div>
 								<div class="col-md-2">
 									<button id="btn-contrast" class="btn btn-primary btn-block" ng-click="setContrast()">Set</button>
@@ -80,21 +76,19 @@
 							</div>
 							<hr/>
 							<div class="form-group row">
-								<div class="col-md-12">
-									<label>Set Pixel</label>
+								<div class="col-md-2">
+									<p class="form-control-static text-right"><strong>Set Pixel</strong></p>
 								</div>
-							</div>
-							<div class="form-group row">
 								<div class="col-md-1">
 									<p class="form-control-static text-right"><strong>X</strong></p>
 								</div>
-								<div class="col-md-3">
+								<div class="col-md-2">
 									<input id="input-pixel-x" class="form-control" type="number" min="0" max="127" step="1" value="0"/>
 								</div>
 								<div class="col-md-1">
 									<p class="form-control-static text-right"><strong>Y</strong></p>
 								</div>
-								<div class="col-md-3">
+								<div class="col-md-2">
 									<input id="input-pixel-y" class="form-control" type="number" min="0" max="63" step="1" value="0"/>
 								</div>
 								<div class="col-md-4">
@@ -110,6 +104,33 @@
 							</div>
 						</div>
 					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="panel-title">Graphics</div>
+						</div>
+						<div class="panel-body">
+							<div class="form-group row">
+								<div class="col-md-4">
+									<input id="input-text-text" class="form-control" type="text" placeholder="Enter text here..."/>
+								</div>
+								<div class="col-md-1">
+									<p class="form-control-static text-right"><strong>X</strong></p>
+								</div>
+								<div class="col-md-2">
+									<input id="input-text-x" class="form-control" type="number" min="0" max="127" step="1" value="0"/>
+								</div>
+								<div class="col-md-1">
+									<p class="form-control-static text-right"><strong>Y</strong></p>
+								</div>
+								<div class="col-md-2">
+									<input id="input-text-y" class="form-control" type="number" min="0" max="63" step="1" value="0"/>
+								</div>
+								<div class="col-md-2">
+									<button id="btn-text" class="btn btn-primary btn-block" ng-click="drawText()">Draw</button>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<%@include file="footer.jsp"%>
@@ -120,6 +141,7 @@
 		<script src="<c:url value='/assets/js/oled.js'/>"></script>
 		<script src="<c:url value='/assets/js/OledService.js'/>"></script>
 		<script src="<c:url value='/assets/js/BufferService.js'/>"></script>
+		<script src="<c:url value='/assets/js/GraphicsService.js'/>"></script>
 		<script src="<c:url value='/assets/js/OledCtrl.js'/>"></script>
 	</body>
 </html>
