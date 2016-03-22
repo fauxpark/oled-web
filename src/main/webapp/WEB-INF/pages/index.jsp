@@ -110,6 +110,11 @@
 						</div>
 						<div class="panel-body">
 							<div class="form-group row">
+								<div class="col-md-12">
+									<p class="form-control-static"><strong>Text</strong></p>
+								</div>
+							</div>
+							<div class="form-group row">
 								<div class="col-md-4">
 									<input id="input-text-text" class="form-control" type="text" placeholder="Enter text here..."/>
 								</div>
@@ -127,6 +132,64 @@
 								</div>
 								<div class="col-md-2">
 									<button id="btn-text" class="btn btn-primary btn-block" ng-click="drawText()">Draw</button>
+								</div>
+							</div>
+							<hr/>
+							<div class="form-group row">
+								<div class="col-md-12">
+									<p class="form-control-static"><strong>Line</strong></p>
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-md-1">
+									<p class="form-control-static text-right"><strong>P1</strong></p>
+								</div>
+								<div class="col-md-2">
+									<input id="input-line-x0" class="form-control" type="number" min="0" max="127" step="1" value="0"/>
+								</div>
+								<div class="col-md-2">
+									<input id="input-line-y0" class="form-control" type="number" min="0" max="63" step="1" value="0"/>
+								</div>
+								<div class="col-md-1">
+									<p class="form-control-static text-right"><strong>P2</strong></p>
+								</div>
+								<div class="col-md-2">
+									<input id="input-line-x1" class="form-control" type="number" min="0" max="127" step="1" value="0"/>
+								</div>
+								<div class="col-md-2">
+									<input id="input-line-y1" class="form-control" type="number" min="0" max="63" step="1" value="0"/>
+								</div>
+								<div class="col-md-2">
+									<button id="btn-line" class="btn btn-primary btn-block" ng-click="drawLine()">Draw</button>
+								</div>
+							</div>
+							<hr/>
+							<div class="form-group row">
+								<div class="col-md-12">
+									<p class="form-control-static"><strong>Circle</strong></p>
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-md-1">
+									<p class="form-control-static text-right"><strong>X</strong></p>
+								</div>
+								<div class="col-md-2">
+									<input id="input-circle-x" class="form-control" type="number" min="0" max="127" step="1" value="0"/>
+								</div>
+								<div class="col-md-1">
+									<p class="form-control-static text-right"><strong>Y</strong></p>
+								</div>
+								<div class="col-md-2">
+									<input id="input-circle-y" class="form-control" type="number" min="0" max="63" step="1" value="0"/>
+								</div>
+								<div class="col-md-2">
+									<p class="form-control-static text-right"><strong>Radius</strong></p>
+								</div>
+								<div class="col-md-2">
+									<input id="input-circle-radius" class="form-control" type="number" min="0" max="64" step="1" value="0"/>
+								</div>
+								<div class="col-md-2">
+									<button id="btn-circle" class="btn btn-primary btn-block" ng-click="drawCircle()">Draw</button>
 								</div>
 							</div>
 						</div>

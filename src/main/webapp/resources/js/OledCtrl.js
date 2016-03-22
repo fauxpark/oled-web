@@ -161,6 +161,39 @@ oled.controller('OledCtrl', ['$scope', 'BufferService', 'OledService', 'Graphics
 		}
 	};
 
+	$scope.drawLine = function() {
+		if($scope.state.initialised) {
+			var x0 = parseInt($('#input-line-x0').val());
+			var y0 = parseInt($('#input-line-y0').val());
+			var x1 = parseInt($('#input-line-x1').val());
+			var y1 = parseInt($('#input-line-y1').val());
+
+			GraphicsService.drawLine(x0, y0, x1, y1, function(response) {
+				console.log('Drew line from ' + x0 + ',' + y0 + ' to ' + x1 + ',' + y1 + '.');
+
+				$scope.getBuffer();
+			});
+		} else {
+			alert('Can\'t do anything while the display is not initialised.');
+		}
+	};
+
+	$scope.drawCircle = function() {
+		if($scope.state.initialised) {
+			var x = parseInt($('#input-circle-x').val());
+			var y = parseInt($('#input-circle-y').val());
+			var radius = parseInt($('#input-circle-radius').val());
+
+			GraphicsService.drawCircle(x, y, radius, function() {
+				console.log('Drew circle with radius ' + radius + ' at ' + x + ',' + y + '.');
+
+				$scope.getBuffer();
+			});
+		} else {
+			alert('Can\'t do anything while the display is not initialised.');
+		}
+	};
+
 	$scope.getState();
 	$scope.getBuffer();
 }]);

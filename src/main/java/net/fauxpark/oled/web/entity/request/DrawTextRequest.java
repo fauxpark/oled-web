@@ -12,7 +12,7 @@ public class DrawTextRequest {
 	private int x;
 
 	/**
-	 * The X position of the text.
+	 * The Y position of the text.
 	 */
 	private int y;
 
