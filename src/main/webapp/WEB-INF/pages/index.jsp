@@ -7,6 +7,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 		<meta name="viewport" content="width=device-width,initial-scale=1"/>
 		<link rel="stylesheet" href="<c:url value='/assets/css/bootstrap.min.css'/>"/>
+		<script>var path = '<%=request.getContextPath()%>/';</script>
 	</head>
 	<body>
 		<%@include file="nav.jsp"%>

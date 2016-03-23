@@ -10,7 +10,7 @@ oled.service('ApiService', ['$http', function($http) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		get: function(url, callback) {
-			$http.get('/oled/' + url).then(function(response) {
+			$http.get(path + url).then(function(response) {
 				if(callback) {
 					callback(response);
 				}
@@ -24,7 +24,7 @@ oled.service('ApiService', ['$http', function($http) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		post: function(url, data, callback) {
-			$http.post('/oled/' + url, data).then(function(response) {
+			$http.post(path + url, data).then(function(response) {
 				if(callback) {
 					callback(response);
 				}
