@@ -202,6 +202,7 @@
 		<script src="<c:url value='/assets/js/vendor/bootstrap.min.js'/>"></script>
 		<script src="<c:url value='/assets/js/vendor/angular.min.js'/>"></script>
 		<script src="<c:url value='/assets/js/oled.js'/>"></script>
+		<script src="<c:url value='/assets/js/ApiService.js'/>"></script>
 		<script src="<c:url value='/assets/js/OledService.js'/>"></script>
 		<script src="<c:url value='/assets/js/BufferService.js'/>"></script>
 		<script src="<c:url value='/assets/js/GraphicsService.js'/>"></script>

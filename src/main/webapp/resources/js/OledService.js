@@ -1,7 +1,7 @@
 /**
- * A service to provide access to the OLED API.
+ * A service for controlling the display.
  */
-oled.service('OledService', ['$http', function($http) {
+oled.service('OledService', ['ApiService', function(ApiService) {
 	return {
 		/**
 		 * Retrieve the display state.
@@ -9,11 +9,7 @@ oled.service('OledService', ['$http', function($http) {
 		 * @param {Function} callback A callback to pass the response object onto.
 		 */
 		getState: function(callback) {
-			$http.get('/oled/api/state').then(function(response) {
-				if(callback) {
-					callback(response);
-				}
-			});
+			ApiService.get('api/state', callback);
 		},
 		/**
 		 * Retrieve the display buffer.
@@ -21,11 +17,7 @@ oled.service('OledService', ['$http', function($http) {
 		 * @param {Function} callback A callback to pass the response object onto.
 		 */
 		getBuffer: function(callback) {
-			$http.get('/oled/api/buffer').then(function(response) {
-				if(callback) {
-					callback(response);
-				}
-			});
+			ApiService.get('api/buffer', callback);
 		},
 		/**
 		 * Set the display buffer.
@@ -34,11 +26,7 @@ oled.service('OledService', ['$http', function($http) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		setBuffer: function(buffer, callback) {
-			$http.post('/oled/api/buffer', buffer).then(function(response) {
-				if(callback) {
-					callback(response);
-				}
-			});
+			ApiService.post('api/buffer', buffer, callback);
 		},
 		/**
 		 * Start up the display.
@@ -46,11 +34,7 @@ oled.service('OledService', ['$http', function($http) {
 		 * @param {Function} callback A callback to pass the response object onto.
 		 */
 		startup: function(callback) {
-			$http.post('/oled/api/startup').then(function(response) {
-				if(callback) {
-					callback(response);
-				}
-			});
+			ApiService.post('api/startup', null, callback);
 		},
 		/**
 		 * Shut down the display.
@@ -58,11 +42,7 @@ oled.service('OledService', ['$http', function($http) {
 		 * @param {Function} callback A callback to pass the response object onto.
 		 */
 		shutdown: function(callback) {
-			$http.post('/oled/api/shutdown').then(function(response) {
-				if(callback) {
-					callback(response);
-				}
-			});
+			ApiService.post('api/shutdown', null, callback);
 		},
 		/**
 		 * Turn the display on.
@@ -70,11 +50,7 @@ oled.service('OledService', ['$http', function($http) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		displayOn: function(callback) {
-			$http.post('/oled/api/on').then(function(response) {
-				if(callback) {
-					callback(response);
-				}
-			});
+			ApiService.post('api/on', null, callback);
 		},
 		/**
 		 * Turn the display off.
@@ -82,11 +58,7 @@ oled.service('OledService', ['$http', function($http) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		displayOff: function(callback) {
-			$http.post('/oled/api/off').then(function(response) {
-				if(callback) {
-					callback(response);
-				}
-			});
+			ApiService.post('api/off', null, callback);
 		},
 		/**
 		 * Clear the display.
@@ -94,11 +66,7 @@ oled.service('OledService', ['$http', function($http) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		clear: function(callback) {
-			$http.post('/oled/api/clear').then(function(response) {
-				if(callback) {
-					callback(response);
-				}
-			});
+			ApiService.post('api/clear', null, callback);
 		},
 		/**
 		 * Invert the display.
@@ -106,11 +74,7 @@ oled.service('OledService', ['$http', function($http) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		invert: function(callback) {
-			$http.post('/oled/api/invert').then(function(response) {
-				if(callback) {
-					callback(response);
-				}
-			});
+			ApiService.post('api/invert', null, callback);
 		},
 		/**
 		 * Flip the display horizontally or vertically.
@@ -119,13 +83,9 @@ oled.service('OledService', ['$http', function($http) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		flip: function(axis, callback) {
-			$http.post('/oled/api/flip', {
+			ApiService.post('api/flip', {
 				axis: axis
-			}).then(function(response) {
-				if(callback) {
-					callback(response);
-				}
-			});
+			}, callback);
 		},
 		/**
 		 * Set the contrast level.
@@ -134,13 +94,9 @@ oled.service('OledService', ['$http', function($http) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		setContrast: function(contrast, callback) {
-			$http.post('/oled/api/contrast', {
+			ApiService.post('api/contrast', {
 				contrast: contrast
-			}).then(function(response) {
-				if(callback) {
-					callback(response);
-				}
-			});
+			}, callback);
 		},
 		/**
 		 * Turn a single pixel on or off.
@@ -151,15 +107,11 @@ oled.service('OledService', ['$http', function($http) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		setPixel: function(x, y, on, callback) {
-			$http.post('/oled/api/pixel', {
+			ApiService.post('api/pixel', {
 				x: x,
 				y: y,
 				on: on
-			}).then(function(response) {
-				if(callback) {
-					callback(response);
-				}
-			});
+			}, callback);
 		}
 	};
 }]);

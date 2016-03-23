@@ -1,7 +1,7 @@
 /**
  * A service for drawing graphics onto the display.
  */
-oled.service('GraphicsService', ['$http', function($http) {
+oled.service('GraphicsService', ['ApiService', function(ApiService) {
 	return {
 		/**
 		 * Draw text on the display.
@@ -12,15 +12,11 @@ oled.service('GraphicsService', ['$http', function($http) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		drawText: function(x, y, text, callback) {
-			$http.post('/oled/graphics/text', {
+			ApiService.post('graphics/text', {
 				x: x,
 				y: y,
 				text: text
-			}).then(function(response) {
-				if(callback) {
-					callback(response);
-				}
-			});
+			}, callback);
 		},
 		/**
 		 * Draw a line on the display.
@@ -32,16 +28,12 @@ oled.service('GraphicsService', ['$http', function($http) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		drawLine: function(x0, y0, x1, y1, callback) {
-			$http.post('/oled/graphics/line', {
+			ApiService.post('graphics/line', {
 				x0: x0,
 				y0: y0,
 				x1: x1,
 				y1: y1
-			}).then(function(response) {
-				if(callback) {
-					callback(response);
-				}
-			});
+			}, callback);
 		},
 		/**
 		 * Draw a circle on the display.
@@ -52,15 +44,11 @@ oled.service('GraphicsService', ['$http', function($http) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		drawCircle: function(x, y, radius, callback) {
-			$http.post('/oled/graphics/circle', {
+			ApiService.post('graphics/circle', {
 				x: x,
 				y: y,
 				radius: radius
-			}).then(function(response) {
-				if(callback) {
-					callback(response);
-				}
-			});
+			}, callback);
 		}
 	};
 }]);
