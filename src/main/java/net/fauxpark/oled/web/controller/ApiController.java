@@ -125,6 +125,7 @@ public class ApiController {
 		JsonResponse<Void> response = new JsonResponse<>();
 		response.setOk(true);
 		ssd1306.clear();
+		ssd1306.display();
 
 		return response;
 	}
