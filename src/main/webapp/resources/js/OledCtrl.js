@@ -178,13 +178,49 @@ oled.controller('OledCtrl', ['$scope', 'BufferService', 'OledService', 'Graphics
 		}
 	};
 
+	$scope.drawRectangle = function() {
+		if($scope.state.initialised) {
+			var x = parseInt($('#input-rect-x').val());
+			var y = parseInt($('#input-rect-y').val());
+			var width = parseInt($('#input-rect-width').val());
+			var height = parseInt($('#input-rect-height').val());
+			var filled = $('#input-rect-filled').hasClass('active');
+
+			GraphicsService.drawRectangle(x, y, width, height, filled, function(response) {
+				console.log('Drew ' + (filled ? 'filled' : '') + 'rectangle with dimensions ' + width + 'x' + height + ' at ' + x + ',' + y + '.');
+
+				$scope.getBuffer();
+			});
+		} else {
+			alert('Can\'t do anything while the display is not initialised.');
+		}
+	};
+
+	$scope.drawArc = function() {
+		if($scope.state.initialised) {
+			var x = parseInt($('#input-arc-x').val());
+			var y = parseInt($('#input-arc-y').val());
+			var radius = parseInt($('#input-arc-radius').val());
+			var startAngle = parseInt($('#input-arc-start').val());
+			var endAngle = parseInt($('#input-arc-end').val());
+
+			GraphicsService.drawArc(x, y, radius, startAngle, endAngle, function(response) {
+				console.log('Drew arc from ' + startAngle + '\xB0 to ' + endAngle + '\xB0 with radius ' + radius + ' at ' + x + ',' + y + '.');
+
+				$scope.getBuffer();
+			});
+		} else {
+			alert('Can\'t do anything while the display is not initialised.');
+		}
+	};
+
 	$scope.drawCircle = function() {
 		if($scope.state.initialised) {
 			var x = parseInt($('#input-circle-x').val());
 			var y = parseInt($('#input-circle-y').val());
 			var radius = parseInt($('#input-circle-radius').val());
 
-			GraphicsService.drawCircle(x, y, radius, function() {
+			GraphicsService.drawCircle(x, y, radius, function(response) {
 				console.log('Drew circle with radius ' + radius + ' at ' + x + ',' + y + '.');
 
 				$scope.getBuffer();

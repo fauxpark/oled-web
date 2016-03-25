@@ -17,7 +17,7 @@ public class DrawCircleRequest {
 	private int y;
 
 	/**
-	 * The radius of the line.
+	 * The radius of the circle.
 	 */
 	private int radius;
 

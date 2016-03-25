@@ -36,6 +36,44 @@ oled.service('GraphicsService', ['ApiService', function(ApiService) {
 			}, callback);
 		},
 		/**
+		 * Draw a rectangle on the display.
+		 *
+		 * @param {Integer} x The X position of the rectangle.
+		 * @param {Integer} y The Y position of the rectangle.
+		 * @param {Integer} width The width of the rectangle.
+		 * @param {Integer} height The height of the rectangle.
+		 * @param {Integer} filled Whether to fill in the rectangle.
+		 * @param {Function} [callback] A callback to pass the response object onto.
+		 */
+		drawRectangle: function(x, y, width, height, filled, callback) {
+			ApiService.post('graphics/rectangle', {
+				x: x,
+				y: y,
+				width: width,
+				height: height,
+				filled: filled
+			}, callback);
+		},
+		/**
+		 * Draw an arc on the display.
+		 *
+		 * @param {Integer} x The X position of the arc.
+		 * @param {Integer} y The Y position of the arc.
+		 * @param {Integer} radius The radius of the arc.
+		 * @param {Integer} startAngle The starting angle of the arc.
+		 * @param {Integer} endAngle The ending angle of the arc.
+		 * @param {Function} [callback] A callback to pass the response object onto.
+		 */
+		drawArc: function(x, y, radius, startAngle, endAngle, callback) {
+			ApiService.post('graphics/arc', {
+				x: x,
+				y: y,
+				radius: radius,
+				startAngle: startAngle,
+				endAngle: endAngle
+			}, callback);
+		},
+		/**
 		 * Draw a circle on the display.
 		 *
 		 * @param {Integer} x The X position of the circle.

@@ -167,6 +167,89 @@
 							<hr/>
 							<div class="form-group row">
 								<div class="col-md-12">
+									<p class="form-control-static"><strong>Rectangle</strong></p>
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-md-1">
+									<p class="form-control-static text-right"><strong>X</strong></p>
+								</div>
+								<div class="col-md-2">
+									<input id="input-rect-x" class="form-control" type="number" min="0" max="127" step="1" value="0"/>
+								</div>
+								<div class="col-md-1">
+									<p class="form-control-static text-right"><strong>Y</strong></p>
+								</div>
+								<div class="col-md-2">
+									<input id="input-rect-y" class="form-control" type="number" min="0" max="63" step="1" value="0"/>
+								</div>
+								<div class="col-md-1">
+									<p class="form-control-static text-right"><strong>Width</strong></p>
+								</div>
+								<div class="col-md-2">
+									<input id="input-rect-width" class="form-control" type="number" min="0" max="127" step="1" value="0"/>
+								</div>
+								<div class="col-md-1">
+									<p class="form-control-static text-right"><strong>Height</strong></p>
+								</div>
+								<div class="col-md-2">
+									<input id="input-rect-height" class="form-control" type="number" min="0" max="63" step="1" value="0"/>
+								</div>
+								<div class="col-md-4 col-md-offset-8">
+									<div class="btn-group btn-group-justified">
+										<div class="btn-group">
+											<button id="input-rect-filled" class="btn btn-default" data-toggle="button">Filled</button>
+										</div>
+										<div class="btn-group">
+											<button id="btn-rect" class="btn btn-primary" ng-click="drawRectangle()">Draw</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<hr/>
+							<div class="form-group row">
+								<div class="col-md-12">
+									<p class="form-control-static"><strong>Arc</strong></p>
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-md-1">
+									<p class="form-control-static text-right"><strong>X</strong></p>
+								</div>
+								<div class="col-md-2">
+									<input id="input-arc-x" class="form-control" type="number" min="0" max="127" step="1" value="0"/>
+								</div>
+								<div class="col-md-1">
+									<p class="form-control-static text-right"><strong>Y</strong></p>
+								</div>
+								<div class="col-md-2">
+									<input id="input-arc-y" class="form-control" type="number" min="0" max="63" step="1" value="0"/>
+								</div>
+								<div class="col-md-1">
+									<p class="form-control-static text-right"><strong>Start</strong></p>
+								</div>
+								<div class="col-md-2">
+									<input id="input-arc-start" class="form-control" type="number" min="-180" max="180" step="1" value="0"/>
+								</div>
+								<div class="col-md-1">
+									<p class="form-control-static text-right"><strong>End</strong></p>
+								</div>
+								<div class="col-md-2">
+									<input id="input-arc-end" class="form-control" type="number" min="-180" max="180" step="1" value="0"/>
+								</div>
+								<div class="col-md-2 col-md-offset-5">
+									<p class="form-control-static text-right"><strong>Radius</strong></p>
+								</div>
+								<div class="col-md-2">
+									<input id="input-arc-radius" class="form-control" type="number" min="0" max="64" step="1" value="0"/>
+								</div>
+								<div class="col-md-2 col-md-offset-1">
+									<button id="btn-arc" class="btn btn-primary btn-block" ng-click="drawArc()">Draw</button>
+								</div>
+							</div>
+							<hr/>
+							<div class="form-group row">
+								<div class="col-md-12">
 									<p class="form-control-static"><strong>Circle</strong></p>
 								</div>
 							</div>

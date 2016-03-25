@@ -12,8 +12,10 @@ import net.fauxpark.oled.Graphics;
 import net.fauxpark.oled.SSD1306;
 import net.fauxpark.oled.font.CodePage850;
 import net.fauxpark.oled.web.entity.JsonResponse;
+import net.fauxpark.oled.web.entity.request.DrawArcRequest;
 import net.fauxpark.oled.web.entity.request.DrawCircleRequest;
 import net.fauxpark.oled.web.entity.request.DrawLineRequest;
+import net.fauxpark.oled.web.entity.request.DrawRectangleRequest;
 import net.fauxpark.oled.web.entity.request.DrawTextRequest;
 import net.fauxpark.oled.web.factory.SSD1306Factory;
 
@@ -59,6 +61,42 @@ public class GraphicsController {
 		JsonResponse<Void> response = new JsonResponse<>();
 		response.setOk(true);
 		graphics.line(request.getX0(), request.getY0(), request.getX1(), request.getY1());
+		ssd1306.display();
+
+		return response;
+	}
+
+	@RequestMapping(value="/rectangle", method=RequestMethod.POST)
+	@ResponseBody
+	public JsonResponse<Void> drawRectangle(@RequestBody DrawRectangleRequest request) {
+		log.info("======== drawRectangle");
+		log.info("request.getX()={}", request.getX());
+		log.info("request.getY()={}", request.getY());
+		log.info("request.getWidth()={}", request.getWidth());
+		log.info("request.getHeight()={}", request.getHeight());
+		log.info("request.isFilled()={}", request.isFilled());
+
+		JsonResponse<Void> response = new JsonResponse<>();
+		response.setOk(true);
+		graphics.rectangle(request.getX(), request.getY(), request.getWidth(), request.getHeight(), request.isFilled());
+		ssd1306.display();
+
+		return response;
+	}
+
+	@RequestMapping(value="/arc", method=RequestMethod.POST)
+	@ResponseBody
+	public JsonResponse<Void> drawArc(@RequestBody DrawArcRequest request) {
+		log.info("======== drawArc");
+		log.info("request.getX()={}", request.getX());
+		log.info("request.getY()={}", request.getY());
+		log.info("request.getRadius()={}", request.getRadius());
+		log.info("request.getStartAngle()={}", request.getStartAngle());
+		log.info("request.getEndAngle()={}", request.getEndAngle());
+
+		JsonResponse<Void> response = new JsonResponse<>();
+		response.setOk(true);
+		graphics.arc(request.getX(), request.getY(), request.getRadius(), request.getStartAngle(), request.getEndAngle());
 		ssd1306.display();
 
 		return response;
