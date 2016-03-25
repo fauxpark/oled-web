@@ -12,7 +12,7 @@ oled.service('ApiService', ['$http', function($http) {
 		get: function(url, callback) {
 			$http.get(path + url).then(function(response) {
 				if(callback) {
-					callback(response);
+					callback(response.data);
 				}
 			});
 		},
@@ -26,7 +26,7 @@ oled.service('ApiService', ['$http', function($http) {
 		post: function(url, data, callback) {
 			$http.post(path + url, data).then(function(response) {
 				if(callback) {
-					callback(response);
+					callback(response.data);
 				}
 			});
 		}

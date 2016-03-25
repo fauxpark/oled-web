@@ -15,7 +15,7 @@ oled.controller('OledCtrl', ['$scope', 'BufferService', 'OledService', 'Graphics
 		OledService.getState(function(response) {
 			console.log('Got state.');
 
-			$scope.state = response.data.result;
+			$scope.state = response.result;
 		});
 	};
 
@@ -23,7 +23,7 @@ oled.controller('OledCtrl', ['$scope', 'BufferService', 'OledService', 'Graphics
 		OledService.getBuffer(function(response) {
 			console.log('Got buffer.');
 
-			BufferService.setBuffer(response.data.result);
+			BufferService.setBuffer(response.result);
 		});
 	};
 
@@ -38,13 +38,13 @@ oled.controller('OledCtrl', ['$scope', 'BufferService', 'OledService', 'Graphics
 			OledService.shutdown(function(response) {
 				console.log('Shut down display.');
 
-				$scope.state = response.data.result;
+				$scope.state = response.result;
 			});
 		} else {
 			OledService.startup(function(response) {
 				console.log('Started up display.');
 
-				$scope.state = response.data.result;
+				$scope.state = response.result;
 			});
 		}
 	};
