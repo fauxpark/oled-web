@@ -187,13 +187,13 @@
 									<p class="form-control-static text-right"><strong>Width</strong></p>
 								</div>
 								<div class="col-md-2">
-									<input id="input-rect-width" class="form-control" type="number" min="0" max="127" step="1" value="0"/>
+									<input id="input-rect-width" class="form-control" type="number" min="0" max="128" step="1" value="0"/>
 								</div>
 								<div class="col-md-1">
 									<p class="form-control-static text-right"><strong>Height</strong></p>
 								</div>
 								<div class="col-md-2">
-									<input id="input-rect-height" class="form-control" type="number" min="0" max="63" step="1" value="0"/>
+									<input id="input-rect-height" class="form-control" type="number" min="0" max="64" step="1" value="0"/>
 								</div>
 								<div class="col-md-4 col-md-offset-8">
 									<div class="btn-group btn-group-justified">
