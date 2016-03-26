@@ -23,8 +23,19 @@ import net.fauxpark.oled.impl.SSD1306MockImpl;
 public class SSD1306Factory {
 	private static final Logger log = LogManager.getLogger(SSD1306Factory.class);
 
+	/**
+	 * The internal SSD1306 instance.
+	 */
 	private static SSD1306 ssd1306;
 
+	/**
+	 * Creates and returns an SSD1306 implementation.
+	 *
+	 * If one already exists, it is simply returned. If not, then either a dummy implementation
+	 * which does not call Pi4J, or a fully-functioning implementation is created and returned.
+	 *
+	 * @return An SSD1306 instance.
+	 */
 	public static SSD1306 getInstance() {
 		if(ssd1306 == null) {
 			if(System.getProperty("os.name").contains("nux")) {
