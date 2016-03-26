@@ -3,6 +3,8 @@
  */
 oled.controller('OledCtrl', ['$scope', 'BufferService', 'OledService', 'GraphicsService', function($scope, BufferService, OledService, GraphicsService) {
 	$scope.state = {
+		width: 0,
+		height: 0,
 		initialised: false,
 		displayOn: false,
 		inverted: false,

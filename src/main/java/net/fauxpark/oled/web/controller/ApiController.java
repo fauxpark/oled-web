@@ -266,6 +266,8 @@ public class ApiController {
 	 */
 	private DisplayState getDisplayState() {
 		DisplayState state = new DisplayState();
+		state.setWidth(ssd1306.getWidth());
+		state.setHeight(ssd1306.getHeight());
 		state.setInitialised(ssd1306.isInitialised());
 		state.setDisplayOn(ssd1306.isDisplayOn());
 		state.setInverted(ssd1306.isInverted());

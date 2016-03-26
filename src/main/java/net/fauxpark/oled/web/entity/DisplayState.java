@@ -7,6 +7,16 @@ package net.fauxpark.oled.web.entity;
  */
 public class DisplayState {
 	/**
+	 * The width in pixels of the display.
+	 */
+	private int width;
+
+	/**
+	 * The height in pixels of the display.
+	 */
+	private int height;
+
+	/**
 	 * Indicates whether the display has been started up.
 	 */
 	private boolean initialised;
@@ -35,6 +45,22 @@ public class DisplayState {
 	 * The contrast level of the display.
 	 */
 	private int contrast;
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
 
 	public boolean isInitialised() {
 		return initialised;
@@ -86,6 +112,6 @@ public class DisplayState {
 
 	@Override
 	public String toString() {
-		return "DisplayState [initialised=" + initialised + ", displayOn=" + displayOn + ", inverted=" + inverted + ", hFlipped=" + hFlipped + ", vFlipped=" + vFlipped + ", contrast=" + contrast + "]";
+		return "DisplayState [width=" + width + ", height=" + height + ", initialised=" + initialised + ", displayOn=" + displayOn + ", inverted=" + inverted + ", hFlipped=" + hFlipped + ", vFlipped=" + vFlipped + ", contrast=" + contrast + "]";
 	}
 }
