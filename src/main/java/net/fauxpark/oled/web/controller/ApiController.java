@@ -148,6 +148,13 @@ public class ApiController {
 		return response;
 	}
 
+	/**
+	 * Flip the display.
+	 *
+	 * @param request A JSON object containing the axis to flip.
+	 *
+	 * @return A JSON response containing the flip state of the specified axis.
+	 */
 	@RequestMapping(value="/flip", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Boolean> flip(@RequestBody FlipRequest request) {

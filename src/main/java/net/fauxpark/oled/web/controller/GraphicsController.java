@@ -33,6 +33,13 @@ public class GraphicsController {
 
 	private final Graphics graphics = new Graphics(ssd1306);
 
+	/**
+	 * Draw text onto the display.
+	 *
+	 * @param request A JSON request containing the position and text to draw.
+	 *
+	 * @return An empty JSON response.
+	 */
 	@RequestMapping(value="/text", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Void> drawText(@RequestBody DrawTextRequest request) {
@@ -49,6 +56,13 @@ public class GraphicsController {
 		return response;
 	}
 
+	/**
+	 * Draw a line onto the display.
+	 *
+	 * @param request A JSON request containing the positions of the line points.
+	 *
+	 * @return An empty JSON response.
+	 */
 	@RequestMapping(value="/line", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Void> drawLine(@RequestBody DrawLineRequest request) {
@@ -66,6 +80,13 @@ public class GraphicsController {
 		return response;
 	}
 
+	/**
+	 * Draw a rectangle onto the display.
+	 *
+	 * @param request A JSON request containing the position and dimensions of the rectangle.
+	 *
+	 * @return An empty JSON response.
+	 */
 	@RequestMapping(value="/rectangle", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Void> drawRectangle(@RequestBody DrawRectangleRequest request) {
@@ -84,6 +105,13 @@ public class GraphicsController {
 		return response;
 	}
 
+	/**
+	 * Draw an arc onto the display.
+	 *
+	 * @param request A JSON request containing the position, radius and angles of the arc.
+	 *
+	 * @return An empty JSON response.
+	 */
 	@RequestMapping(value="/arc", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Void> drawArc(@RequestBody DrawArcRequest request) {
@@ -102,6 +130,13 @@ public class GraphicsController {
 		return response;
 	}
 
+	/**
+	 * Draw a circle onto the display.
+	 *
+	 * @param request A JSON request containing the position and radius of the circle.
+	 *
+	 * @return An empty JSON response.
+	 */
 	@RequestMapping(value="/circle", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Void> drawCircle(@RequestBody DrawCircleRequest request) {
