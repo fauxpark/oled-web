@@ -13,11 +13,15 @@ oled.controller('OledCtrl', ['$scope', 'BufferService', 'OledService', 'Graphics
 		contrast: 0
 	};
 
-	$scope.getState = function() {
+	$scope.getState = function(callback) {
 		OledService.getState(function(response) {
 			console.log('Got state.');
 
 			$scope.state = response.result;
+
+			if(callback) {
+				callback();
+			}
 		});
 	};
 
@@ -25,6 +29,7 @@ oled.controller('OledCtrl', ['$scope', 'BufferService', 'OledService', 'Graphics
 		OledService.getBuffer(function(response) {
 			console.log('Got buffer.');
 
+			BufferService.setSize($scope.state.width, $scope.state.height);
 			BufferService.setBuffer(response.result);
 		});
 	};
@@ -232,6 +237,7 @@ oled.controller('OledCtrl', ['$scope', 'BufferService', 'OledService', 'Graphics
 		}
 	};
 
-	$scope.getState();
-	$scope.getBuffer();
+	$scope.getState(function(response) {
+		$scope.getBuffer();
+	});
 }]);

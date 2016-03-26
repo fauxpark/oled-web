@@ -4,9 +4,22 @@
 oled.service('BufferService', [function() {
 	var canvas = $('#canvas').get(0);
 	var ctx = canvas.getContext('2d');
-	var img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+	var img;
 
 	return {
+		/**
+		 * Setup the canvas to the correct size.
+		 *
+		 * @param {Integer} width The width to set the canvas to.
+		 * @param {Integer} height The height to set the canvas to.
+		 */
+		setSize: function(width, height) {
+			canvas.width = width;
+			canvas.height = height;
+			canvas.style.width = width;
+			canvas.style.height = height;
+			img = ctx.getImageData(0, 0, width, height);
+		},
 		/**
 		 * Retrieve the display canvas buffer.
 		 *

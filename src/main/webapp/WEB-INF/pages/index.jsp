@@ -19,7 +19,7 @@
 							<div class="panel-title">Preview</div>
 						</div>
 						<div class="panel-body">
-							<div class="text-center"><canvas id="canvas" height="64" width="128" style="background:#000;"></canvas></div>
+							<div class="text-center"><canvas id="canvas" height="0" width="0" style="background:#000;"></canvas></div>
 						</div>
 					</div>
 				</div>
@@ -84,13 +84,13 @@
 									<p class="form-control-static text-right"><strong>X</strong></p>
 								</div>
 								<div class="col-md-2">
-									<input id="input-pixel-x" class="form-control" type="number" min="0" max="127" step="1" value="0"/>
+									<input id="input-pixel-x" class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" value="0"/>
 								</div>
 								<div class="col-md-1">
 									<p class="form-control-static text-right"><strong>Y</strong></p>
 								</div>
 								<div class="col-md-2">
-									<input id="input-pixel-y" class="form-control" type="number" min="0" max="63" step="1" value="0"/>
+									<input id="input-pixel-y" class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" value="0"/>
 								</div>
 								<div class="col-md-4">
 									<div class="btn-group btn-group-justified">
@@ -123,13 +123,13 @@
 									<p class="form-control-static text-right"><strong>X</strong></p>
 								</div>
 								<div class="col-md-2">
-									<input id="input-text-x" class="form-control" type="number" min="0" max="127" step="1" value="0"/>
+									<input id="input-text-x" class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" value="0"/>
 								</div>
 								<div class="col-md-1">
 									<p class="form-control-static text-right"><strong>Y</strong></p>
 								</div>
 								<div class="col-md-2">
-									<input id="input-text-y" class="form-control" type="number" min="0" max="63" step="1" value="0"/>
+									<input id="input-text-y" class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" value="0"/>
 								</div>
 								<div class="col-md-2">
 									<button id="btn-text" class="btn btn-primary btn-block" ng-click="drawText()">Draw</button>
@@ -146,19 +146,19 @@
 									<p class="form-control-static text-right"><strong>P1</strong></p>
 								</div>
 								<div class="col-md-2">
-									<input id="input-line-x0" class="form-control" type="number" min="0" max="127" step="1" value="0"/>
+									<input id="input-line-x0" class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" value="0"/>
 								</div>
 								<div class="col-md-2">
-									<input id="input-line-y0" class="form-control" type="number" min="0" max="63" step="1" value="0"/>
+									<input id="input-line-y0" class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" value="0"/>
 								</div>
 								<div class="col-md-1">
 									<p class="form-control-static text-right"><strong>P2</strong></p>
 								</div>
 								<div class="col-md-2">
-									<input id="input-line-x1" class="form-control" type="number" min="0" max="127" step="1" value="0"/>
+									<input id="input-line-x1" class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" value="0"/>
 								</div>
 								<div class="col-md-2">
-									<input id="input-line-y1" class="form-control" type="number" min="0" max="63" step="1" value="0"/>
+									<input id="input-line-y1" class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" value="0"/>
 								</div>
 								<div class="col-md-2">
 									<button id="btn-line" class="btn btn-primary btn-block" ng-click="drawLine()">Draw</button>
@@ -175,25 +175,25 @@
 									<p class="form-control-static text-right"><strong>X</strong></p>
 								</div>
 								<div class="col-md-2">
-									<input id="input-rect-x" class="form-control" type="number" min="0" max="127" step="1" value="0"/>
+									<input id="input-rect-x" class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" value="0"/>
 								</div>
 								<div class="col-md-1">
 									<p class="form-control-static text-right"><strong>Y</strong></p>
 								</div>
 								<div class="col-md-2">
-									<input id="input-rect-y" class="form-control" type="number" min="0" max="63" step="1" value="0"/>
+									<input id="input-rect-y" class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" value="0"/>
 								</div>
 								<div class="col-md-1">
 									<p class="form-control-static text-right"><strong>Width</strong></p>
 								</div>
 								<div class="col-md-2">
-									<input id="input-rect-width" class="form-control" type="number" min="0" max="128" step="1" value="0"/>
+									<input id="input-rect-width" class="form-control" type="number" min="0" max="{{state.width}}" step="1" value="0"/>
 								</div>
 								<div class="col-md-1">
 									<p class="form-control-static text-right"><strong>Height</strong></p>
 								</div>
 								<div class="col-md-2">
-									<input id="input-rect-height" class="form-control" type="number" min="0" max="64" step="1" value="0"/>
+									<input id="input-rect-height" class="form-control" type="number" min="0" max="{{state.height}}" step="1" value="0"/>
 								</div>
 								<div class="col-md-4 col-md-offset-8">
 									<div class="btn-group btn-group-justified">
@@ -217,13 +217,13 @@
 									<p class="form-control-static text-right"><strong>X</strong></p>
 								</div>
 								<div class="col-md-2">
-									<input id="input-arc-x" class="form-control" type="number" min="0" max="127" step="1" value="0"/>
+									<input id="input-arc-x" class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" value="0"/>
 								</div>
 								<div class="col-md-1">
 									<p class="form-control-static text-right"><strong>Y</strong></p>
 								</div>
 								<div class="col-md-2">
-									<input id="input-arc-y" class="form-control" type="number" min="0" max="63" step="1" value="0"/>
+									<input id="input-arc-y" class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" value="0"/>
 								</div>
 								<div class="col-md-1">
 									<p class="form-control-static text-right"><strong>Start</strong></p>
@@ -258,13 +258,13 @@
 									<p class="form-control-static text-right"><strong>X</strong></p>
 								</div>
 								<div class="col-md-2">
-									<input id="input-circle-x" class="form-control" type="number" min="0" max="127" step="1" value="0"/>
+									<input id="input-circle-x" class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" value="0"/>
 								</div>
 								<div class="col-md-1">
 									<p class="form-control-static text-right"><strong>Y</strong></p>
 								</div>
 								<div class="col-md-2">
-									<input id="input-circle-y" class="form-control" type="number" min="0" max="63" step="1" value="0"/>
+									<input id="input-circle-y" class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" value="0"/>
 								</div>
 								<div class="col-md-2">
 									<p class="form-control-static text-right"><strong>Radius</strong></p>
