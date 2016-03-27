@@ -187,13 +187,13 @@
 									<p class="form-control-static text-right"><strong>Width</strong></p>
 								</div>
 								<div class="col-md-2">
-									<input id="input-rect-width" class="form-control" type="number" min="0" max="{{state.width}}" step="1" value="0"/>
+									<input id="input-rect-width" class="form-control" type="number" min="1" max="{{state.width}}" step="1" value="0"/>
 								</div>
 								<div class="col-md-1">
 									<p class="form-control-static text-right"><strong>Height</strong></p>
 								</div>
 								<div class="col-md-2">
-									<input id="input-rect-height" class="form-control" type="number" min="0" max="{{state.height}}" step="1" value="0"/>
+									<input id="input-rect-height" class="form-control" type="number" min="1" max="{{state.height}}" step="1" value="0"/>
 								</div>
 								<div class="col-md-4 col-md-offset-8">
 									<div class="btn-group btn-group-justified">

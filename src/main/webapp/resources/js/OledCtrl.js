@@ -201,7 +201,7 @@ oled.controller('OledCtrl', ['$scope', 'BufferService', 'OledService', 'Graphics
 			var filled = $('#input-rect-filled').hasClass('active');
 
 			GraphicsService.drawRectangle(x, y, width, height, filled, function(response) {
-				console.log('Drew ' + (filled ? 'filled' : '') + 'rectangle with dimensions ' + width + 'x' + height + ' at ' + x + ',' + y + '.');
+				console.log('Drew ' + (filled ? 'filled' : '') + ' rectangle with dimensions ' + width + 'x' + height + ' at ' + x + ',' + y + '.');
 
 				$scope.getBuffer();
 			});
