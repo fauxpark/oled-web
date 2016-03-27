@@ -26,18 +26,25 @@ oled.controller('OledCtrl', ['$scope', 'BufferService', 'OledService', 'Graphics
 	};
 
 	$scope.getBuffer = function() {
-		OledService.getBuffer(function(response) {
-			console.log('Got buffer.');
+		if($scope.state.initialised) {
+			OledService.getBuffer(function(response) {
+				console.log('Got buffer.');
 
-			BufferService.setSize($scope.state.width, $scope.state.height);
-			BufferService.setBuffer(response.result);
-		});
+				BufferService.setBuffer(response.result);
+			});
+		} else {
+			alert('Can\'t do anything while the display is not initialised.');
+		}
 	};
 
 	$scope.setBuffer = function() {
-		OledService.setBuffer(BufferService.getBuffer(), function(response) {
-			console.log('Set buffer.');
-		});
+		if($scope.state.initialised) {
+			OledService.setBuffer(BufferService.getBuffer(), function(response) {
+				console.log('Set buffer.');
+			});
+		} else {
+			alert('Can\'t do anything while the display is not initialised.');
+		}
 	}
 
 	$scope.initialise = function() {
@@ -238,6 +245,10 @@ oled.controller('OledCtrl', ['$scope', 'BufferService', 'OledService', 'Graphics
 	};
 
 	$scope.getState(function(response) {
-		$scope.getBuffer();
+		BufferService.setSize($scope.state.width, $scope.state.height);
+
+		if($scope.state.initialised) {
+			$scope.getBuffer();
+		}
 	});
 }]);
