@@ -1,23 +1,14 @@
 /**
  * A controller for keeping state and calling the OLED API service.
  */
-oled.controller('OledCtrl', ['$scope', 'BufferService', 'OledService', 'GraphicsService', function($scope, BufferService, OledService, GraphicsService) {
-	$scope.state = {
-		width: 0,
-		height: 0,
-		initialised: false,
-		displayOn: false,
-		inverted: false,
-		hFlipped: false,
-		vFlipped: false,
-		contrast: 0
-	};
+oled.controller('OledCtrl', ['$scope', 'StateService', 'BufferService', 'OledService', 'GraphicsService', function($scope, StateService, BufferService, OledService, GraphicsService) {
+	$scope.state = StateService;
 
 	$scope.getState = function(callback) {
 		OledService.getState(function(response) {
 			console.log('Got state.');
 
-			$scope.state = response.result;
+			$scope.state.setState(response.result);
 
 			if(callback) {
 				callback();
@@ -52,15 +43,17 @@ oled.controller('OledCtrl', ['$scope', 'BufferService', 'OledService', 'Graphics
 			OledService.shutdown(function(response) {
 				console.log('Shut down display.');
 
-				$scope.state = response.result;
+				$scope.state.setState(response.result);
 			});
 		} else {
 			OledService.startup(function(response) {
 				console.log('Started up display.');
 
-				$scope.state = response.result;
+				$scope.state.setState(response.result);
 			});
 		}
+
+		BufferService.clear();
 	};
 
 	$scope.toggleDisplay = function() {
