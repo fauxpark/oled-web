@@ -31,6 +31,8 @@ public class ApiController {
 
 	/**
 	 * Get the display state.
+	 *
+	 * @return A JSON response containing the display state.
 	 */
 	@RequestMapping("/state")
 	@ResponseBody
@@ -44,8 +46,10 @@ public class ApiController {
 		return response;
 	}
 
-	/*
+	/**
 	 * Begin the startup procedure for the display.
+	 *
+	 * @return A JSON response containing the display state.
 	 */
 	@RequestMapping(value="/startup", method=RequestMethod.POST)
 	@ResponseBody
@@ -62,6 +66,8 @@ public class ApiController {
 
 	/**
 	 * Begin the shutdown procedure for the display.
+	 *
+	 * @return A JSON response containing the display state.
 	 */
 	@RequestMapping(value="/shutdown", method=RequestMethod.POST)
 	@ResponseBody
@@ -97,7 +103,7 @@ public class ApiController {
 	/**
 	 * Turn the display off.
 	 *
-	 * @return A JSON object containing the new on state of the display.
+	 * @return A JSON response containing the new on state of the display.
 	 */
 	@RequestMapping(value="/off", method=RequestMethod.POST)
 	@ResponseBody
@@ -133,7 +139,7 @@ public class ApiController {
 	/**
 	 * Invert the display.
 	 *
-	 * @return A JSON object containing the new inverted state of the display.
+	 * @return A JSON response containing the new inverted state of the display.
 	 */
 	@RequestMapping(value="/invert", method=RequestMethod.POST)
 	@ResponseBody
@@ -180,7 +186,7 @@ public class ApiController {
 	 *
 	 * @param request A JSON object containing the contrast level to set.
 	 *
-	 * @return A JSON object containing the new contrast level.
+	 * @return A JSON response containing the new contrast level.
 	 */
 	@RequestMapping(value="/contrast", method=RequestMethod.POST)
 	@ResponseBody
@@ -201,7 +207,7 @@ public class ApiController {
 	 *
 	 * @param request A JSON object containing the X, Y, and state of the pixel to set.
 	 *
-	 * @return A JSON object containing the new state of the pixel.
+	 * @return A JSON response containing the new state of the pixel.
 	 */
 	@RequestMapping(value="/pixel", method=RequestMethod.POST)
 	@ResponseBody
