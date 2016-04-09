@@ -12,23 +12,6 @@ oled.service('OledService', ['ApiService', function(ApiService) {
 			ApiService.get('api/state', callback);
 		},
 		/**
-		 * Retrieve the display buffer.
-		 *
-		 * @param {Function} callback A callback to pass the response object onto.
-		 */
-		getBuffer: function(callback) {
-			ApiService.get('api/buffer', callback);
-		},
-		/**
-		 * Set the display buffer.
-		 *
-		 * @param {Buffer} buffer The buffer to set.
-		 * @param {Function} [callback] A callback to pass the response object onto.
-		 */
-		setBuffer: function(buffer, callback) {
-			ApiService.post('api/buffer', buffer, callback);
-		},
-		/**
 		 * Start up the display.
 		 *
 		 * @param {Function} callback A callback to pass the response object onto.
@@ -59,14 +42,6 @@ oled.service('OledService', ['ApiService', function(ApiService) {
 		 */
 		displayOff: function(callback) {
 			ApiService.post('api/off', null, callback);
-		},
-		/**
-		 * Clear the display.
-		 *
-		 * @param {Function} [callback] A callback to pass the response object onto.
-		 */
-		clear: function(callback) {
-			ApiService.post('api/clear', null, callback);
 		},
 		/**
 		 * Invert the display.
