@@ -72,21 +72,6 @@ oled.service('OledService', ['ApiService', function(ApiService) {
 			ApiService.post('api/contrast', {
 				contrast: contrast
 			}, callback);
-		},
-		/**
-		 * Turn a single pixel on or off.
-		 *
-		 * @param {Integer} x The X position of the pixel to set.
-		 * @param {Integer} y The Y position of the pixel to set.
-		 * @param {Boolean} on Whether to turn the pixel on or off.
-		 * @param {Function} [callback] A callback to pass the response object onto.
-		 */
-		setPixel: function(x, y, on, callback) {
-			ApiService.post('api/pixel', {
-				x: x,
-				y: y,
-				on: on
-			}, callback);
 		}
 	};
 }]);

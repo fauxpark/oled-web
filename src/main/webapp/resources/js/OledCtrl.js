@@ -132,7 +132,7 @@ oled.controller('OledCtrl', ['$scope', 'StateService', 'PreviewService', 'Buffer
 			var y = parseInt($('#input-pixel-y').val());
 			var on = $('#input-pixel-on').hasClass('active');
 
-			OledService.setPixel(x, y, on, function(response) {
+			BufferService.setPixel(x, y, on, function(response) {
 				console.log('Turned pixel at ' + x + ',' + y + ' ' + (on ? 'on' : 'off') + '.');
 
 				PreviewService.setPixel(x, y, on);
