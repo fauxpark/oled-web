@@ -28,6 +28,8 @@ public class DisplayBuffer {
 	 */
 	private int[] buffer;
 
+	public DisplayBuffer() {}
+
 	public DisplayBuffer(int width, int height, int[] buffer) {
 		this.width = width;
 		this.height = height;
@@ -79,6 +81,7 @@ public class DisplayBuffer {
 	 *
 	 * @param buffer The buffer to set.
 	 */
+	@JsonIgnore
 	public void setBufferAsBytes(byte[] buffer) {
 		int[] intArray = new int[buffer.length];
 

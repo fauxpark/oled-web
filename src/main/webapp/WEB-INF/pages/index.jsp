@@ -14,12 +14,20 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-5">
-					<div class="panel panel-default">
+					<div class="panel panel-default" ng-controller="PreviewCtrl">
 						<div class="panel-heading">
-							<div class="panel-title">Preview</div>
+							<div class="panel-title">
+								<div class="pull-right">
+									<button id="input-pixel-on" class="btn btn-default btn-xs active" data-toggle="button"><i class="glyphicon glyphicon-pencil"></i></button>
+								</div>
+								Preview
+							</div>
 						</div>
 						<div class="panel-body">
-							<div class="text-center"><canvas id="canvas" height="0" width="0" style="background:#000;"></canvas></div>
+							<div class="text-center"><canvas id="canvas" height="0" width="0" style="background:#000;" ng-mousedown="setPixel($event)" ng-mousemove="setPixel($event)" ng-mouseup="setBuffer($event)"></canvas></div>
+						</div>
+						<div class="panel-footer">
+							x,y
 						</div>
 					</div>
 				</div>
@@ -40,6 +48,7 @@
 		<script src="<c:url value='/assets/js/OledService.js'/>"></script>
 		<script src="<c:url value='/assets/js/PreviewService.js'/>"></script>
 		<script src="<c:url value='/assets/js/GraphicsService.js'/>"></script>
+		<script src="<c:url value='/assets/js/PreviewCtrl.js'/>"></script>
 		<script src="<c:url value='/assets/js/OledCtrl.js'/>"></script>
 		<script src="<c:url value='/assets/js/GraphicsCtrl.js'/>"></script>
 	</body>

@@ -49,33 +49,5 @@
 				<button id="btn-contrast" class="btn btn-primary btn-block" ng-click="setContrast()">Set</button>
 			</div>
 		</div>
-		<hr/>
-		<div class="form-group row">
-			<div class="col-md-2">
-				<p class="form-control-static text-right"><strong>Set Pixel</strong></p>
-			</div>
-			<div class="col-md-1">
-				<p class="form-control-static text-right"><strong>X</strong></p>
-			</div>
-			<div class="col-md-2">
-				<input id="input-pixel-x" class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" value="0"/>
-			</div>
-			<div class="col-md-1">
-				<p class="form-control-static text-right"><strong>Y</strong></p>
-			</div>
-			<div class="col-md-2">
-				<input id="input-pixel-y" class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" value="0"/>
-			</div>
-			<div class="col-md-4">
-				<div class="btn-group btn-group-justified">
-					<div class="btn-group">
-						<button id="input-pixel-on" class="btn btn-default active" data-toggle="button">On</button>
-					</div>
-					<div class="btn-group">
-						<button id="btn-pixel" class="btn btn-primary" ng-click="setPixel()">Set</button>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 </div>
