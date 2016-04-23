@@ -42,6 +42,11 @@ public class DisplayState {
 	private boolean vFlipped;
 
 	/**
+	 * Indicates whether the display is currently scrolling.
+	 */
+	private boolean scrolling;
+
+	/**
 	 * The contrast level of the display.
 	 */
 	private int contrast;
@@ -102,6 +107,14 @@ public class DisplayState {
 		this.vFlipped = vFlipped;
 	}
 
+	public boolean isScrolling() {
+		return scrolling;
+	}
+
+	public void setScrolling(boolean scrolling) {
+		this.scrolling = scrolling;
+	}
+
 	public int getContrast() {
 		return contrast;
 	}
@@ -112,6 +125,6 @@ public class DisplayState {
 
 	@Override
 	public String toString() {
-		return "DisplayState [width=" + width + ", height=" + height + ", initialised=" + initialised + ", displayOn=" + displayOn + ", inverted=" + inverted + ", hFlipped=" + hFlipped + ", vFlipped=" + vFlipped + ", contrast=" + contrast + "]";
+		return "DisplayState [width=" + width + ", height=" + height + ", initialised=" + initialised + ", displayOn=" + displayOn + ", inverted=" + inverted + ", hFlipped=" + hFlipped + ", vFlipped=" + vFlipped + ", scrolling=" + scrolling + ", contrast=" + contrast + "]";
 	}
 }

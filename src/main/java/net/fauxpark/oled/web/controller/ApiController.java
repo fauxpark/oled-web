@@ -280,6 +280,7 @@ public class ApiController {
 		state.setInverted(ssd1306.isInverted());
 		state.sethFlipped(ssd1306.isHFlipped());
 		state.setvFlipped(ssd1306.isVFlipped());
+		state.setScrolling(ssd1306.isScrolling());
 		state.setContrast(ssd1306.getContrast());
 
 		return state;
