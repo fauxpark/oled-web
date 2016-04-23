@@ -169,5 +169,47 @@
 				<button id="btn-circle" class="btn btn-primary btn-block" ng-click="drawCircle()">Draw</button>
 			</div>
 		</div>
+		<hr/>
+		<div class="form-group row">
+			<div class="col-md-12">
+				<p class="form-control-static"><strong>Image</strong></p>
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="col-md-10">
+				<div class="well well-sm">
+					<input id="input-image-file" type="file" accept=".bmp,.gif,.jpeg,.jpg,.png"/>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<button id="btn-image" class="btn btn-primary btn-block" ng-click="drawImage()">Draw</button>
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="col-md-1">
+				<p class="form-control-static text-right"><strong>X</strong></p>
+			</div>
+			<div class="col-md-2">
+				<input id="input-image-x" class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" value="0"/>
+			</div>
+			<div class="col-md-1">
+				<p class="form-control-static text-right"><strong>Y</strong></p>
+			</div>
+			<div class="col-md-2">
+				<input id="input-image-y" class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" value="0"/>
+			</div>
+			<div class="col-md-1">
+				<p class="form-control-static text-right"><strong>Width</strong></p>
+			</div>
+			<div class="col-md-2">
+				<input id="input-image-width" class="form-control" type="number" min="1" max="{{state.width}}" step="1" value="{{state.width}}"/>
+			</div>
+			<div class="col-md-1">
+				<p class="form-control-static text-right"><strong>Height</strong></p>
+			</div>
+			<div class="col-md-2">
+				<input id="input-image-height" class="form-control" type="number" min="1" max="{{state.height}}" step="1" value="{{state.height}}"/>
+			</div>
+		</div>
 	</div>
 </div>

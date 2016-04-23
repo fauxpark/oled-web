@@ -1,12 +1,18 @@
 package net.fauxpark.oled.web.controller;
 
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import net.fauxpark.oled.Graphics;
 import net.fauxpark.oled.SSD1306;
@@ -14,6 +20,7 @@ import net.fauxpark.oled.font.CodePage850;
 import net.fauxpark.oled.web.entity.JsonResponse;
 import net.fauxpark.oled.web.entity.request.DrawArcRequest;
 import net.fauxpark.oled.web.entity.request.DrawCircleRequest;
+import net.fauxpark.oled.web.entity.request.DrawImageRequest;
 import net.fauxpark.oled.web.entity.request.DrawLineRequest;
 import net.fauxpark.oled.web.entity.request.DrawRectangleRequest;
 import net.fauxpark.oled.web.entity.request.DrawTextRequest;
@@ -52,6 +59,31 @@ public class GraphicsController {
 		response.setOk(true);
 		graphics.text(request.getX(), request.getY(), new CodePage850(), request.getText());
 		ssd1306.display();
+
+		return response;
+	}
+
+	@RequestMapping(value="/image", method=RequestMethod.POST)
+	@ResponseBody
+	public JsonResponse<Void> drawImage(@RequestPart("request") DrawImageRequest request, @RequestPart("file") MultipartFile file) {
+		log.info("======== drawImage");
+		log.info("request.getX()={}", request.getX());
+		log.info("request.getY()={}", request.getY());
+		log.info("request.getWidth()={}", request.getWidth());
+		log.info("request.getHeight()={}", request.getHeight());
+		log.info("file.getSize()={}", file.getSize());
+		log.info("file.getOriginalFilename()={}", file.getOriginalFilename());
+
+		JsonResponse<Void> response = new JsonResponse<>();
+		response.setOk(true);
+
+		try {
+			graphics.image(ImageIO.read(file.getInputStream()), request.getX(), request.getY(), request.getWidth(), request.getHeight());
+			ssd1306.display();
+		} catch(IOException e) {
+			response.setOk(false);
+			response.setMessage(e.getMessage());
+		}
 
 		return response;
 	}

@@ -19,6 +19,15 @@ oled.service('GraphicsService', ['ApiService', function(ApiService) {
 			}, callback);
 		},
 		/**
+		 * Draw an image on the display.
+		 *
+		 * @param {FormData} formData The image form data.
+		 * @param {Function} [callback] A callback to pass the response object onto.
+		 */
+		drawImage: function(formData, callback) {
+			ApiService.postImage('graphics/image', formData, callback);
+		},
+		/**
 		 * Draw a line on the display.
 		 *
 		 * @param {Integer} x0 The first X position of the line.

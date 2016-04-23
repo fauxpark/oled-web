@@ -32,6 +32,34 @@ oled.controller('GraphicsCtrl', ['$scope', 'StateService', 'PreviewService', 'Bu
 		}
 	};
 
+	$scope.drawImage = function() {
+		if($scope.state.initialised) {
+			var file = $('#input-image-file').get(0).files[0];
+			var x = parseInt($('#input-image-x').val());
+			var y = parseInt($('#input-image-y').val());
+			var width = parseInt($('#input-image-width').val());
+			var height = parseInt($('#input-image-height').val());
+			var formData = new FormData();
+			formData.append('request', new Blob([angular.toJson({
+				x: x,
+				y: y,
+				width: width,
+				height: height
+			})], {
+				type: 'application/json'
+			}));
+			formData.append('file', file);
+
+			GraphicsService.drawImage(formData, function(response) {
+				console.log('Drew image ' + file.name + ' with dimensions ' + width + 'x' + height + ' at ' + x + ',' + y + '.');
+
+				$scope.getBuffer();
+			});
+		} else {
+			alert('Can\'t do anything while the display is not initialised.');
+		}
+	};
+
 	$scope.drawLine = function() {
 		if($scope.state.initialised) {
 			var x0 = parseInt($('#input-line-x0').val());

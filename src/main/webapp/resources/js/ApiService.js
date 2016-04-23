@@ -29,6 +29,25 @@ oled.service('ApiService', ['$http', function($http) {
 					callback(response.data);
 				}
 			});
+		},
+		/**
+		 * Perform a POST to the OLED API, for uploading image files.
+		 *
+		 * @param {String} url The API URL.
+		 * @param {FormData} The form data to send.
+		 * @param {Function} [callback] A callback to pass the response object onto.
+		 */
+		postImage: function(url, data, callback) {
+			$http.post(path + url, data, {
+				transformRequest: angular.identity,
+				headers: {
+					'content-type': undefined
+				}
+			}).then(function(response) {
+				if(callback) {
+					callback(response.data);
+				}
+			});
 		}
 	};
 }]);
