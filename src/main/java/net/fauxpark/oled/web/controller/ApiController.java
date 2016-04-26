@@ -13,6 +13,7 @@ import net.fauxpark.oled.web.entity.DisplayBuffer;
 import net.fauxpark.oled.web.entity.DisplayState;
 import net.fauxpark.oled.web.entity.JsonResponse;
 import net.fauxpark.oled.web.entity.request.FlipRequest;
+import net.fauxpark.oled.web.entity.request.ScrollRequest;
 import net.fauxpark.oled.web.entity.request.SetContrastRequest;
 import net.fauxpark.oled.web.entity.request.SetPixelRequest;
 import net.fauxpark.oled.web.factory.SSD1306Factory;
@@ -262,6 +263,60 @@ public class ApiController {
 		response.setOk(true);
 		ssd1306.setBuffer(buffer.getBufferAsBytes());
 		ssd1306.display();
+
+		return response;
+	}
+
+	/**
+	 * Setup and start scrolling the display.
+	 *
+	 * @param request A JSON request containing the scroll direction, area and speed.
+	 *
+	 * @return A JSON response containing the new scroll state.
+	 */
+	@RequestMapping(value="/scroll/start", method=RequestMethod.POST)
+	@ResponseBody
+	public JsonResponse<Boolean> startScroll(@RequestBody ScrollRequest request) {
+		log.info("======== startScroll");
+		log.info("request.isVertical()={}", request.isVertical());
+		log.info("request.isLeft()={}", request.isLeft());
+		log.info("request.getStartPage()={}", request.getStartPage());
+		log.info("request.getEndPage()={}", request.getEndPage());
+		log.info("request.getOffset()={}", request.getOffset());
+		log.info("request.getRows()={}", request.getRows());
+		log.info("request.getSpeed()={}", request.getSpeed());
+		log.info("request.getStep()={}", request.getStep());
+
+		JsonResponse<Boolean> response = new JsonResponse<>();
+		response.setOk(true);
+
+		if(request.isVertical()) {
+			ssd1306.scrollDiagonally(request.isLeft(), request.getStartPage(), request.getEndPage(), request.getOffset(), request.getRows(), request.getSpeed(), request.getStep());
+		} else {
+			ssd1306.scrollHorizontally(request.isLeft(), request.getStartPage(), request.getEndPage(), request.getSpeed());
+		}
+
+		ssd1306.startScroll();
+		response.setResult(ssd1306.isScrolling());
+
+		return response;
+	}
+
+	/**
+	 * Stop scrolling the display.
+	 *
+	 * @return An JSON response containing the new scroll state.
+	 */
+	@RequestMapping(value="/scroll/stop", method=RequestMethod.POST)
+	@ResponseBody
+	public JsonResponse<Boolean> stopScroll() {
+		log.info("======== stopScroll");
+
+		JsonResponse<Boolean> response = new JsonResponse<>();
+		response.setOk(true);
+		ssd1306.stopScroll();
+		ssd1306.display();
+		response.setResult(ssd1306.isScrolling());
 
 		return response;
 	}

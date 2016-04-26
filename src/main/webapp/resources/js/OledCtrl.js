@@ -4,6 +4,10 @@
 oled.controller('OledCtrl', ['$scope', 'StateService', 'PreviewService', 'BufferService', 'OledService', function($scope, StateService, PreviewService, BufferService, OledService) {
 	$scope.state = StateService;
 
+	$scope.scrollDir = false;
+
+	$scope.scrollVertical = false;
+
 	$scope.getState = function(callback) {
 		OledService.getState(function(response) {
 			console.log('Got state.');
@@ -109,6 +113,39 @@ oled.controller('OledCtrl', ['$scope', 'StateService', 'PreviewService', 'Buffer
 
 				$scope.state.vFlipped = !$scope.state.vFlipped;
 			});
+		} else {
+			alert('Can\'t do anything while the display is not initialised.');
+		}
+	};
+
+	$scope.toggleScroll = function() {
+		if($scope.state.initialised) {
+			if(!$scope.state.scrolling) {
+				var vertical = $('#input-scroll-vertical').hasClass('active');
+				var left = $('#input-scroll-direction').hasClass('active');
+				var startPage = parseInt($('#input-scroll-start').val());
+				var endPage = parseInt($('#input-scroll-end').val());
+				var offset = parseInt($('#input-scroll-offset').val());
+				var rows = parseInt($('#input-scroll-rows').val());
+				var speed = parseInt($('#input-scroll-speed').val());
+				var step = parseInt($('#input-scroll-step').val());
+
+				OledService.startScroll(vertical, left, startPage, endPage, offset, rows, speed, step, function(response) {
+					console.log('Started scrolling pages ' + startPage + ' to ' + endPage + ' ' + (left ? 'left' : 'right') + ' at speed ' + speed + '.');
+
+					if(vertical) {
+						console.log('Started scrolling rows ' + offset + ' to ' + (offset + rows) + ' vertically at ' + step + ' rows per step.');
+					}
+
+					$scope.state.scrolling = true;
+				});
+			} else {
+				OledService.stopScroll(function(response) {
+					console.log('Stopped scrolling.');
+
+					$scope.state.scrolling = false;
+				});
+			}
 		} else {
 			alert('Can\'t do anything while the display is not initialised.');
 		}
