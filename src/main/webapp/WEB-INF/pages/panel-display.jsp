@@ -72,7 +72,16 @@
 				<p class="form-control-static text-right"><strong>Speed</strong></p>
 			</div>
 			<div class="col-md-2">
-				<input id="input-scroll-speed" class="form-control" type="number" min="0" max="7" step="1" value="0"/>
+				<select id="input-scroll-speed" class="form-control">
+					<option value="7" selected>2</option>
+					<option value="4">3</option>
+					<option value="5">4</option>
+					<option value="0">5</option>
+					<option value="6">25</option>
+					<option value="1">64</option>
+					<option value="2">128</option>
+					<option value="3">256</option>
+				</select>
 			</div>
 			<div class="col-md-3">
 				<div class="btn-group btn-group-justified">
