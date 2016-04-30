@@ -13,27 +13,16 @@
 		<%@include file="nav.jsp"%>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-5">
-					<div class="panel panel-default" ng-controller="PreviewCtrl">
-						<div class="panel-heading">
-							<div class="panel-title">
-								<div class="pull-right">
-									<button id="input-pixel-on" class="btn btn-default btn-xs active" data-toggle="button"><i class="glyphicon glyphicon-pencil"></i></button>
-								</div>
-								Preview
-							</div>
-						</div>
-						<div class="panel-body">
-							<div class="text-center"><canvas id="canvas" height="0" width="0" style="background:#000;" ng-mousedown="setPixel($event)" ng-mousemove="setPixel($event)" ng-mouseup="setBuffer($event)"></canvas></div>
-						</div>
-						<div class="panel-footer">
-							x,y
-						</div>
-					</div>
+				<div class="col-md-4">
+					<%@include file="preview.jsp"%>
 				</div>
-				<div class="col-md-7">
-					<%@include file="panel-display.jsp"%>
-					<%@include file="panel-graphics.jsp"%>
+				<div class="col-md-8">
+					<%@include file="display.jsp"%>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<%@include file="graphics.jsp"%>
 				</div>
 			</div>
 			<%@include file="footer.jsp"%>
