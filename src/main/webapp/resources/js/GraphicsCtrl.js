@@ -1,7 +1,7 @@
 /**
  * A controller for calling the OLED graphics API service.
  */
-oled.controller('GraphicsCtrl', ['$scope', 'StateService', 'PreviewService', 'BufferService', 'GraphicsService', function($scope, StateService, PreviewService, BufferService, GraphicsService) {
+oled.controller('GraphicsCtrl', ['$scope', 'AlertService', 'StateService', 'PreviewService', 'BufferService', 'GraphicsService', function($scope, AlertService, StateService, PreviewService, BufferService, GraphicsService) {
 	$scope.state = StateService;
 
 	$scope.getBuffer = function() {
@@ -12,7 +12,7 @@ oled.controller('GraphicsCtrl', ['$scope', 'StateService', 'PreviewService', 'Bu
 				PreviewService.setBuffer(response.result);
 			});
 		} else {
-			alert('Can\'t do anything while the display is not initialised.');
+			AlertService.error('shutdown', 'The display is not initialised.', 'Please press the Startup button to begin.');
 		}
 	};
 
@@ -28,7 +28,7 @@ oled.controller('GraphicsCtrl', ['$scope', 'StateService', 'PreviewService', 'Bu
 				$scope.getBuffer();
 			});
 		} else {
-			alert('Can\'t do anything while the display is not initialised.');
+			AlertService.error('shutdown', 'The display is not initialised.', 'Please press the Startup button to begin.');
 		}
 	};
 
@@ -56,7 +56,7 @@ oled.controller('GraphicsCtrl', ['$scope', 'StateService', 'PreviewService', 'Bu
 				$scope.getBuffer();
 			});
 		} else {
-			alert('Can\'t do anything while the display is not initialised.');
+			AlertService.error('shutdown', 'The display is not initialised.', 'Please press the Startup button to begin.');
 		}
 	};
 
@@ -73,7 +73,7 @@ oled.controller('GraphicsCtrl', ['$scope', 'StateService', 'PreviewService', 'Bu
 				$scope.getBuffer();
 			});
 		} else {
-			alert('Can\'t do anything while the display is not initialised.');
+			AlertService.error('shutdown', 'The display is not initialised.', 'Please press the Startup button to begin.');
 		}
 	};
 
@@ -91,7 +91,7 @@ oled.controller('GraphicsCtrl', ['$scope', 'StateService', 'PreviewService', 'Bu
 				$scope.getBuffer();
 			});
 		} else {
-			alert('Can\'t do anything while the display is not initialised.');
+			AlertService.error('shutdown', 'The display is not initialised.', 'Please press the Startup button to begin.');
 		}
 	};
 
@@ -109,7 +109,7 @@ oled.controller('GraphicsCtrl', ['$scope', 'StateService', 'PreviewService', 'Bu
 				$scope.getBuffer();
 			});
 		} else {
-			alert('Can\'t do anything while the display is not initialised.');
+			AlertService.error('shutdown', 'The display is not initialised.', 'Please press the Startup button to begin.');
 		}
 	};
 
@@ -125,7 +125,7 @@ oled.controller('GraphicsCtrl', ['$scope', 'StateService', 'PreviewService', 'Bu
 				$scope.getBuffer();
 			});
 		} else {
-			alert('Can\'t do anything while the display is not initialised.');
+			AlertService.error('shutdown', 'The display is not initialised.', 'Please press the Startup button to begin.');
 		}
 	};
 }]);

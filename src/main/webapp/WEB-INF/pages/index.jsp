@@ -13,6 +13,11 @@
 		<%@include file="nav.jsp"%>
 		<div class="container">
 			<div class="row">
+				<div class="col-md-12">
+					<%@include file="alerts.jsp"%>
+				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-4">
 					<%@include file="preview.jsp"%>
 				</div>
@@ -31,6 +36,7 @@
 		<script src="<c:url value='/assets/js/vendor/bootstrap.min.js'/>"></script>
 		<script src="<c:url value='/assets/js/vendor/angular.min.js'/>"></script>
 		<script src="<c:url value='/assets/js/oled.js'/>"></script>
+		<script src="<c:url value='/assets/js/AlertService.js'/>"></script>
 		<script src="<c:url value='/assets/js/StateService.js'/>"></script>
 		<script src="<c:url value='/assets/js/ApiService.js'/>"></script>
 		<script src="<c:url value='/assets/js/BufferService.js'/>"></script>
