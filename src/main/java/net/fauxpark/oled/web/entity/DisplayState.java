@@ -51,6 +51,11 @@ public class DisplayState {
 	 */
 	private int contrast;
 
+	/**
+	 * The display offset.
+	 */
+	private int offset;
+
 	public int getWidth() {
 		return width;
 	}
@@ -123,8 +128,16 @@ public class DisplayState {
 		this.contrast = contrast;
 	}
 
+	public int getOffset() {
+		return offset;
+	}
+
+	public void setOffset(int offset) {
+		this.offset = offset;
+	}
+
 	@Override
 	public String toString() {
-		return "DisplayState [width=" + width + ", height=" + height + ", initialised=" + initialised + ", displayOn=" + displayOn + ", inverted=" + inverted + ", hFlipped=" + hFlipped + ", vFlipped=" + vFlipped + ", scrolling=" + scrolling + ", contrast=" + contrast + "]";
+		return "DisplayState [width=" + width + ", height=" + height + ", initialised=" + initialised + ", displayOn=" + displayOn + ", inverted=" + inverted + ", hFlipped=" + hFlipped + ", vFlipped=" + vFlipped + ", scrolling=" + scrolling + ", contrast=" + contrast + ", offset=" + offset + "]";
 	}
 }

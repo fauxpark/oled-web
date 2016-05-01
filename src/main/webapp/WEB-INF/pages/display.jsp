@@ -39,13 +39,24 @@
 					<p class="form-control-static"><strong>Contrast</strong></p>
 				</div>
 				<div class="col-xs-4">
-					<input id="input-contrast" name="input-contrast" type="range" min="0" max="255" step="1" ng-disabled="!state.initialised" ng-model="state.contrast"/>
+					<input id="input-contrast" type="range" min="0" max="255" step="1" ng-disabled="!state.initialised" ng-model="state.contrast"/>
 				</div>
 				<div class="col-xs-2">
 					<p class="form-control-static text-center"><strong>{{state.contrast}}</strong></p>
 				</div>
 				<div class="col-xs-4">
 					<button class="btn btn-primary btn-block" ng-click="setContrast()">Set</button>
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-xs-2">
+					<p class="form-control-static"><strong>Offset</strong></p>
+				</div>
+				<div class="col-xs-4">
+					<input id="input-offset" class="form-control" type="number" min="0" max="{{state.height - 1}}" ng-disabled="!state.initialised" ng-model="state.offset"/>
+				</div>
+				<div class="col-xs-4 col-xs-offset-2">
+					<button class="btn btn-primary btn-block" ng-click="setOffset()">Set</button>
 				</div>
 			</div>
 			<div class="form-group row">

@@ -170,6 +170,18 @@ oled.controller('OledCtrl', ['$scope', 'AlertService', 'StateService', 'PreviewS
 		}
 	};
 
+	$scope.setOffset = function() {
+		if($scope.state.initialised) {
+			var offset = parseInt($('#input-offset').val());
+
+			OledService.setOffset(offset, function(response) {
+				console.log('Set offset to' + offset + '.');
+			});
+		} else {
+			AlertService.error('shutdown', 'The display is not initialised.', 'Please press the Startup button to begin.');
+		}
+	};
+
 	$scope.getState(function(response) {
 		PreviewService.setSize($scope.state.width, $scope.state.height);
 

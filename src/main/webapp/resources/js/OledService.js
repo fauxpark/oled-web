@@ -105,6 +105,17 @@ oled.service('OledService', ['ApiService', function(ApiService) {
 			ApiService.post('api/contrast', {
 				contrast: contrast
 			}, callback);
+		},
+		/**
+		 * Set the display offset.
+		 *
+		 * @param {Integer} offset The offset to set.
+		 * @param {Function} [callback] A callback to pass the response object onto.
+		 */
+		setOffset: function(offset, callback) {
+			ApiService.post('api/offset', {
+				offset: offset
+			}, callback);
 		}
 	};
 }]);

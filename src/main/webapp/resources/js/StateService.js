@@ -20,6 +20,8 @@ oled.service('StateService', [function() {
 
 	this.contrast = 0;
 
+	this.offset = 0;
+
 	this.getState = function() {
 		return {
 			width: this.width,
@@ -30,7 +32,8 @@ oled.service('StateService', [function() {
 			hFlipped: this.hFlipped,
 			vFlipped: this.vFlipped,
 			scrolling: this.scrolling,
-			contrast: this.contrast
+			contrast: this.contrast,
+			offset: this.offset
 		};
 	};
 
@@ -44,5 +47,6 @@ oled.service('StateService', [function() {
 		this.vFlipped = state.vFlipped;
 		this.scrolling = state.scrolling;
 		this.contrast = state.contrast;
+		this.offset = state.offset;
 	};
 }]);

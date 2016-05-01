@@ -15,6 +15,7 @@ import net.fauxpark.oled.web.entity.JsonResponse;
 import net.fauxpark.oled.web.entity.request.FlipRequest;
 import net.fauxpark.oled.web.entity.request.ScrollRequest;
 import net.fauxpark.oled.web.entity.request.SetContrastRequest;
+import net.fauxpark.oled.web.entity.request.SetOffsetRequest;
 import net.fauxpark.oled.web.entity.request.SetPixelRequest;
 import net.fauxpark.oled.web.factory.SSD1306Factory;
 
@@ -204,6 +205,27 @@ public class ApiController {
 	}
 
 	/**
+	 * Set the display offset.
+	 *
+	 * @param request A JSON object containing the offset to set.
+	 *
+	 * @return A JSON response containing the new offset.
+	 */
+	@RequestMapping(value="/offset", method=RequestMethod.POST)
+	@ResponseBody
+	public JsonResponse<Integer> setOffset(@RequestBody SetOffsetRequest request) {
+		log.info("======== setOffset");
+		log.info("request.getOffset()={}", request.getOffset());
+
+		JsonResponse<Integer> response = new JsonResponse<>();
+		response.setOk(true);
+		ssd1306.setOffset(request.getOffset());
+		response.setResult(ssd1306.getOffset());
+
+		return response;
+	}
+
+	/**
 	 * Turn a single pixel on or off.
 	 *
 	 * @param request A JSON object containing the X, Y, and state of the pixel to set.
@@ -337,6 +359,7 @@ public class ApiController {
 		state.setvFlipped(ssd1306.isVFlipped());
 		state.setScrolling(ssd1306.isScrolling());
 		state.setContrast(ssd1306.getContrast());
+		state.setOffset(ssd1306.getOffset());
 
 		return state;
 	}
