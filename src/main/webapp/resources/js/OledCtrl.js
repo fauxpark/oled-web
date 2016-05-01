@@ -4,9 +4,16 @@
 oled.controller('OledCtrl', ['$scope', 'AlertService', 'StateService', 'PreviewService', 'BufferService', 'OledService', function($scope, AlertService, StateService, PreviewService, BufferService, OledService) {
 	$scope.state = StateService;
 
-	$scope.scrollDir = false;
-
-	$scope.scrollVertical = false;
+	$scope.scroll = {
+		left: false,
+		vertical: false,
+		startPage: 0,
+		endPage: 7,
+		speed: '7',
+		offset: 0,
+		rows: 64,
+		step: 1
+	};
 
 	$scope.getState = function(callback) {
 		OledService.getState(function(response) {
@@ -121,14 +128,14 @@ oled.controller('OledCtrl', ['$scope', 'AlertService', 'StateService', 'PreviewS
 	$scope.toggleScroll = function() {
 		if($scope.state.initialised) {
 			if(!$scope.state.scrolling) {
-				var vertical = $('#input-scroll-vertical').hasClass('active');
-				var left = $('#input-scroll-direction').hasClass('active');
-				var startPage = parseInt($('#input-scroll-start').val());
-				var endPage = parseInt($('#input-scroll-end').val());
-				var offset = parseInt($('#input-scroll-offset').val());
-				var rows = parseInt($('#input-scroll-rows').val());
-				var speed = parseInt($('#input-scroll-speed').val());
-				var step = parseInt($('#input-scroll-step').val());
+				var vertical = $scope.scroll.vertical;
+				var left = $scope.scroll.left;
+				var startPage = $scope.scroll.startPage;
+				var endPage = $scope.scroll.endPage;
+				var offset = $scope.scroll.offset;
+				var rows = $scope.scroll.rows;
+				var speed = $scope.scroll.speed;
+				var step = $scope.scroll.step;
 
 				OledService.startScroll(vertical, left, startPage, endPage, offset, rows, speed, step, function(response) {
 					console.log('Started scrolling pages ' + startPage + ' to ' + endPage + ' ' + (left ? 'left' : 'right') + ' at speed ' + speed + '.');

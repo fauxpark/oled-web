@@ -15,7 +15,7 @@
 				<div class="col-sm-4">
 					<div class="form-group row">
 						<div class="col-xs-12">
-							<input id="input-text-text" class="form-control" type="text" placeholder="Enter text here..."/>
+							<input class="form-control" type="text" placeholder="Enter text here..." ng-model="text.text"/>
 						</div>
 					</div>
 				</div>
@@ -25,20 +25,20 @@
 							<p class="form-control-static text-right"><strong>X</strong></p>
 						</div>
 						<div class="col-xs-4">
-							<input id="input-text-x" class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" value="0"/>
+							<input class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" ng-model="text.x"/>
 						</div>
 						<div class="col-xs-2">
 							<p class="form-control-static text-right"><strong>Y</strong></p>
 						</div>
 						<div class="col-xs-4">
-							<input id="input-text-y" class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" value="0"/>
+							<input class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" ng-model="text.y"/>
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-2">
 					<div class="form-group row">
 						<div class="col-xs-12">
-							<button id="btn-text" class="btn btn-primary btn-block" ng-click="drawText()">Draw</button>
+							<button class="btn btn-primary btn-block" ng-click="drawText()">Draw</button>
 						</div>
 					</div>
 				</div>
@@ -52,10 +52,10 @@
 							<p class="form-control-static text-right"><strong>From</strong></p>
 						</div>
 						<div class="col-xs-5">
-							<input id="input-line-x0" class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" value="0"/>
+							<input class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" ng-model="line.x0"/>
 						</div>
 						<div class="col-xs-5">
-							<input id="input-line-y0" class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" value="0"/>
+							<input class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" ng-model="line.y0"/>
 						</div>
 					</div>
 				</div>
@@ -65,17 +65,17 @@
 							<p class="form-control-static text-right"><strong>To</strong></p>
 						</div>
 						<div class="col-xs-5">
-							<input id="input-line-x1" class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" value="0"/>
+							<input class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" ng-model="line.x1"/>
 						</div>
 						<div class="col-xs-5">
-							<input id="input-line-y1" class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" value="0"/>
+							<input class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" ng-model="line.y1"/>
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-2">
 					<div class="form-group row">
 						<div class="col-xs-12">
-							<button id="btn-line" class="btn btn-primary btn-block" ng-click="drawLine()">Draw</button>
+							<button class="btn btn-primary btn-block" ng-click="drawLine()">Draw</button>
 						</div>
 					</div>
 				</div>
@@ -89,13 +89,13 @@
 							<p class="form-control-static text-right"><strong>X</strong></p>
 						</div>
 						<div class="col-xs-4">
-							<input id="input-rect-x" class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" value="0"/>
+							<input class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" ng-model="rect.x"/>
 						</div>
 						<div class="col-xs-2">
 							<p class="form-control-static text-right"><strong>Y</strong></p>
 						</div>
 						<div class="col-xs-4">
-							<input id="input-rect-y" class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" value="0"/>
+							<input class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" ng-model="rect.y"/>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -103,27 +103,27 @@
 							<p class="form-control-static text-right"><strong>Width</strong></p>
 						</div>
 						<div class="col-xs-4">
-							<input id="input-rect-width" class="form-control" type="number" min="1" max="{{state.width}}" step="1" value="1"/>
+							<input class="form-control" type="number" min="1" max="{{state.width}}" step="1" ng-model="rect.width"/>
 						</div>
 						<div class="col-xs-2">
 							<p class="form-control-static text-right"><strong>Height</strong></p>
 						</div>
 						<div class="col-xs-4">
-							<input id="input-rect-height" class="form-control" type="number" min="1" max="{{state.height}}" step="1" value="1"/>
+							<input class="form-control" type="number" min="1" max="{{state.height}}" step="1" ng-model="rect.height"/>
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-2">
 					<div class="form-group row">
 						<div class="col-xs-12">
-							<button id="input-rect-filled" class="btn btn-default btn-block" data-toggle="button">Filled</button>
+							<button class="btn btn-default btn-block" data-toggle="button" ng-click="rect.filled = !rect.filled">Filled</button>
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-2 col-sm-offset-2">
 					<div class="form-group row">
 						<div class="col-xs-12">
-							<button id="btn-rect" class="btn btn-primary btn-block" ng-click="drawRectangle()">Draw</button>
+							<button class="btn btn-primary btn-block" ng-click="drawRectangle()">Draw</button>
 						</div>
 					</div>
 				</div>
@@ -137,13 +137,13 @@
 							<p class="form-control-static text-right"><strong>X</strong></p>
 						</div>
 						<div class="col-xs-4">
-							<input id="input-arc-x" class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" value="0"/>
+							<input class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" ng-model="arc.x"/>
 						</div>
 						<div class="col-xs-2">
 							<p class="form-control-static text-right"><strong>Y</strong></p>
 						</div>
 						<div class="col-xs-4">
-							<input id="input-arc-y" class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" value="0"/>
+							<input class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" ng-model="arc.y"/>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -151,13 +151,13 @@
 							<p class="form-control-static text-right"><strong>Start</strong></p>
 						</div>
 						<div class="col-xs-4">
-							<input id="input-arc-start" class="form-control" type="number" min="-180" max="180" step="1" value="0"/>
+							<input class="form-control" type="number" min="-180" max="180" step="1" ng-model="arc.startAngle"/>
 						</div>
 						<div class="col-xs-2">
 							<p class="form-control-static text-right"><strong>End</strong></p>
 						</div>
 						<div class="col-xs-4">
-							<input id="input-arc-end" class="form-control" type="number" min="-180" max="180" step="1" value="0"/>
+							<input class="form-control" type="number" min="-180" max="180" step="1" ng-model="arc.endAngle"/>
 						</div>
 					</div>
 				</div>
@@ -167,14 +167,14 @@
 							<p class="form-control-static text-right"><strong>Radius</strong></p>
 						</div>
 						<div class="col-xs-8">
-							<input id="input-arc-radius" class="form-control" type="number" min="0" max="64" step="1" value="0"/>
+							<input class="form-control" type="number" min="0" max="64" step="1" ng-model="arc.radius"/>
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-2 col-sm-offset-1">
 					<div class="form-group row">
 						<div class="col-xs-12">
-							<button id="btn-arc" class="btn btn-primary btn-block" ng-click="drawArc()">Draw</button>
+							<button class="btn btn-primary btn-block" ng-click="drawArc()">Draw</button>
 						</div>
 					</div>
 				</div>
@@ -188,13 +188,13 @@
 							<p class="form-control-static text-right"><strong>X</strong></p>
 						</div>
 						<div class="col-xs-4">
-							<input id="input-circle-x" class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" value="0"/>
+							<input class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" ng-model="circle.x"/>
 						</div>
 						<div class="col-xs-2">
 							<p class="form-control-static text-right"><strong>Y</strong></p>
 						</div>
 						<div class="col-xs-4">
-							<input id="input-circle-y" class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" value="0"/>
+							<input class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" ng-model="circle.y"/>
 						</div>
 					</div>
 				</div>
@@ -204,14 +204,14 @@
 							<p class="form-control-static text-right"><strong>Radius</strong></p>
 						</div>
 						<div class="col-xs-8">
-							<input id="input-circle-radius" class="form-control" type="number" min="0" max="64" step="1" value="0"/>
+							<input class="form-control" type="number" min="0" max="64" step="1" ng-model="circle.radius"/>
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-2 col-sm-offset-1">
 					<div class="form-group row">
 						<div class="col-xs-12">
-							<button id="btn-circle" class="btn btn-primary btn-block" ng-click="drawCircle()">Draw</button>
+							<button class="btn btn-primary btn-block" ng-click="drawCircle()">Draw</button>
 						</div>
 					</div>
 				</div>
@@ -236,13 +236,13 @@
 							<p class="form-control-static text-right"><strong>X</strong></p>
 						</div>
 						<div class="col-xs-4">
-							<input id="input-image-x" class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" value="0"/>
+							<input class="form-control" type="number" min="0" max="{{state.width - 1}}" step="1" ng-model="image.x"/>
 						</div>
 						<div class="col-xs-2">
 							<p class="form-control-static text-right"><strong>Y</strong></p>
 						</div>
 						<div class="col-xs-4">
-							<input id="input-image-y" class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" value="0"/>
+							<input class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" ng-model="image.y"/>
 						</div>
 					</div>
 				</div>
@@ -252,20 +252,20 @@
 							<p class="form-control-static text-right"><strong>Width</strong></p>
 						</div>
 						<div class="col-xs-4">
-							<input id="input-image-width" class="form-control" type="number" min="1" max="{{state.width}}" step="1" value="{{state.width}}"/>
+							<input class="form-control" type="number" min="1" max="{{state.width}}" step="1" ng-model="image.width"/>
 						</div>
 						<div class="col-xs-2">
 							<p class="form-control-static text-right"><strong>Height</strong></p>
 						</div>
 						<div class="col-xs-4">
-							<input id="input-image-height" class="form-control" type="number" min="1" max="{{state.height}}" step="1" value="{{state.height}}"/>
+							<input class="form-control" type="number" min="1" max="{{state.height}}" step="1" ng-model="image.height"/>
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-2">
 					<div class="form-group row">
 						<div class="col-xs-12">
-							<button id="btn-image" class="btn btn-primary btn-block" ng-click="drawImage()">Draw</button>
+							<button class="btn btn-primary btn-block" ng-click="drawImage()">Draw</button>
 						</div>
 					</div>
 				</div>

@@ -3,33 +3,33 @@
 		<div class="col-sm-6">
 			<div class="form-group row">
 				<div class="col-xs-6">
-					<button id="btn-init" class="btn btn-primary btn-block" ng-click="initialise()">{{state.initialised ? 'Shutdown' : 'Startup'}}</button>
+					<button class="btn btn-primary btn-block" ng-click="initialise()">{{state.initialised ? 'Shutdown' : 'Startup'}}</button>
 				</div>
 				<div class="col-xs-6">
-					<button id="btn-display" class="btn btn-primary btn-block" ng-click="toggleDisplay()">Display {{state.displayOn ? 'Off' : 'On'}}</button>
+					<button class="btn btn-primary btn-block" ng-click="toggleDisplay()">Display {{state.displayOn ? 'Off' : 'On'}}</button>
 				</div>
 			</div>
 			<div class="form-group row">
 				<div class="col-xs-6">
-					<button id="btn-invert" class="btn btn-primary btn-block" ng-class="{active: state.inverted}" ng-click="invert()">Invert</button>
+					<button class="btn btn-primary btn-block" ng-class="{active: state.inverted}" ng-click="invert()">Invert</button>
 				</div>
 				<div class="col-xs-6">
 					<div class="btn-group btn-group-justified">
 						<div class="btn-group">
-							<button id="btn-flip-h" class="btn btn-primary" ng-class="{active: state.hFlipped}" ng-click="horizontalFlip()">Flip H</button>
+							<button class="btn btn-primary" ng-class="{active: state.hFlipped}" ng-click="horizontalFlip()">Flip H</button>
 						</div>
 						<div class="btn-group">
-							<button id="btn-flip-v" class="btn btn-primary" ng-class="{active: state.vFlipped}" ng-click="verticalFlip()">Flip V</button>
+							<button class="btn btn-primary" ng-class="{active: state.vFlipped}" ng-click="verticalFlip()">Flip V</button>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="form-group row">
 				<div class="col-xs-6">
-					<button id="btn-clear" class="btn btn-primary btn-block" ng-click="clear()">Clear</button>
+					<button class="btn btn-primary btn-block" ng-click="clear()">Clear</button>
 				</div>
 				<div class="col-xs-6">
-					<button id="btn-refresh" class="btn btn-primary btn-block" ng-click="getBuffer()">Refresh</button>
+					<button class="btn btn-primary btn-block" ng-click="getBuffer()">Refresh</button>
 				</div>
 			</div>
 		</div>
@@ -45,7 +45,7 @@
 					<p class="form-control-static text-center"><strong>{{state.contrast}}</strong></p>
 				</div>
 				<div class="col-xs-4">
-					<button id="btn-contrast" class="btn btn-primary btn-block" ng-click="setContrast()">Set</button>
+					<button class="btn btn-primary btn-block" ng-click="setContrast()">Set</button>
 				</div>
 			</div>
 			<div class="form-group row">
@@ -53,13 +53,13 @@
 					<p class="form-control-static text-right"><strong>Start</strong></p>
 				</div>
 				<div class="col-xs-4">
-					<input id="input-scroll-start" class="form-control" type="number" min="0" max="7" step="1" value="0"/>
+					<input class="form-control" type="number" min="0" max="7" step="1" value="0" ng-model="scroll.startPage"/>
 				</div>
 				<div class="col-xs-2">
 					<p class="form-control-static text-right"><strong>End</strong></p>
 				</div>
 				<div class="col-xs-4">
-					<input id="input-scroll-end" class="form-control" type="number" min="0" max="7" step="1" value="7"/>
+					<input class="form-control" type="number" min="0" max="7" step="1" value="7" ng-model="scroll.endPage"/>
 				</div>
 			</div>
 			<div class="form-group row">
@@ -67,8 +67,8 @@
 					<p class="form-control-static text-right"><strong>Speed</strong></p>
 				</div>
 				<div class="col-xs-4">
-					<select id="input-scroll-speed" class="form-control">
-						<option value="7" selected>2</option>
+					<select class="form-control" ng-model="scroll.speed">
+						<option value="7">2</option>
 						<option value="4">3</option>
 						<option value="5">4</option>
 						<option value="0">5</option>
@@ -79,7 +79,7 @@
 					</select>
 				</div>
 				<div class="col-xs-4 col-xs-offset-2">
-					<button id="input-scroll-vertical" class="btn btn-default btn-block" data-toggle="button" ng-click="scrollVertical = !scrollVertical">Vertical</button>
+					<button class="btn btn-default btn-block" data-toggle="button" ng-click="scroll.vertical = !scroll.vertical">Vertical</button>
 				</div>
 			</div>
 			<div class="form-group row">
@@ -87,13 +87,13 @@
 					<p class="form-control-static text-right"><strong>Offset</strong></p>
 				</div>
 				<div class="col-xs-4">
-					<input id="input-scroll-offset" class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" value="0" ng-disabled="!scrollVertical"/>
+					<input class="form-control" type="number" min="0" max="{{state.height - 1}}" step="1" value="0" ng-disabled="!scroll.vertical" ng-model="scroll.offset"/>
 				</div>
 				<div class="col-xs-2">
 					<p class="form-control-static text-right"><strong>Rows</strong></p>
 				</div>
 				<div class="col-xs-4">
-					<input id="input-scroll-rows" class="form-control" type="number" min="1" max="{{state.height}}" step="1" value="{{state.height}}" ng-disabled="!scrollVertical"/>
+					<input class="form-control" type="number" min="1" max="{{state.height}}" step="1" value="{{state.height}}" ng-disabled="!scroll.vertical" ng-model="scroll.rows"/>
 				</div>
 			</div>
 			<div class="form-group row">
@@ -101,15 +101,15 @@
 					<p class="form-control-static text-right"><strong>Step</strong></p>
 				</div>
 				<div class="col-xs-4">
-					<input id="input-scroll-step" class="form-control" type="number" min="1" max="{{state.height}}" step="1" value="1" ng-disabled="!scrollVertical"/>
+					<input class="form-control" type="number" min="1" max="{{state.height}}" step="1" value="1" ng-disabled="!scroll.vertical" ng-model="scroll.step"/>
 				</div>
 				<div class="col-xs-6">
 					<div class="btn-group btn-group-justified">
 						<div class="btn-group">
-							<button id="input-scroll-direction" class="btn btn-default btn-block" data-toggle="button" ng-click="scrollDir = !scrollDir">{{scrollDir ? 'Left' : 'Right'}}</button>
+							<button class="btn btn-default btn-block" data-toggle="button" ng-click="scroll.left = !scroll.left">{{scroll.left ? 'Left' : 'Right'}}</button>
 						</div>
 						<div class="btn-group">
-							<button id="btn-scroll-start" class="btn btn-primary btn-block" ng-click="toggleScroll()">{{state.scrolling ? 'Stop' : 'Start'}}</button>
+							<button class="btn btn-primary btn-block" ng-click="toggleScroll()">{{state.scrolling ? 'Stop' : 'Start'}}</button>
 						</div>
 					</div>
 				</div>

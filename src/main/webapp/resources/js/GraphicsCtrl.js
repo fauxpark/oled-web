@@ -4,6 +4,48 @@
 oled.controller('GraphicsCtrl', ['$scope', 'AlertService', 'StateService', 'PreviewService', 'BufferService', 'GraphicsService', function($scope, AlertService, StateService, PreviewService, BufferService, GraphicsService) {
 	$scope.state = StateService;
 
+	$scope.text = {
+		text: '',
+		x: 0,
+		y: 0
+	};
+
+	$scope.image = {
+		x: 0,
+		y: 0,
+		width: 0,
+		height: 0
+	};
+
+	$scope.line = {
+		x0: 0,
+		y0: 0,
+		x1: 0,
+		y1: 0
+	};
+
+	$scope.rect = {
+		x: 0,
+		y: 0,
+		width: 1,
+		height: 1,
+		filled: false
+	};
+
+	$scope.arc = {
+		x: 0,
+		y: 0,
+		radius: 0,
+		startAngle: 0,
+		endAngle: 0
+	};
+
+	$scope.circle = {
+		x: 0,
+		y: 0,
+		radius: 0
+	};
+
 	$scope.getBuffer = function() {
 		if($scope.state.initialised) {
 			BufferService.getBuffer(function(response) {
@@ -18,9 +60,9 @@ oled.controller('GraphicsCtrl', ['$scope', 'AlertService', 'StateService', 'Prev
 
 	$scope.drawText = function() {
 		if($scope.state.initialised) {
-			var x = parseInt($('#input-text-x').val());
-			var y = parseInt($('#input-text-y').val());
-			var text = $('#input-text-text').val();
+			var x = $scope.text.x;
+			var y = $scope.text.y;
+			var text = $scope.text.text;
 
 			GraphicsService.drawText(x, y, text, function(response) {
 				console.log('Drew text "' + text + '" at ' + x + ',' + y + '.');
@@ -35,10 +77,10 @@ oled.controller('GraphicsCtrl', ['$scope', 'AlertService', 'StateService', 'Prev
 	$scope.drawImage = function() {
 		if($scope.state.initialised) {
 			var file = $('#input-image-file').get(0).files[0];
-			var x = parseInt($('#input-image-x').val());
-			var y = parseInt($('#input-image-y').val());
-			var width = parseInt($('#input-image-width').val());
-			var height = parseInt($('#input-image-height').val());
+			var x = $scope.image.x;
+			var y = $scope.image.y;
+			var width = $scope.image.width;
+			var height = $scope.image.height;
 			var formData = new FormData();
 			formData.append('request', new Blob([angular.toJson({
 				x: x,
@@ -62,10 +104,10 @@ oled.controller('GraphicsCtrl', ['$scope', 'AlertService', 'StateService', 'Prev
 
 	$scope.drawLine = function() {
 		if($scope.state.initialised) {
-			var x0 = parseInt($('#input-line-x0').val());
-			var y0 = parseInt($('#input-line-y0').val());
-			var x1 = parseInt($('#input-line-x1').val());
-			var y1 = parseInt($('#input-line-y1').val());
+			var x0 = $scope.line.x0;
+			var y0 = $scope.line.y0;
+			var x1 = $scope.line.x1;
+			var y1 = $scope.line.y1;
 
 			GraphicsService.drawLine(x0, y0, x1, y1, function(response) {
 				console.log('Drew line from ' + x0 + ',' + y0 + ' to ' + x1 + ',' + y1 + '.');
@@ -79,14 +121,14 @@ oled.controller('GraphicsCtrl', ['$scope', 'AlertService', 'StateService', 'Prev
 
 	$scope.drawRectangle = function() {
 		if($scope.state.initialised) {
-			var x = parseInt($('#input-rect-x').val());
-			var y = parseInt($('#input-rect-y').val());
-			var width = parseInt($('#input-rect-width').val());
-			var height = parseInt($('#input-rect-height').val());
-			var filled = $('#input-rect-filled').hasClass('active');
+			var x = $scope.rect.x;
+			var y = $scope.rect.y;
+			var width = $scope.rect.width;
+			var height = $scope.rect.height;
+			var filled = $scope.rect.filled;
 
 			GraphicsService.drawRectangle(x, y, width, height, filled, function(response) {
-				console.log('Drew ' + (filled ? 'filled' : '') + ' rectangle with dimensions ' + width + 'x' + height + ' at ' + x + ',' + y + '.');
+				console.log('Drew ' + (filled ? 'filled ' : '') + 'rectangle with dimensions ' + width + 'x' + height + ' at ' + x + ',' + y + '.');
 
 				$scope.getBuffer();
 			});
@@ -97,11 +139,11 @@ oled.controller('GraphicsCtrl', ['$scope', 'AlertService', 'StateService', 'Prev
 
 	$scope.drawArc = function() {
 		if($scope.state.initialised) {
-			var x = parseInt($('#input-arc-x').val());
-			var y = parseInt($('#input-arc-y').val());
-			var radius = parseInt($('#input-arc-radius').val());
-			var startAngle = parseInt($('#input-arc-start').val());
-			var endAngle = parseInt($('#input-arc-end').val());
+			var x = $scope.arc.x;
+			var y = $scope.arc.y;
+			var radius = $scope.arc.radius;
+			var startAngle = $scope.arc.startAngle;
+			var endAngle = $scope.arc.endAngle;
 
 			GraphicsService.drawArc(x, y, radius, startAngle, endAngle, function(response) {
 				console.log('Drew arc from ' + startAngle + '\xB0 to ' + endAngle + '\xB0 with radius ' + radius + ' at ' + x + ',' + y + '.');
@@ -115,9 +157,9 @@ oled.controller('GraphicsCtrl', ['$scope', 'AlertService', 'StateService', 'Prev
 
 	$scope.drawCircle = function() {
 		if($scope.state.initialised) {
-			var x = parseInt($('#input-circle-x').val());
-			var y = parseInt($('#input-circle-y').val());
-			var radius = parseInt($('#input-circle-radius').val());
+			var x = $scope.circle.x;
+			var y = $scope.circle.y;
+			var radius = $scope.circle.radius;
 
 			GraphicsService.drawCircle(x, y, radius, function(response) {
 				console.log('Drew circle with radius ' + radius + ' at ' + x + ',' + y + '.');
