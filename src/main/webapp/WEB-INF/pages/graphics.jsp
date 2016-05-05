@@ -15,7 +15,12 @@
 				<div class="col-sm-4">
 					<div class="form-group row">
 						<div class="col-xs-12">
-							<input class="form-control" type="text" placeholder="Enter text here..." ng-model="text.text"/>
+							<div class="input-group">
+								<input class="form-control" type="text" placeholder="Enter text here..." ng-model="text.text" ng-trim="false"/>
+								<span class="input-group-btn">
+									<button class="btn btn-primary" ng-click="text.text = ''">Clear</button>
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>
