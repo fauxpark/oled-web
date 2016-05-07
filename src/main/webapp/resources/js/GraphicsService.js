@@ -9,13 +9,15 @@ oled.service('GraphicsService', ['ApiService', function(ApiService) {
 		 * @param {Integer} x The X position of the text.
 		 * @param {Integer} y The Y position of the text.
 		 * @param {String} text The text to draw.
+		 * @param {String} font The font to draw the text with.
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
-		drawText: function(x, y, text, callback) {
+		drawText: function(x, y, text, font, callback) {
 			ApiService.post('graphics/text', {
 				x: x,
 				y: y,
-				text: text
+				text: text,
+				font: font
 			}, callback);
 		},
 		/**

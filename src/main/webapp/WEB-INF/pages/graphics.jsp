@@ -12,7 +12,7 @@
 	<div class="tab-content">
 		<div id="tab-text" class="tab-pane fade in active">
 			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-sm-6">
 					<div class="form-group row">
 						<div class="col-xs-12">
 							<div class="input-group">
@@ -23,8 +23,6 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-sm-6">
 					<div class="form-group row">
 						<div class="col-xs-2">
 							<p class="form-control-static text-right"><strong>X</strong></p>
@@ -40,7 +38,21 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-2">
+				<div class="col-sm-3">
+					<div class="form-group row">
+						<div class="col-xs-4">
+							<p class="form-control-static text-right"><strong>Font</strong></p>
+						</div>
+						<div class="col-xs-8">
+							<select class="form-control" ng-model="text.font" ng-change="getCharset(text.font)">
+								<option value="cp437">IBM437</option>
+								<option value="cp850">IBM850</option>
+								<option value="cp1252">Windows-1252</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-2 col-sm-offset-1">
 					<div class="form-group row">
 						<div class="col-xs-12">
 							<button class="btn btn-primary btn-block" ng-click="drawText()">Draw</button>

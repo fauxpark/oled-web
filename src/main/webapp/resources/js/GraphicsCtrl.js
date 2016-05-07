@@ -6,6 +6,7 @@ oled.controller('GraphicsCtrl', ['$scope', 'AlertService', 'StateService', 'Prev
 
 	$scope.text = {
 		text: '',
+		font: 'cp850',
 		x: 0,
 		y: 0
 	};
@@ -63,9 +64,10 @@ oled.controller('GraphicsCtrl', ['$scope', 'AlertService', 'StateService', 'Prev
 			var x = $scope.text.x;
 			var y = $scope.text.y;
 			var text = $scope.text.text;
+			var font = $scope.text.font;
 
-			GraphicsService.drawText(x, y, text, function(response) {
-				console.log('Drew text "' + text + '" at ' + x + ',' + y + '.');
+			GraphicsService.drawText(x, y, text, font, function(response) {
+				console.log('Drew text "' + text + '" at ' + x + ',' + y + ' with font ' + font + '.');
 
 				$scope.getBuffer();
 			});

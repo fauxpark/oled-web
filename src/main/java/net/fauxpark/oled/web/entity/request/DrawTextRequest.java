@@ -21,6 +21,11 @@ public class DrawTextRequest {
 	 */
 	private String text;
 
+	/**
+	 * The font to draw the text with.
+	 */
+	private String font;
+
 	public int getX() {
 		return x;
 	}
@@ -45,8 +50,16 @@ public class DrawTextRequest {
 		this.text = text;
 	}
 
+	public String getFont() {
+		return font;
+	}
+
+	public void setFont(String font) {
+		this.font = font;
+	}
+
 	@Override
 	public String toString() {
-		return "DrawTextRequest [x=" + x + ", y=" + y + ", text=" + text + "]";
+		return "DrawTextRequest [x=" + x + ", y=" + y + ", text=" + text + ", font=" + font + "]";
 	}
 }

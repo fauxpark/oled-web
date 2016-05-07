@@ -16,6 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import net.fauxpark.oled.Graphics;
 import net.fauxpark.oled.SSD1306;
+import net.fauxpark.oled.font.Font;
+import net.fauxpark.oled.font.CodePage1252;
+import net.fauxpark.oled.font.CodePage437;
 import net.fauxpark.oled.font.CodePage850;
 import net.fauxpark.oled.web.entity.JsonResponse;
 import net.fauxpark.oled.web.entity.request.DrawArcRequest;
@@ -54,10 +57,34 @@ public class GraphicsController {
 		log.info("request.getX()={}", request.getX());
 		log.info("request.getY()={}", request.getY());
 		log.info("request.getText()={}", request.getText());
+		log.info("request.getFont()={}", request.getFont());
 
 		JsonResponse<Void> response = new JsonResponse<>();
 		response.setOk(true);
-		graphics.text(request.getX(), request.getY(), new CodePage850(), request.getText());
+
+		Font font;
+
+		// TODO: Find some way to not hardcode this!
+		switch(request.getFont()) {
+			case "cp437":
+				font = new CodePage437();
+
+				break;
+			case "cp850":
+				font = new CodePage850();
+
+				break;
+			case "cp1252":
+				font = new CodePage1252();
+
+				break;
+			default:
+				log.warn("Invalid font specified. Using default (cp850) instead.");
+
+				font = new CodePage850();
+		}
+
+		graphics.text(request.getX(), request.getY(), font, request.getText());
 		ssd1306.display();
 
 		return response;
