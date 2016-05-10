@@ -98,6 +98,15 @@ oled.service('GraphicsService', ['ApiService', function(ApiService) {
 				y: y,
 				radius: radius
 			}, callback);
+		},
+		/**
+		 * Get the character set for the text drawing keyboard.
+		 *
+		 * @param {String} name The name of the character set, eg. 'cp850'.
+		 * @param {Function} [callback] A callback to pass the response object onto.
+		 */
+		getCharset: function(name, callback) {
+			ApiService.get('assets/js/charset/' + name + '.json', callback);
 		}
 	};
 }]);

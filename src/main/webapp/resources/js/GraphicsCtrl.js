@@ -4,6 +4,8 @@
 oled.controller('GraphicsCtrl', ['$scope', 'AlertService', 'StateService', 'PreviewService', 'BufferService', 'GraphicsService', function($scope, AlertService, StateService, PreviewService, BufferService, GraphicsService) {
 	$scope.state = StateService;
 
+	$scope.charset = [];
+
 	$scope.text = {
 		text: '',
 		font: 'cp850',
@@ -45,6 +47,12 @@ oled.controller('GraphicsCtrl', ['$scope', 'AlertService', 'StateService', 'Prev
 		x: 0,
 		y: 0,
 		radius: 0
+	};
+
+	$scope.getCharset = function(name) {
+		GraphicsService.getCharset(name, function(response) {
+			$scope.charset = response;
+		});
 	};
 
 	$scope.getBuffer = function() {
@@ -172,4 +180,6 @@ oled.controller('GraphicsCtrl', ['$scope', 'AlertService', 'StateService', 'Prev
 			AlertService.error('shutdown', 'The display is not initialised.', 'Please press the Startup button to begin.');
 		}
 	};
+
+	$scope.getCharset($scope.text.font);
 }]);

@@ -60,6 +60,31 @@
 					</div>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<div class="panel-title">
+								<a href="#collapse" data-toggle="collapse">Keyboard &raquo;</a>
+							</div>
+						</div>
+						<div id="collapse" class="collapse table-responsive">
+							<table class="table table-condensed">
+								<tbody>
+									<tr ng-repeat="row in charset">
+										<td ng-repeat="char in row">
+											<button class="btn btn-sm btn-block" ng-if="char.char" ng-class="{'btn-default': char.print, 'btn-primary': !char.print}" ng-click="text.text = text.text + char.char">
+												<small ng-if="!char.print" ng-bind="char.disp ? char.disp : char.char"></small>
+												<span ng-if="char.print" ng-bind="char.disp ? char.disp : char.char"></span>
+											</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div id="tab-line" class="tab-pane fade">
 			<div class="row">
