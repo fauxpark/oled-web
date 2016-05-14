@@ -41,7 +41,7 @@ public class GraphicsController {
 
 	private final SSD1306 ssd1306 = SSD1306Factory.getInstance();
 
-	private final Graphics graphics = new Graphics(ssd1306);
+	private final Graphics graphics = ssd1306.getGraphics();
 
 	/**
 	 * Draw text onto the display.
