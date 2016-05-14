@@ -60,32 +60,34 @@ public class GraphicsController {
 		log.info("request.getFont()={}", request.getFont());
 
 		JsonResponse<Void> response = new JsonResponse<>();
-		response.setOk(true);
 
-		Font font;
+		if(ssd1306.isInitialised()) {
+			Font font = null;
 
-		// TODO: Find some way to not hardcode this!
-		switch(request.getFont()) {
-			case "cp437":
-				font = new CodePage437();
+			// TODO: Find some way to not hardcode this!
+			switch(request.getFont()) {
+				case "cp437":
+					font = new CodePage437();
 
-				break;
-			case "cp850":
-				font = new CodePage850();
+					break;
+				case "cp850":
+					font = new CodePage850();
 
-				break;
-			case "cp1252":
-				font = new CodePage1252();
+					break;
+				case "cp1252":
+					font = new CodePage1252();
+			}
 
-				break;
-			default:
-				log.warn("Invalid font specified. Using default (cp850) instead.");
-
-				font = new CodePage850();
+			if(font != null) {
+				graphics.text(request.getX(), request.getY(), font, request.getText());
+				ssd1306.display();
+				response.setOk(true);
+			} else {
+				response.setMessage("Invalid font specified.");
+			}
+		} else {
+			response.setMessage("Display is not initialised.");
 		}
-
-		graphics.text(request.getX(), request.getY(), font, request.getText());
-		ssd1306.display();
 
 		return response;
 	}
@@ -102,14 +104,21 @@ public class GraphicsController {
 		log.info("file.getOriginalFilename()={}", file.getOriginalFilename());
 
 		JsonResponse<Void> response = new JsonResponse<>();
-		response.setOk(true);
 
-		try {
-			graphics.image(ImageIO.read(file.getInputStream()), request.getX(), request.getY(), request.getWidth(), request.getHeight());
-			ssd1306.display();
-		} catch(IOException e) {
-			response.setOk(false);
-			response.setMessage(e.getMessage());
+		if(ssd1306.isInitialised()) {
+			if(request.getWidth() > 0 && request.getHeight() > 0) {
+				try {
+					graphics.image(ImageIO.read(file.getInputStream()), request.getX(), request.getY(), request.getWidth(), request.getHeight());
+					ssd1306.display();
+					response.setOk(true);
+				} catch(IOException e) {
+					response.setMessage(e.getMessage());
+				}
+			} else {
+				response.setMessage("Image must have a width and height of at least 1 pixel.");
+			}
+		} else {
+			response.setMessage("Display is not initialised.");
 		}
 
 		return response;
@@ -132,9 +141,14 @@ public class GraphicsController {
 		log.info("request.getY1()={}", request.getY1());
 
 		JsonResponse<Void> response = new JsonResponse<>();
-		response.setOk(true);
-		graphics.line(request.getX0(), request.getY0(), request.getX1(), request.getY1());
-		ssd1306.display();
+
+		if(ssd1306.isInitialised()) {
+			graphics.line(request.getX0(), request.getY0(), request.getX1(), request.getY1());
+			ssd1306.display();
+			response.setOk(true);
+		} else {
+			response.setMessage("Display is not initialised.");
+		}
 
 		return response;
 	}
@@ -157,9 +171,18 @@ public class GraphicsController {
 		log.info("request.isFilled()={}", request.isFilled());
 
 		JsonResponse<Void> response = new JsonResponse<>();
-		response.setOk(true);
-		graphics.rectangle(request.getX(), request.getY(), request.getWidth(), request.getHeight(), request.isFilled());
-		ssd1306.display();
+
+		if(ssd1306.isInitialised()) {
+			if(request.getWidth() > 0 && request.getHeight() > 0) {
+				graphics.rectangle(request.getX(), request.getY(), request.getWidth(), request.getHeight(), request.isFilled());
+				ssd1306.display();
+				response.setOk(true);
+			} else {
+				response.setMessage("Rectangle must have a width and height of at least 1 pixel.");
+			}
+		} else {
+			response.setMessage("Display is not initialised.");
+		}
 
 		return response;
 	}
@@ -182,9 +205,18 @@ public class GraphicsController {
 		log.info("request.getEndAngle()={}", request.getEndAngle());
 
 		JsonResponse<Void> response = new JsonResponse<>();
-		response.setOk(true);
-		graphics.arc(request.getX(), request.getY(), request.getRadius(), request.getStartAngle(), request.getEndAngle());
-		ssd1306.display();
+
+		if(ssd1306.isInitialised()) {
+			if(request.getRadius() >= 0) {
+				graphics.arc(request.getX(), request.getY(), request.getRadius(), request.getStartAngle(), request.getEndAngle());
+				ssd1306.display();
+				response.setOk(true);
+			} else {
+				response.setMessage("Arc must have a non-negative radius.");
+			}
+		} else {
+			response.setMessage("Display is not initialised.");
+		}
 
 		return response;
 	}
@@ -205,9 +237,18 @@ public class GraphicsController {
 		log.info("request.getRadius()={}", request.getRadius());
 
 		JsonResponse<Void> response = new JsonResponse<>();
-		response.setOk(true);
-		graphics.circle(request.getX(), request.getY(), request.getRadius());
-		ssd1306.display();
+
+		if(ssd1306.isInitialised()) {
+			if(request.getRadius() >= 0) {
+				graphics.circle(request.getX(), request.getY(), request.getRadius());
+				ssd1306.display();
+				response.setOk(true);
+			} else {
+				response.setMessage("Circle must have a non-negative radius.");
+			}
+		} else {
+			response.setMessage("Display is not initialised.");
+		}
 
 		return response;
 	}

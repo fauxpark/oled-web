@@ -59,9 +59,14 @@ public class ApiController {
 		log.info("======== startup");
 
 		JsonResponse<DisplayState> response = new JsonResponse<>();
-		response.setOk(true);
-		ssd1306.startup(false);
-		response.setResult(getDisplayState());
+
+		if(!ssd1306.isInitialised()) {
+			ssd1306.startup(false);
+			response.setOk(true);
+			response.setResult(getDisplayState());
+		} else {
+			response.setMessage("Display is already initialised.");
+		}
 
 		return response;
 	}
@@ -77,9 +82,14 @@ public class ApiController {
 		log.info("======== shutdown");
 
 		JsonResponse<DisplayState> response = new JsonResponse<>();
-		response.setOk(true);
-		ssd1306.shutdown();
-		response.setResult(getDisplayState());
+
+		if(ssd1306.isInitialised()) {
+			ssd1306.shutdown();
+			response.setOk(true);
+			response.setResult(getDisplayState());
+		} else {
+			response.setMessage("Display has not been initialised.");
+		}
 
 		return response;
 	}
@@ -95,9 +105,14 @@ public class ApiController {
 		log.info("======== displayOn");
 
 		JsonResponse<Boolean> response = new JsonResponse<>();
-		response.setOk(true);
-		ssd1306.setDisplayOn(true);
-		response.setResult(ssd1306.isDisplayOn());
+
+		if(ssd1306.isInitialised()) {
+			ssd1306.setDisplayOn(true);
+			response.setOk(true);
+			response.setResult(ssd1306.isDisplayOn());
+		} else {
+			response.setMessage("Display has not been initialised.");
+		}
 
 		return response;
 	}
@@ -113,9 +128,14 @@ public class ApiController {
 		log.info("======== displayOff");
 
 		JsonResponse<Boolean> response = new JsonResponse<>();
-		response.setOk(true);
-		ssd1306.setDisplayOn(false);
-		response.setResult(ssd1306.isDisplayOn());
+
+		if(ssd1306.isInitialised()) {
+			ssd1306.setDisplayOn(false);
+			response.setOk(true);
+			response.setResult(ssd1306.isDisplayOn());
+		} else {
+			response.setMessage("Display has not been initialised.");
+		}
 
 		return response;
 	}
@@ -131,9 +151,14 @@ public class ApiController {
 		log.info("======== clear");
 
 		JsonResponse<Void> response = new JsonResponse<>();
-		response.setOk(true);
-		ssd1306.clear();
-		ssd1306.display();
+
+		if(ssd1306.isInitialised()) {
+			ssd1306.clear();
+			ssd1306.display();
+			response.setOk(true);
+		} else {
+			response.setMessage("Display has not been initialised.");
+		}
 
 		return response;
 	}
@@ -149,9 +174,14 @@ public class ApiController {
 		log.info("======== invert");
 
 		JsonResponse<Boolean> response = new JsonResponse<>();
-		response.setOk(true);
-		ssd1306.setInverted(!ssd1306.isInverted());
-		response.setResult(ssd1306.isInverted());
+
+		if(ssd1306.isInitialised()) {
+			ssd1306.setInverted(!ssd1306.isInverted());
+			response.setOk(true);
+			response.setResult(ssd1306.isInverted());
+		} else {
+			response.setMessage("Display is not initialised.");
+		}
 
 		return response;
 	}
@@ -170,14 +200,21 @@ public class ApiController {
 		log.info("request.getAxis()={}", request.getAxis());
 
 		JsonResponse<Boolean> response = new JsonResponse<>();
-		response.setOk(true);
 
-		if(request.getAxis().equals("h")) {
-			ssd1306.setHFlipped(!ssd1306.isHFlipped());
-			response.setResult(ssd1306.isHFlipped());
-		} else if(request.getAxis().equals("v")) {
-			ssd1306.setVFlipped(!ssd1306.isVFlipped());
-			response.setResult(ssd1306.isVFlipped());
+		if(ssd1306.isInitialised()) {
+			if(request.getAxis().equals("h")) {
+				ssd1306.setHFlipped(!ssd1306.isHFlipped());
+				response.setOk(true);
+				response.setResult(ssd1306.isHFlipped());
+			} else if(request.getAxis().equals("v")) {
+				ssd1306.setVFlipped(!ssd1306.isVFlipped());
+				response.setOk(true);
+				response.setResult(ssd1306.isVFlipped());
+			} else {
+				response.setMessage("Invalid flip axis specified.");
+			}
+		} else {
+			response.setMessage("Display is not initialised.");
 		}
 
 		return response;
@@ -197,9 +234,18 @@ public class ApiController {
 		log.info("request.getContrast()={}", request.getContrast());
 
 		JsonResponse<Integer> response = new JsonResponse<>();
-		response.setOk(true);
-		ssd1306.setContrast(request.getContrast());
-		response.setResult(ssd1306.getContrast());
+
+		if(ssd1306.isInitialised()) {
+			if(request.getContrast() >= 0 && request.getContrast() < 256) {
+				ssd1306.setContrast(request.getContrast());
+				response.setOk(true);
+				response.setResult(ssd1306.getContrast());
+			} else {
+				response.setMessage("Invalid contrast level specified.");
+			}
+		} else {
+			response.setMessage("Display is not initialised.");
+		}
 
 		return response;
 	}
@@ -218,9 +264,18 @@ public class ApiController {
 		log.info("request.getOffset()={}", request.getOffset());
 
 		JsonResponse<Integer> response = new JsonResponse<>();
-		response.setOk(true);
-		ssd1306.setOffset(request.getOffset());
-		response.setResult(ssd1306.getOffset());
+
+		if(ssd1306.isInitialised()) {
+			if(request.getOffset() >= 0 && request.getOffset() < 64) {
+				ssd1306.setOffset(request.getOffset());
+				response.setOk(true);
+				response.setResult(ssd1306.getOffset());
+			} else {
+				response.setMessage("Invalid offset specified.");
+			}
+		} else {
+			response.setMessage("Display is not initialised.");
+		}
 
 		return response;
 	}
@@ -241,10 +296,19 @@ public class ApiController {
 		log.info("request.isOn()={}", request.isOn());
 
 		JsonResponse<Boolean> response = new JsonResponse<>();
-		response.setOk(true);
-		ssd1306.setPixel(request.getX(), request.getY(), request.isOn());
-		ssd1306.display();
-		response.setResult(ssd1306.getPixel(request.getX(), request.getY()));
+
+		if(ssd1306.isInitialised()) {
+			if(request.getX() >= 0 && request.getX() < ssd1306.getWidth() && request.getY() >= 0 && request.getY() < ssd1306.getHeight()) {
+				ssd1306.setPixel(request.getX(), request.getY(), request.isOn());
+				ssd1306.display();
+				response.setOk(true);
+				response.setResult(ssd1306.getPixel(request.getX(), request.getY()));
+			} else {
+				response.setMessage("Invalid pixel location specified.");
+			}
+		} else {
+			response.setMessage("Display is not initialised.");
+		}
 
 		return response;
 	}
@@ -260,10 +324,15 @@ public class ApiController {
 		log.info("======== getBuffer");
 
 		JsonResponse<DisplayBuffer> response = new JsonResponse<>();
-		response.setOk(true);
-		DisplayBuffer buffer = new DisplayBuffer(ssd1306.getWidth(), ssd1306.getHeight(), null);
-		buffer.setBufferAsBytes(ssd1306.getBuffer());
-		response.setResult(buffer);
+
+		if(ssd1306.isInitialised()) {
+			DisplayBuffer buffer = new DisplayBuffer(ssd1306.getWidth(), ssd1306.getHeight(), null);
+			buffer.setBufferAsBytes(ssd1306.getBuffer());
+			response.setOk(true);
+			response.setResult(buffer);
+		} else {
+			response.setMessage("Display is not initialised.");
+		}
 
 		return response;
 	}
@@ -282,9 +351,18 @@ public class ApiController {
 		log.info("buffer.getBuffer().length={}", buffer.getBuffer().length);
 
 		JsonResponse<Void> response = new JsonResponse<>();
-		response.setOk(true);
-		ssd1306.setBuffer(buffer.getBufferAsBytes());
-		ssd1306.display();
+
+		if(ssd1306.isInitialised()) {
+			if(buffer.getBuffer().length == ssd1306.getBuffer().length) {
+				response.setOk(true);
+				ssd1306.setBuffer(buffer.getBufferAsBytes());
+				ssd1306.display();
+			} else {
+				response.setMessage("Display buffer size must match existing size.");
+			}
+		} else {
+			response.setMessage("Display is not initialised.");
+		}
 
 		return response;
 	}
@@ -310,16 +388,24 @@ public class ApiController {
 		log.info("request.getStep()={}", request.getStep());
 
 		JsonResponse<Boolean> response = new JsonResponse<>();
-		response.setOk(true);
 
-		if(request.isVertical()) {
-			ssd1306.scrollDiagonally(request.isLeft(), request.getStartPage(), request.getEndPage(), request.getOffset(), request.getRows(), request.getSpeed(), request.getStep());
+		if(ssd1306.isInitialised()) {
+			if(!ssd1306.isScrolling()) {
+				if(request.isVertical()) {
+					ssd1306.scrollDiagonally(request.isLeft(), request.getStartPage(), request.getEndPage(), request.getOffset(), request.getRows(), request.getSpeed(), request.getStep());
+				} else {
+					ssd1306.scrollHorizontally(request.isLeft(), request.getStartPage(), request.getEndPage(), request.getSpeed());
+				}
+
+				ssd1306.startScroll();
+				response.setOk(true);
+				response.setResult(ssd1306.isScrolling());
+			} else {
+				response.setMessage("Display is already scrolling.");
+			}
 		} else {
-			ssd1306.scrollHorizontally(request.isLeft(), request.getStartPage(), request.getEndPage(), request.getSpeed());
+			response.setMessage("Display is not initialised.");
 		}
-
-		ssd1306.startScroll();
-		response.setResult(ssd1306.isScrolling());
 
 		return response;
 	}
@@ -335,10 +421,19 @@ public class ApiController {
 		log.info("======== stopScroll");
 
 		JsonResponse<Boolean> response = new JsonResponse<>();
-		response.setOk(true);
-		ssd1306.stopScroll();
-		ssd1306.display();
-		response.setResult(ssd1306.isScrolling());
+
+		if(ssd1306.isInitialised()) {
+			if(ssd1306.isScrolling()) {
+				ssd1306.stopScroll();
+				ssd1306.display();
+				response.setOk(true);
+				response.setResult(ssd1306.isScrolling());
+			} else {
+				response.setMessage("Display is not scrolling.");
+			}
+		} else {
+			response.setMessage("Display is not initialised.");
+		}
 
 		return response;
 	}

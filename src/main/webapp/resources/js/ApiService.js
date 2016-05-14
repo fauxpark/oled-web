@@ -1,7 +1,7 @@
 /**
  * A service to provide access to the OLED API.
  */
-oled.service('ApiService', ['$http', function($http) {
+oled.service('ApiService', ['$http', 'AlertService', function($http, AlertService) {
 	return {
 		/**
 		 * Perform a GET to the OLED API.
@@ -11,6 +11,23 @@ oled.service('ApiService', ['$http', function($http) {
 		 */
 		get: function(url, callback) {
 			$http.get(path + url).then(function(response) {
+				if(response.data.ok) {
+					if(callback) {
+						callback(response.data);
+					}
+				} else {
+					AlertService.error('api', 'Error', response.data.message);
+				}
+			});
+		},
+		/**
+		 * Perform a GET request for a character set JSON file.
+		 *
+		 * @param {String} name The name of the character set, eg. 'cp850'.
+		 * @param {Function} [callback] A callback to pass the response object onto.
+		 */
+		getCharset: function(name, callback) {
+			$http.get(path + 'assets/js/charset/' + name + '.json').then(function(response) {
 				if(callback) {
 					callback(response.data);
 				}
@@ -25,8 +42,12 @@ oled.service('ApiService', ['$http', function($http) {
 		 */
 		post: function(url, data, callback) {
 			$http.post(path + url, data).then(function(response) {
-				if(callback) {
-					callback(response.data);
+				if(response.data.ok) {
+					if(callback) {
+						callback(response.data);
+					}
+				} else {
+					AlertService.error('api', 'Error', response.data.message);
 				}
 			});
 		},
@@ -44,8 +65,12 @@ oled.service('ApiService', ['$http', function($http) {
 					'content-type': undefined
 				}
 			}).then(function(response) {
-				if(callback) {
-					callback(response.data);
+				if(response.data.ok) {
+					if(callback) {
+						callback(response.data);
+					}
+				} else {
+					AlertService.error('api', 'Error', response.data.message);
 				}
 			});
 		}

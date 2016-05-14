@@ -16,8 +16,8 @@ oled.controller('GraphicsCtrl', ['$scope', 'AlertService', 'StateService', 'Prev
 	$scope.image = {
 		x: 0,
 		y: 0,
-		width: 0,
-		height: 0
+		width: 1,
+		height: 1
 	};
 
 	$scope.line = {

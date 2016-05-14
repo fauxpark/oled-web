@@ -175,7 +175,7 @@ oled.controller('OledCtrl', ['$scope', 'AlertService', 'StateService', 'PreviewS
 			var offset = parseInt($('#input-offset').val());
 
 			OledService.setOffset(offset, function(response) {
-				console.log('Set offset to' + offset + '.');
+				console.log('Set offset to ' + offset + '.');
 			});
 		} else {
 			AlertService.error('shutdown', 'The display is not initialised.', 'Please press the Startup button to begin.');

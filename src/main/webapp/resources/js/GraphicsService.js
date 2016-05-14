@@ -106,7 +106,7 @@ oled.service('GraphicsService', ['ApiService', function(ApiService) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		getCharset: function(name, callback) {
-			ApiService.get('assets/js/charset/' + name + '.json', callback);
+			ApiService.getCharset(name, callback);
 		}
 	};
 }]);
