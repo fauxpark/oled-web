@@ -50,7 +50,7 @@ public class GraphicsController {
 	 *
 	 * @return An empty JSON response.
 	 */
-	@RequestMapping(value="/text", method=RequestMethod.POST)
+	@RequestMapping(path="/text", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Void> drawText(@RequestBody DrawTextRequest request) {
 		log.info("======== drawText");
@@ -92,7 +92,7 @@ public class GraphicsController {
 		return response;
 	}
 
-	@RequestMapping(value="/image", method=RequestMethod.POST)
+	@RequestMapping(path="/image", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Void> drawImage(@RequestPart("request") DrawImageRequest request, @RequestPart("file") MultipartFile file) {
 		log.info("======== drawImage");
@@ -131,7 +131,7 @@ public class GraphicsController {
 	 *
 	 * @return An empty JSON response.
 	 */
-	@RequestMapping(value="/line", method=RequestMethod.POST)
+	@RequestMapping(path="/line", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Void> drawLine(@RequestBody DrawLineRequest request) {
 		log.info("======== drawLine");
@@ -160,7 +160,7 @@ public class GraphicsController {
 	 *
 	 * @return An empty JSON response.
 	 */
-	@RequestMapping(value="/rectangle", method=RequestMethod.POST)
+	@RequestMapping(path="/rectangle", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Void> drawRectangle(@RequestBody DrawRectangleRequest request) {
 		log.info("======== drawRectangle");
@@ -194,7 +194,7 @@ public class GraphicsController {
 	 *
 	 * @return An empty JSON response.
 	 */
-	@RequestMapping(value="/arc", method=RequestMethod.POST)
+	@RequestMapping(path="/arc", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Void> drawArc(@RequestBody DrawArcRequest request) {
 		log.info("======== drawArc");
@@ -228,7 +228,7 @@ public class GraphicsController {
 	 *
 	 * @return An empty JSON response.
 	 */
-	@RequestMapping(value="/circle", method=RequestMethod.POST)
+	@RequestMapping(path="/circle", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Void> drawCircle(@RequestBody DrawCircleRequest request) {
 		log.info("======== drawCircle");

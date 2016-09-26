@@ -36,7 +36,7 @@ public class ApiController {
 	 *
 	 * @return A JSON response containing the display state.
 	 */
-	@RequestMapping("/state")
+	@RequestMapping(path="/state", method=RequestMethod.GET)
 	@ResponseBody
 	public JsonResponse<DisplayState> getState() {
 		log.info("======== getState");
@@ -53,7 +53,7 @@ public class ApiController {
 	 *
 	 * @return A JSON response containing the display state.
 	 */
-	@RequestMapping(value="/startup", method=RequestMethod.POST)
+	@RequestMapping(path="/startup", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<DisplayState> startup() {
 		log.info("======== startup");
@@ -76,7 +76,7 @@ public class ApiController {
 	 *
 	 * @return A JSON response containing the display state.
 	 */
-	@RequestMapping(value="/shutdown", method=RequestMethod.POST)
+	@RequestMapping(path="/shutdown", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<DisplayState> shutdown() {
 		log.info("======== shutdown");
@@ -99,7 +99,7 @@ public class ApiController {
 	 *
 	 * @return A JSON object containing the new on state of the display.
 	 */
-	@RequestMapping(value="/on", method=RequestMethod.POST)
+	@RequestMapping(path="/on", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Boolean> displayOn() {
 		log.info("======== displayOn");
@@ -122,7 +122,7 @@ public class ApiController {
 	 *
 	 * @return A JSON response containing the new on state of the display.
 	 */
-	@RequestMapping(value="/off", method=RequestMethod.POST)
+	@RequestMapping(path="/off", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Boolean> displayOff() {
 		log.info("======== displayOff");
@@ -145,7 +145,7 @@ public class ApiController {
 	 *
 	 * @return An empty JSON response.
 	 */
-	@RequestMapping(value="/clear", method=RequestMethod.POST)
+	@RequestMapping(path="/clear", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Void> clear() {
 		log.info("======== clear");
@@ -168,7 +168,7 @@ public class ApiController {
 	 *
 	 * @return A JSON response containing the new inverted state of the display.
 	 */
-	@RequestMapping(value="/invert", method=RequestMethod.POST)
+	@RequestMapping(path="/invert", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Boolean> invert() {
 		log.info("======== invert");
@@ -193,7 +193,7 @@ public class ApiController {
 	 *
 	 * @return A JSON response containing the flip state of the specified axis.
 	 */
-	@RequestMapping(value="/flip", method=RequestMethod.POST)
+	@RequestMapping(path="/flip", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Boolean> flip(@RequestBody FlipRequest request) {
 		log.info("======== flip");
@@ -227,7 +227,7 @@ public class ApiController {
 	 *
 	 * @return A JSON response containing the new contrast level.
 	 */
-	@RequestMapping(value="/contrast", method=RequestMethod.POST)
+	@RequestMapping(path="/contrast", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Integer> setContrast(@RequestBody SetContrastRequest request) {
 		log.info("======== setContrast");
@@ -257,7 +257,7 @@ public class ApiController {
 	 *
 	 * @return A JSON response containing the new offset.
 	 */
-	@RequestMapping(value="/offset", method=RequestMethod.POST)
+	@RequestMapping(path="/offset", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Integer> setOffset(@RequestBody SetOffsetRequest request) {
 		log.info("======== setOffset");
@@ -287,7 +287,7 @@ public class ApiController {
 	 *
 	 * @return A JSON response containing the new state of the pixel.
 	 */
-	@RequestMapping(value="/pixel", method=RequestMethod.POST)
+	@RequestMapping(path="/pixel", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Boolean> setPixel(@RequestBody SetPixelRequest request) {
 		log.info("======== setPixel");
@@ -318,7 +318,7 @@ public class ApiController {
 	 *
 	 * @return A JSON response containing the width, height, and contents of the display buffer.
 	 */
-	@RequestMapping("/buffer")
+	@RequestMapping(path="/buffer", method=RequestMethod.GET)
 	@ResponseBody
 	public JsonResponse<DisplayBuffer> getBuffer() {
 		log.info("======== getBuffer");
@@ -342,7 +342,7 @@ public class ApiController {
 	 *
 	 * @param buffer A JSON object containing the width, height, and contents of the buffer to set.
 	 */
-	@RequestMapping(value="/buffer", method=RequestMethod.POST)
+	@RequestMapping(path="/buffer", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Void> setBuffer(@RequestBody DisplayBuffer buffer) {
 		log.info("======== setBuffer");
@@ -374,7 +374,7 @@ public class ApiController {
 	 *
 	 * @return A JSON response containing the new scroll state.
 	 */
-	@RequestMapping(value="/scroll/start", method=RequestMethod.POST)
+	@RequestMapping(path="/scroll/start", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Boolean> startScroll(@RequestBody ScrollRequest request) {
 		log.info("======== startScroll");
@@ -415,7 +415,7 @@ public class ApiController {
 	 *
 	 * @return An JSON response containing the new scroll state.
 	 */
-	@RequestMapping(value="/scroll/stop", method=RequestMethod.POST)
+	@RequestMapping(path="/scroll/stop", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Boolean> stopScroll() {
 		log.info("======== stopScroll");
