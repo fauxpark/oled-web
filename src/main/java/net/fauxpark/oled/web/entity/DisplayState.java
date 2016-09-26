@@ -1,5 +1,7 @@
 package net.fauxpark.oled.web.entity;
 
+import net.fauxpark.oled.SSD1306;
+
 /**
  * A JSON result object containing the state of the OLED display.
  *
@@ -55,6 +57,21 @@ public class DisplayState {
 	 * The display offset.
 	 */
 	private int offset;
+
+	public DisplayState() {}
+
+	public DisplayState(SSD1306 ssd1306) {
+		width = ssd1306.getWidth();
+		height = ssd1306.getHeight();
+		initialised = ssd1306.isInitialised();
+		displayOn = ssd1306.isDisplayOn();
+		inverted = ssd1306.isInverted();
+		hFlipped = ssd1306.isHFlipped();
+		vFlipped = ssd1306.isVFlipped();
+		scrolling = ssd1306.isScrolling();
+		contrast = ssd1306.getContrast();
+		offset = ssd1306.getOffset();
+	}
 
 	public int getWidth() {
 		return width;

@@ -43,7 +43,7 @@ public class ApiController {
 
 		JsonResponse<DisplayState> response = new JsonResponse<>();
 		response.setOk(true);
-		response.setResult(getDisplayState());
+		response.setResult(new DisplayState(ssd1306));
 
 		return response;
 	}
@@ -63,7 +63,7 @@ public class ApiController {
 		if(!ssd1306.isInitialised()) {
 			ssd1306.startup(false);
 			response.setOk(true);
-			response.setResult(getDisplayState());
+			response.setResult(new DisplayState(ssd1306));
 		} else {
 			response.setMessage("Display is already initialised.");
 		}
@@ -86,7 +86,7 @@ public class ApiController {
 		if(ssd1306.isInitialised()) {
 			ssd1306.shutdown();
 			response.setOk(true);
-			response.setResult(getDisplayState());
+			response.setResult(new DisplayState(ssd1306));
 		} else {
 			response.setMessage("Display has not been initialised.");
 		}
@@ -436,26 +436,5 @@ public class ApiController {
 		}
 
 		return response;
-	}
-
-	/**
-	 * Constructs a DisplayState object.
-	 *
-	 * @return The current state of the OLED display.
-	 */
-	private DisplayState getDisplayState() {
-		DisplayState state = new DisplayState();
-		state.setWidth(ssd1306.getWidth());
-		state.setHeight(ssd1306.getHeight());
-		state.setInitialised(ssd1306.isInitialised());
-		state.setDisplayOn(ssd1306.isDisplayOn());
-		state.setInverted(ssd1306.isInverted());
-		state.sethFlipped(ssd1306.isHFlipped());
-		state.setvFlipped(ssd1306.isVFlipped());
-		state.setScrolling(ssd1306.isScrolling());
-		state.setContrast(ssd1306.getContrast());
-		state.setOffset(ssd1306.getOffset());
-
-		return state;
 	}
 }
