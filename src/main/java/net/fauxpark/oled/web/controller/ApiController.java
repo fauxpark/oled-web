@@ -97,7 +97,7 @@ public class ApiController {
 	/**
 	 * Turn the display on.
 	 *
-	 * @return A JSON object containing the new on state of the display.
+	 * @return A JSON response containing the new on state of the display.
 	 */
 	@RequestMapping(path="/on", method=RequestMethod.POST)
 	@ResponseBody
@@ -189,7 +189,7 @@ public class ApiController {
 	/**
 	 * Flip the display.
 	 *
-	 * @param request A JSON object containing the axis to flip.
+	 * @param request A JSON request containing the axis to flip.
 	 *
 	 * @return A JSON response containing the flip state of the specified axis.
 	 */
@@ -223,7 +223,7 @@ public class ApiController {
 	/**
 	 * Set the display contrast.
 	 *
-	 * @param request A JSON object containing the contrast level to set.
+	 * @param request A JSON request containing the contrast level to set.
 	 *
 	 * @return A JSON response containing the new contrast level.
 	 */
@@ -253,7 +253,7 @@ public class ApiController {
 	/**
 	 * Set the display offset.
 	 *
-	 * @param request A JSON object containing the offset to set.
+	 * @param request A JSON request containing the offset to set.
 	 *
 	 * @return A JSON response containing the new offset.
 	 */
@@ -283,7 +283,7 @@ public class ApiController {
 	/**
 	 * Turn a single pixel on or off.
 	 *
-	 * @param request A JSON object containing the X, Y, and state of the pixel to set.
+	 * @param request A JSON request containing the X, Y, and state of the pixel to set.
 	 *
 	 * @return A JSON response containing the new state of the pixel.
 	 */
@@ -340,7 +340,7 @@ public class ApiController {
 	/**
 	 * Set the display buffer.
 	 *
-	 * @param buffer A JSON object containing the width, height, and contents of the buffer to set.
+	 * @param buffer A JSON request containing the width, height, and contents of the buffer to set.
 	 */
 	@RequestMapping(path="/buffer", method=RequestMethod.POST)
 	@ResponseBody
@@ -413,7 +413,7 @@ public class ApiController {
 	/**
 	 * Stop scrolling the display.
 	 *
-	 * @return An JSON response containing the new scroll state.
+	 * @return A JSON response containing the new scroll state.
 	 */
 	@RequestMapping(path="/scroll/stop", method=RequestMethod.POST)
 	@ResponseBody

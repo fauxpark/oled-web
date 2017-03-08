@@ -36,15 +36,15 @@
 		<script src="<c:url value='/assets/js/vendor/bootstrap.min.js'/>"></script>
 		<script src="<c:url value='/assets/js/vendor/angular.min.js'/>"></script>
 		<script src="<c:url value='/assets/js/oled.js'/>"></script>
-		<script src="<c:url value='/assets/js/AlertService.js'/>"></script>
-		<script src="<c:url value='/assets/js/StateService.js'/>"></script>
-		<script src="<c:url value='/assets/js/ApiService.js'/>"></script>
-		<script src="<c:url value='/assets/js/BufferService.js'/>"></script>
-		<script src="<c:url value='/assets/js/OledService.js'/>"></script>
-		<script src="<c:url value='/assets/js/PreviewService.js'/>"></script>
-		<script src="<c:url value='/assets/js/GraphicsService.js'/>"></script>
-		<script src="<c:url value='/assets/js/PreviewCtrl.js'/>"></script>
-		<script src="<c:url value='/assets/js/OledCtrl.js'/>"></script>
-		<script src="<c:url value='/assets/js/GraphicsCtrl.js'/>"></script>
+		<script src="<c:url value='/assets/js/service/AlertService.js'/>"></script>
+		<script src="<c:url value='/assets/js/service/StateService.js'/>"></script>
+		<script src="<c:url value='/assets/js/service/ApiService.js'/>"></script>
+		<script src="<c:url value='/assets/js/service/BufferService.js'/>"></script>
+		<script src="<c:url value='/assets/js/service/OledService.js'/>"></script>
+		<script src="<c:url value='/assets/js/service/PreviewService.js'/>"></script>
+		<script src="<c:url value='/assets/js/service/GraphicsService.js'/>"></script>
+		<script src="<c:url value='/assets/js/controller/PreviewCtrl.js'/>"></script>
+		<script src="<c:url value='/assets/js/controller/OledCtrl.js'/>"></script>
+		<script src="<c:url value='/assets/js/controller/GraphicsCtrl.js'/>"></script>
 	</body>
 </html>

@@ -30,7 +30,7 @@ import net.fauxpark.oled.web.entity.request.DrawTextRequest;
 import net.fauxpark.oled.web.factory.SSD1306Factory;
 
 /**
- * A controller which handles graphics-related requests to the SSD1306.
+ * A controller which handles more advanced graphics-related requests to the SSD1306.
  *
  * @author fauxpark
  */
@@ -92,6 +92,14 @@ public class GraphicsController {
 		return response;
 	}
 
+	/**
+	 * Upload and display an image.
+	 *
+	 * @param request A JSON request containing the position and dimensions of the image.
+	 * @param file The image file to display.
+	 *
+	 * @return An empty JSON response.
+	 */
 	@RequestMapping(path="/image", method=RequestMethod.POST)
 	@ResponseBody
 	public JsonResponse<Void> drawImage(@RequestPart("request") DrawImageRequest request, @RequestPart("file") MultipartFile file) {

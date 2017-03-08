@@ -55,7 +55,7 @@ oled.service('ApiService', ['$http', 'AlertService', function($http, AlertServic
 		 * Perform a POST to the OLED API, for uploading image files.
 		 *
 		 * @param {String} url The API URL.
-		 * @param {FormData} The form data to send.
+		 * @param {FormData} data The form data to send.
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		postImage: function(url, data, callback) {

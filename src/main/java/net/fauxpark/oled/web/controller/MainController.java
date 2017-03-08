@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * A controller which handles serving webapp pages.
+ * A controller which serves the main page.
  *
  * @author fauxpark
  */
