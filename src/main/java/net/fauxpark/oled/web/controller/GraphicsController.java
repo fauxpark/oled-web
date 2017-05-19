@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import net.fauxpark.oled.Graphics;
 import net.fauxpark.oled.SSD1306;
 import net.fauxpark.oled.font.Font;
 import net.fauxpark.oled.font.CodePage1252;
@@ -27,7 +27,6 @@ import net.fauxpark.oled.web.entity.request.DrawImageRequest;
 import net.fauxpark.oled.web.entity.request.DrawLineRequest;
 import net.fauxpark.oled.web.entity.request.DrawRectangleRequest;
 import net.fauxpark.oled.web.entity.request.DrawTextRequest;
-import net.fauxpark.oled.web.factory.SSD1306Factory;
 
 /**
  * A controller which handles more advanced graphics-related requests to the SSD1306.
@@ -39,9 +38,8 @@ import net.fauxpark.oled.web.factory.SSD1306Factory;
 public class GraphicsController {
 	private static final Logger log = LogManager.getLogger(ApiController.class);
 
-	private final SSD1306 ssd1306 = SSD1306Factory.getInstance();
-
-	private final Graphics graphics = ssd1306.getGraphics();
+	@Autowired
+	private SSD1306 ssd1306;
 
 	/**
 	 * Draw text onto the display.
@@ -79,7 +77,7 @@ public class GraphicsController {
 			}
 
 			if(font != null) {
-				graphics.text(request.getX(), request.getY(), font, request.getText());
+				ssd1306.getGraphics().text(request.getX(), request.getY(), font, request.getText());
 				ssd1306.display();
 				response.setOk(true);
 			} else {
@@ -116,7 +114,7 @@ public class GraphicsController {
 		if(ssd1306.isInitialised()) {
 			if(request.getWidth() > 0 && request.getHeight() > 0) {
 				try {
-					graphics.image(ImageIO.read(file.getInputStream()), request.getX(), request.getY(), request.getWidth(), request.getHeight());
+					ssd1306.getGraphics().image(ImageIO.read(file.getInputStream()), request.getX(), request.getY(), request.getWidth(), request.getHeight());
 					ssd1306.display();
 					response.setOk(true);
 				} catch(IOException e) {
@@ -151,7 +149,7 @@ public class GraphicsController {
 		JsonResponse<Void> response = new JsonResponse<>();
 
 		if(ssd1306.isInitialised()) {
-			graphics.line(request.getX0(), request.getY0(), request.getX1(), request.getY1());
+			ssd1306.getGraphics().line(request.getX0(), request.getY0(), request.getX1(), request.getY1());
 			ssd1306.display();
 			response.setOk(true);
 		} else {
@@ -182,7 +180,7 @@ public class GraphicsController {
 
 		if(ssd1306.isInitialised()) {
 			if(request.getWidth() > 0 && request.getHeight() > 0) {
-				graphics.rectangle(request.getX(), request.getY(), request.getWidth(), request.getHeight(), request.isFilled());
+				ssd1306.getGraphics().rectangle(request.getX(), request.getY(), request.getWidth(), request.getHeight(), request.isFilled());
 				ssd1306.display();
 				response.setOk(true);
 			} else {
@@ -216,7 +214,7 @@ public class GraphicsController {
 
 		if(ssd1306.isInitialised()) {
 			if(request.getRadius() >= 0) {
-				graphics.arc(request.getX(), request.getY(), request.getRadius(), request.getStartAngle(), request.getEndAngle());
+				ssd1306.getGraphics().arc(request.getX(), request.getY(), request.getRadius(), request.getStartAngle(), request.getEndAngle());
 				ssd1306.display();
 				response.setOk(true);
 			} else {
@@ -248,7 +246,7 @@ public class GraphicsController {
 
 		if(ssd1306.isInitialised()) {
 			if(request.getRadius() >= 0) {
-				graphics.circle(request.getX(), request.getY(), request.getRadius());
+				ssd1306.getGraphics().circle(request.getX(), request.getY(), request.getRadius());
 				ssd1306.display();
 				response.setOk(true);
 			} else {

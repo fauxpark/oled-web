@@ -3,6 +3,7 @@
 	<mvc:annotation-driven/>
 	<context:component-scan base-package="net.fauxpark.oled.web.controller"/>
 	<context:property-placeholder location="classpath:build.properties" ignore-unresolvable="true"/>
+	<bean id="ssd1306" class="net.fauxpark.oled.web.factory.SSD1306Factory"/>
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/pages/"/>
 		<property name="suffix" value=".jsp"/>

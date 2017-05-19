@@ -2,6 +2,7 @@ package net.fauxpark.oled.web.controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,6 @@ import net.fauxpark.oled.web.entity.request.ScrollRequest;
 import net.fauxpark.oled.web.entity.request.SetContrastRequest;
 import net.fauxpark.oled.web.entity.request.SetOffsetRequest;
 import net.fauxpark.oled.web.entity.request.SetPixelRequest;
-import net.fauxpark.oled.web.factory.SSD1306Factory;
 
 /**
  * A controller which handles all of the API calls to interact with the SSD1306.
@@ -29,7 +29,8 @@ import net.fauxpark.oled.web.factory.SSD1306Factory;
 public class ApiController {
 	private static final Logger log = LogManager.getLogger(ApiController.class);
 
-	private final SSD1306 ssd1306 = SSD1306Factory.getInstance();
+	@Autowired
+	private SSD1306 ssd1306;
 
 	/**
 	 * Get the display state.

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.config.AbstractFactoryBean;
 
 import com.pi4j.io.gpio.RaspiPin;
 import com.pi4j.io.spi.SpiChannel;
@@ -20,7 +21,7 @@ import net.fauxpark.oled.impl.SSD1306MockImpl;
  *
  * @author fauxpark
  */
-public class SSD1306Factory {
+public class SSD1306Factory extends AbstractFactoryBean<SSD1306> {
 	private static final Logger log = LogManager.getLogger(SSD1306Factory.class);
 
 	/**
@@ -36,7 +37,8 @@ public class SSD1306Factory {
 	 *
 	 * @return An SSD1306 instance.
 	 */
-	public static SSD1306 getInstance() {
+	@Override
+	public SSD1306 createInstance() {
 		if(ssd1306 == null) {
 			if(System.getProperty("os.name").contains("nux")) {
 				try {
@@ -57,5 +59,10 @@ public class SSD1306Factory {
 		}
 
 		return ssd1306;
+	}
+
+	@Override
+	public Class<?> getObjectType() {
+		return ssd1306 != null ? ssd1306.getClass() : null;
 	}
 }
