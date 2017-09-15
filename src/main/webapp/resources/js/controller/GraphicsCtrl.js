@@ -75,7 +75,7 @@ oled.controller('GraphicsCtrl', ['$scope', 'AlertService', 'StateService', 'Prev
 			var font = $scope.text.font;
 
 			GraphicsService.drawText(x, y, text, font, function(response) {
-				console.log('Drew text "' + text + '" at ' + x + ',' + y + ' with font ' + font + '.');
+				console.log('Drew text "%s" at %d,%d with font %s.', text, x, y, font);
 
 				$scope.getBuffer();
 			});
@@ -103,7 +103,7 @@ oled.controller('GraphicsCtrl', ['$scope', 'AlertService', 'StateService', 'Prev
 			formData.append('file', file);
 
 			GraphicsService.drawImage(formData, function(response) {
-				console.log('Drew image ' + file.name + ' with dimensions ' + width + 'x' + height + ' at ' + x + ',' + y + '.');
+				console.log('Drew image "%s" with dimensions %dx%d at %d,%d.', file.name, width, height, x, y);
 
 				$scope.getBuffer();
 			});
@@ -120,7 +120,7 @@ oled.controller('GraphicsCtrl', ['$scope', 'AlertService', 'StateService', 'Prev
 			var y1 = $scope.line.y1;
 
 			GraphicsService.drawLine(x0, y0, x1, y1, function(response) {
-				console.log('Drew line from ' + x0 + ',' + y0 + ' to ' + x1 + ',' + y1 + '.');
+				console.log('Drew line from %d,%d to %d,%d.', x0, y0, x1, y1);
 
 				$scope.getBuffer();
 			});
@@ -138,7 +138,7 @@ oled.controller('GraphicsCtrl', ['$scope', 'AlertService', 'StateService', 'Prev
 			var filled = $scope.rect.filled;
 
 			GraphicsService.drawRectangle(x, y, width, height, filled, function(response) {
-				console.log('Drew ' + (filled ? 'filled ' : '') + 'rectangle with dimensions ' + width + 'x' + height + ' at ' + x + ',' + y + '.');
+				console.log('Drew %srectangle with dimensions %dx%d at %d,%d.', (filled ? 'filled ' : ''), width, height, x, y);
 
 				$scope.getBuffer();
 			});
@@ -156,7 +156,7 @@ oled.controller('GraphicsCtrl', ['$scope', 'AlertService', 'StateService', 'Prev
 			var endAngle = $scope.arc.endAngle;
 
 			GraphicsService.drawArc(x, y, radius, startAngle, endAngle, function(response) {
-				console.log('Drew arc from ' + startAngle + '\xB0 to ' + endAngle + '\xB0 with radius ' + radius + ' at ' + x + ',' + y + '.');
+				console.log('Drew arc from %d\xB0 to %d\xB0 with radius %d at %d,%d.', startAngle, endAngle, radius, x, y);
 
 				$scope.getBuffer();
 			});
@@ -172,7 +172,7 @@ oled.controller('GraphicsCtrl', ['$scope', 'AlertService', 'StateService', 'Prev
 			var radius = $scope.circle.radius;
 
 			GraphicsService.drawCircle(x, y, radius, function(response) {
-				console.log('Drew circle with radius ' + radius + ' at ' + x + ',' + y + '.');
+				console.log('Drew circle with radius %d at %d,%d.', radius, x, y);
 
 				$scope.getBuffer();
 			});

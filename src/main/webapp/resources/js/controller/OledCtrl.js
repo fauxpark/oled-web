@@ -138,10 +138,10 @@ oled.controller('OledCtrl', ['$scope', 'AlertService', 'StateService', 'PreviewS
 				var step = $scope.scroll.step;
 
 				OledService.startScroll(vertical, left, startPage, endPage, offset, rows, speed, step, function(response) {
-					console.log('Started scrolling pages ' + startPage + ' to ' + endPage + ' ' + (left ? 'left' : 'right') + ' at speed ' + speed + '.');
+					console.log('Started scrolling pages %d to %d %s at speed %d.', startPage, endPage, (left ? 'left' : 'right'), speed);
 
 					if(vertical) {
-						console.log('Started scrolling rows ' + offset + ' to ' + (offset + rows) + ' vertically at ' + step + ' rows per step.');
+						console.log('Started scrolling rows %d to %d vertically at %d rows per step.', offset, (offset + rows), step);
 					}
 
 					$scope.state.scrolling = response.result;
@@ -163,7 +163,7 @@ oled.controller('OledCtrl', ['$scope', 'AlertService', 'StateService', 'PreviewS
 			var contrast = parseInt($('#input-contrast').val());
 
 			OledService.setContrast(contrast, function(response) {
-				console.log('Set contrast level to ' + contrast + '.');
+				console.log('Set contrast level to %d.', contrast);
 			});
 		} else {
 			AlertService.error('shutdown', 'The display is not initialised.', 'Please press the Startup button to begin.');
@@ -175,7 +175,7 @@ oled.controller('OledCtrl', ['$scope', 'AlertService', 'StateService', 'PreviewS
 			var offset = parseInt($('#input-offset').val());
 
 			OledService.setOffset(offset, function(response) {
-				console.log('Set offset to ' + offset + '.');
+				console.log('Set offset to %d.', offset);
 			});
 		} else {
 			AlertService.error('shutdown', 'The display is not initialised.', 'Please press the Startup button to begin.');

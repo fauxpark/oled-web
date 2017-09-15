@@ -18,7 +18,7 @@ oled.controller('PreviewCtrl', ['$scope', 'StateService', 'PreviewService', 'Buf
 				var on = $('#input-pixel-on').hasClass('active');
 
 				PreviewService.setPixel(x, y, on, function(response) {
-					console.log('Turned pixel at ' + x + ',' + y + ' ' + (on ? 'on' : 'off') + '.');
+					console.log('Turned pixel at %d,%d %s.', x, y, (on ? 'on' : 'off'));
 				});
 			}
 		}
