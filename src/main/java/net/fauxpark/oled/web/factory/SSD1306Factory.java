@@ -7,12 +7,14 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.config.AbstractFactoryBean;
 
 import com.pi4j.io.gpio.RaspiPin;
+//import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.spi.SpiChannel;
 import com.pi4j.system.SystemInfo;
 import com.pi4j.system.SystemInfo.BoardType;
 
 import net.fauxpark.oled.SSD1306;
-import net.fauxpark.oled.impl.SSD1306Impl;
+import net.fauxpark.oled.impl.SSD1306SPIImpl;
+//import net.fauxpark.oled.impl.SSD1306I2CImpl;
 import net.fauxpark.oled.impl.SSD1306MockImpl;
 
 /**
@@ -43,7 +45,8 @@ public class SSD1306Factory extends AbstractFactoryBean<SSD1306> {
 			if(System.getProperty("os.name").contains("nux")) {
 				try {
 					if(SystemInfo.getBoardType() != BoardType.UNKNOWN) {
-						ssd1306 = new SSD1306Impl(128, 64, SpiChannel.CS1, RaspiPin.GPIO_15, RaspiPin.GPIO_16);
+						ssd1306 = new SSD1306SPIImpl(128, 64, SpiChannel.CS1, RaspiPin.GPIO_15, RaspiPin.GPIO_16);
+						//ssd1306 = new SSD1306I2CImpl(128, 64, RaspiPin.GPIO_15, I2CBus.BUS_1, 0x3D);
 
 						return ssd1306;
 					}
@@ -55,7 +58,7 @@ public class SSD1306Factory extends AbstractFactoryBean<SSD1306> {
 			log.warn("We don't seem to be running on a Raspberry Pi!");
 			log.warn("Providing you with a mock SSD1306 implementation.");
 
-			ssd1306 = new SSD1306MockImpl(128, 64, SpiChannel.CS1, RaspiPin.GPIO_15, RaspiPin.GPIO_16);
+			ssd1306 = new SSD1306MockImpl(128, 64);
 		}
 
 		return ssd1306;
