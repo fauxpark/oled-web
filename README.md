@@ -5,7 +5,7 @@ It is built using the Spring framework to provide the backend JSON API, and Angu
 Refer to the [oled-core readme](https://github.com/fauxpark/oled-core#readme) for more information on how to connect up your OLED display.
 
 ## Getting Started
-Set up an Apache Tomcat 8 installation on your Raspberry Pi and start it. Download the WAR file and copy it to the `webapps` directory as oled.war.
+Set up an Apache Tomcat 9 installation on your Raspberry Pi and start it. Download the WAR file and copy it to the `webapps` directory as oled.war.
 Navigate to `<your pi's address>:8080/oled` to see the results.
 
 To begin playing with the display, press the "Startup" button. From here, you can invert, scroll, set the contrast, and draw various shapes and text
