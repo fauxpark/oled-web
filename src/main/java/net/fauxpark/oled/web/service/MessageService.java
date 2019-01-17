@@ -28,6 +28,8 @@ public class MessageService {
 
 	public static final String DISPLAY_IMAGE_INVALID_DIMENSIONS = "display.image.invaliddimensions";
 
+	public static final String DISPLAY_IMAGE_SIZE_EXCEEDED = "display.image.sizeexceeded";
+
 	public static final String DISPLAY_FONT_INVALID_FONT = "display.font.invalidfont";
 
 	public static final String DISPLAY_RECTANGLE_INVALID_DIMENSIONS = "display.rectangle.invaliddimensions";

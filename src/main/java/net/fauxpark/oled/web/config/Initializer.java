@@ -1,36 +1,38 @@
 package net.fauxpark.oled.web.config;
 
 import javax.servlet.MultipartConfigElement;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
+import javax.servlet.ServletRegistration.Dynamic;
 
-import org.springframework.web.WebApplicationInitializer;
-import org.springframework.web.context.ContextLoaderListener;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class Initializer implements WebApplicationInitializer {
-	private static final String DISPLAY_NAME = "OLED Web UI";
+public class Initializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+	private static final String SERVLET_NAME = "oled";
 
-	private static final int MAX_UPLOAD_SIZE = 5424880;
+	private static final int MAX_UPLOAD_SIZE = 1 * 1024 * 1024; // 1MB
 
 	@Override
-	public void onStartup(ServletContext container) throws ServletException {
-		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-		rootContext.setDisplayName(DISPLAY_NAME);
+	protected Class<?>[] getRootConfigClasses() {
+		return new Class[] {Config.class};
+	}
 
-		container.addListener(new ContextLoaderListener(rootContext));
+	@Override
+	protected Class<?>[] getServletConfigClasses() {
+		return null;
+	}
 
-		AnnotationConfigWebApplicationContext dispatcherContext = new AnnotationConfigWebApplicationContext();
-		dispatcherContext.register(Config.class);
+	@Override
+	protected String[] getServletMappings() {
+		return new String[] {"/"};
+	}
 
-		ServletRegistration.Dynamic dispatcher = container.addServlet("oled", new DispatcherServlet(dispatcherContext));
+	@Override
+	protected String getServletName() {
+		return SERVLET_NAME;
+	}
 
-		MultipartConfigElement multiPart = new MultipartConfigElement("", MAX_UPLOAD_SIZE, MAX_UPLOAD_SIZE * 2, MAX_UPLOAD_SIZE / 2);
-		dispatcher.setMultipartConfig(multiPart);
-
-		dispatcher.setLoadOnStartup(1);
-		dispatcher.addMapping("/");
+	@Override
+	protected void customizeRegistration(Dynamic registration) {
+		MultipartConfigElement multipartConfigElement = new MultipartConfigElement("", MAX_UPLOAD_SIZE, MAX_UPLOAD_SIZE * 2, MAX_UPLOAD_SIZE / 2);
+		registration.setMultipartConfig(multipartConfigElement);
 	}
 }
