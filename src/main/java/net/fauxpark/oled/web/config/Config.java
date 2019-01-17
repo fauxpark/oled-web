@@ -2,10 +2,12 @@ package net.fauxpark.oled.web.config;
 
 import java.util.List;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
@@ -18,6 +20,7 @@ import net.fauxpark.oled.SSD1306;
 import net.fauxpark.oled.web.factory.SSD1306Factory;
 
 @ComponentScan("net.fauxpark.oled.web.controller")
+@ComponentScan("net.fauxpark.oled.web.service")
 @Configuration
 @EnableWebMvc
 @PropertySource(value="classpath:build.properties", ignoreResourceNotFound=true)
@@ -44,6 +47,14 @@ public class Config implements WebMvcConfigurer {
 	@Bean
 	public SSD1306 ssd1306() {
 		return new SSD1306Factory().createInstance();
+	}
+
+	@Bean
+	public MessageSource messageSource() {
+		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+		messageSource.setBasename("messages");
+
+		return messageSource;
 	}
 
 	@Override

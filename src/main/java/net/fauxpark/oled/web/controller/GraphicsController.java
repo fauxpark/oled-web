@@ -26,6 +26,7 @@ import net.fauxpark.oled.web.entity.request.DrawImageRequest;
 import net.fauxpark.oled.web.entity.request.DrawLineRequest;
 import net.fauxpark.oled.web.entity.request.DrawRectangleRequest;
 import net.fauxpark.oled.web.entity.request.DrawTextRequest;
+import net.fauxpark.oled.web.service.MessageService;
 
 /**
  * A controller which handles more advanced graphics-related requests to the SSD1306.
@@ -36,6 +37,9 @@ import net.fauxpark.oled.web.entity.request.DrawTextRequest;
 @RequestMapping("/graphics")
 public class GraphicsController {
 	private static final Logger log = LogManager.getLogger(ApiController.class);
+
+	@Autowired
+	private MessageService messageService;
 
 	@Autowired
 	private SSD1306 ssd1306;
@@ -79,10 +83,10 @@ public class GraphicsController {
 				ssd1306.display();
 				response.setOk(true);
 			} else {
-				response.setMessage("Invalid font specified.");
+				response.setMessage(messageService.getMessage(MessageService.DISPLAY_FONT_INVALID_FONT, request.getFont()));
 			}
 		} else {
-			response.setMessage("Display is not initialised.");
+			response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
 		}
 
 		return response;
@@ -118,10 +122,10 @@ public class GraphicsController {
 					response.setMessage(e.getMessage());
 				}
 			} else {
-				response.setMessage("Image must have a width and height of at least 1 pixel.");
+				response.setMessage(messageService.getMessage(MessageService.DISPLAY_IMAGE_INVALID_DIMENSIONS));
 			}
 		} else {
-			response.setMessage("Display is not initialised.");
+			response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
 		}
 
 		return response;
@@ -149,7 +153,7 @@ public class GraphicsController {
 			ssd1306.display();
 			response.setOk(true);
 		} else {
-			response.setMessage("Display is not initialised.");
+			response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
 		}
 
 		return response;
@@ -179,10 +183,10 @@ public class GraphicsController {
 				ssd1306.display();
 				response.setOk(true);
 			} else {
-				response.setMessage("Rectangle must have a width and height of at least 1 pixel.");
+				response.setMessage(messageService.getMessage(MessageService.DISPLAY_RECTANGLE_INVALID_DIMENSIONS));
 			}
 		} else {
-			response.setMessage("Display is not initialised.");
+			response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
 		}
 
 		return response;
@@ -212,10 +216,10 @@ public class GraphicsController {
 				ssd1306.display();
 				response.setOk(true);
 			} else {
-				response.setMessage("Arc must have a non-negative radius.");
+				response.setMessage(messageService.getMessage(MessageService.DISPLAY_ARC_INVALID_RADIUS));
 			}
 		} else {
-			response.setMessage("Display is not initialised.");
+			response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
 		}
 
 		return response;
@@ -243,10 +247,10 @@ public class GraphicsController {
 				ssd1306.display();
 				response.setOk(true);
 			} else {
-				response.setMessage("Circle must have a non-negative radius.");
+				response.setMessage(messageService.getMessage(MessageService.DISPLAY_CIRCLE_INVALID_RADIUS));
 			}
 		} else {
-			response.setMessage("Display is not initialised.");
+			response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
 		}
 
 		return response;

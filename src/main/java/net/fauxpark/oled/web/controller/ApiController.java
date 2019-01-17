@@ -17,6 +17,7 @@ import net.fauxpark.oled.web.entity.request.ScrollRequest;
 import net.fauxpark.oled.web.entity.request.SetContrastRequest;
 import net.fauxpark.oled.web.entity.request.SetOffsetRequest;
 import net.fauxpark.oled.web.entity.request.SetPixelRequest;
+import net.fauxpark.oled.web.service.MessageService;
 
 /**
  * A controller which handles all of the API calls to interact with the SSD1306.
@@ -27,6 +28,9 @@ import net.fauxpark.oled.web.entity.request.SetPixelRequest;
 @RequestMapping("/api")
 public class ApiController {
 	private static final Logger log = LogManager.getLogger(ApiController.class);
+
+	@Autowired
+	private MessageService messageService;
 
 	@Autowired
 	private SSD1306 ssd1306;
@@ -63,7 +67,7 @@ public class ApiController {
 			response.setOk(true);
 			response.setResult(new DisplayState(ssd1306));
 		} else {
-			response.setMessage("Display is already initialised.");
+			response.setMessage(messageService.getMessage(MessageService.DISPLAY_ALREADY_INITIALISED));
 		}
 
 		return response;
@@ -85,7 +89,7 @@ public class ApiController {
 			response.setOk(true);
 			response.setResult(new DisplayState(ssd1306));
 		} else {
-			response.setMessage("Display has not been initialised.");
+			response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
 		}
 
 		return response;
@@ -107,7 +111,7 @@ public class ApiController {
 			response.setOk(true);
 			response.setResult(ssd1306.isDisplayOn());
 		} else {
-			response.setMessage("Display has not been initialised.");
+			response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
 		}
 
 		return response;
@@ -129,7 +133,7 @@ public class ApiController {
 			response.setOk(true);
 			response.setResult(ssd1306.isDisplayOn());
 		} else {
-			response.setMessage("Display has not been initialised.");
+			response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
 		}
 
 		return response;
@@ -151,7 +155,7 @@ public class ApiController {
 			ssd1306.display();
 			response.setOk(true);
 		} else {
-			response.setMessage("Display has not been initialised.");
+			response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
 		}
 
 		return response;
@@ -173,7 +177,7 @@ public class ApiController {
 			response.setOk(true);
 			response.setResult(ssd1306.isInverted());
 		} else {
-			response.setMessage("Display is not initialised.");
+			response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
 		}
 
 		return response;
@@ -203,10 +207,10 @@ public class ApiController {
 				response.setOk(true);
 				response.setResult(ssd1306.isVFlipped());
 			} else {
-				response.setMessage("Invalid flip axis specified.");
+				response.setMessage(messageService.getMessage(MessageService.DISPLAY_FLIP_INVALID_AXIS, request.getAxis()));
 			}
 		} else {
-			response.setMessage("Display is not initialised.");
+			response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
 		}
 
 		return response;
@@ -232,10 +236,10 @@ public class ApiController {
 				response.setOk(true);
 				response.setResult(ssd1306.getContrast());
 			} else {
-				response.setMessage("Invalid contrast level specified.");
+				response.setMessage(messageService.getMessage(MessageService.DISPLAY_CONTRAST_INVALID_LEVEL, request.getContrast()));
 			}
 		} else {
-			response.setMessage("Display is not initialised.");
+			response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
 		}
 
 		return response;
@@ -261,10 +265,10 @@ public class ApiController {
 				response.setOk(true);
 				response.setResult(ssd1306.getOffset());
 			} else {
-				response.setMessage("Invalid offset specified.");
+				response.setMessage(messageService.getMessage(MessageService.DISPLAY_OFFSET_INVALID_OFFSET, request.getOffset()));
 			}
 		} else {
-			response.setMessage("Display is not initialised.");
+			response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
 		}
 
 		return response;
@@ -293,10 +297,10 @@ public class ApiController {
 				response.setOk(true);
 				response.setResult(ssd1306.getPixel(request.getX(), request.getY()));
 			} else {
-				response.setMessage("Invalid pixel location specified.");
+				response.setMessage(messageService.getMessage(MessageService.DISPLAY_PIXEL_INVALID_COORDINATES, request.getX(), request.getY()));
 			}
 		} else {
-			response.setMessage("Display is not initialised.");
+			response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
 		}
 
 		return response;
@@ -319,7 +323,7 @@ public class ApiController {
 			response.setOk(true);
 			response.setResult(buffer);
 		} else {
-			response.setMessage("Display is not initialised.");
+			response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
 		}
 
 		return response;
@@ -345,10 +349,10 @@ public class ApiController {
 				ssd1306.setBuffer(buffer.getBufferAsBytes());
 				ssd1306.display();
 			} else {
-				response.setMessage("Display buffer size must match existing size.");
+				response.setMessage(messageService.getMessage(MessageService.DISPLAY_BUFFER_SIZE_MISMATCH, buffer.getBuffer().length, ssd1306.getBuffer().length));
 			}
 		} else {
-			response.setMessage("Display is not initialised.");
+			response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
 		}
 
 		return response;
@@ -387,10 +391,10 @@ public class ApiController {
 				response.setOk(true);
 				response.setResult(ssd1306.isScrolling());
 			} else {
-				response.setMessage("Display is already scrolling.");
+				response.setMessage(messageService.getMessage(MessageService.DISPLAY_SCROLL_ALREADY_ACTIVE));
 			}
 		} else {
-			response.setMessage("Display is not initialised.");
+			response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
 		}
 
 		return response;
@@ -414,10 +418,10 @@ public class ApiController {
 				response.setOk(true);
 				response.setResult(ssd1306.isScrolling());
 			} else {
-				response.setMessage("Display is not scrolling.");
+				response.setMessage(messageService.getMessage(MessageService.DISPLAY_SCROLL_NOT_ACTIVE));
 			}
 		} else {
-			response.setMessage("Display is not initialised.");
+			response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
 		}
 
 		return response;
