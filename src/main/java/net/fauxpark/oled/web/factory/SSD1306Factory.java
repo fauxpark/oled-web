@@ -13,9 +13,10 @@ import com.pi4j.system.SystemInfo;
 import com.pi4j.system.SystemInfo.BoardType;
 
 import net.fauxpark.oled.SSD1306;
-import net.fauxpark.oled.impl.SSD1306SPIImpl;
-//import net.fauxpark.oled.impl.SSD1306I2CImpl;
-import net.fauxpark.oled.impl.SSD1306MockImpl;
+import net.fauxpark.oled.transport.MockTransport;
+//import net.fauxpark.oled.transport.I2CTransport;
+import net.fauxpark.oled.transport.SPITransport;
+import net.fauxpark.oled.transport.Transport;
 
 /**
  * A factory which determines whether the webapp is running on a Raspberry Pi,
@@ -32,33 +33,28 @@ public class SSD1306Factory extends AbstractFactoryBean<SSD1306> {
 	private static SSD1306 ssd1306;
 
 	/**
-	 * Creates and returns an SSD1306 implementation.
+	 * Creates and returns an SSD1306 instance.
 	 *
-	 * If one already exists, it is simply returned. If not, then either a dummy implementation
-	 * which does not call Pi4J, or a fully-functioning implementation is created and returned.
+	 * If we are running on a platform other than the Raspberry Pi, the SSD1306 instance is supplied with a mock {@link Transport}.
 	 *
 	 * @return An SSD1306 instance.
 	 */
 	@Override
 	public SSD1306 createInstance() {
 		if(ssd1306 == null) {
-			if(System.getProperty("os.name").contains("nux")) {
-				try {
-					if(SystemInfo.getBoardType() != BoardType.UNKNOWN) {
-						ssd1306 = new SSD1306SPIImpl(128, 64, SpiChannel.CS1, RaspiPin.GPIO_15, RaspiPin.GPIO_16);
-						//ssd1306 = new SSD1306I2CImpl(128, 64, RaspiPin.GPIO_15, I2CBus.BUS_1, 0x3D);
+			Transport transport;
 
-						return ssd1306;
-					}
-				} catch(IOException | InterruptedException e) {
-					e.printStackTrace();
-				}
+			if(isRaspberryPi()) {
+				transport = new SPITransport(SpiChannel.CS1, RaspiPin.GPIO_15, RaspiPin.GPIO_16);
+				//transport = new I2CTransport(RaspiPin.GPIO_15, I2CBus.BUS_1, 0x3D);
+			} else {
+				log.warn("We don't seem to be running on a Raspberry Pi!");
+				log.warn("Providing you with a mock SSD1306 implementation.");
+
+				transport = new MockTransport();
 			}
 
-			log.warn("We don't seem to be running on a Raspberry Pi!");
-			log.warn("Providing you with a mock SSD1306 implementation.");
-
-			ssd1306 = new SSD1306MockImpl(128, 64);
+			ssd1306 = new SSD1306(128, 64, transport);
 		}
 
 		return ssd1306;
@@ -67,5 +63,19 @@ public class SSD1306Factory extends AbstractFactoryBean<SSD1306> {
 	@Override
 	public Class<?> getObjectType() {
 		return ssd1306 != null ? ssd1306.getClass() : null;
+	}
+
+	private boolean isRaspberryPi() {
+		if(System.getProperty("os.name").contains("nux")) {
+			try {
+				if(SystemInfo.getBoardType() != BoardType.UNKNOWN) {
+					return true;
+				}
+			} catch(IOException | InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return false;
 	}
 }
