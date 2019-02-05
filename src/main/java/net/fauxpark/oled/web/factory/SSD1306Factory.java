@@ -28,11 +28,6 @@ public class SSD1306Factory extends AbstractFactoryBean<SSD1306> {
 	private static final Logger log = LogManager.getLogger(SSD1306Factory.class);
 
 	/**
-	 * The internal SSD1306 instance.
-	 */
-	private static SSD1306 ssd1306;
-
-	/**
 	 * Creates and returns an SSD1306 instance.
 	 *
 	 * If we are running on a platform other than the Raspberry Pi, the SSD1306 instance is supplied with a mock {@link Transport}.
@@ -40,29 +35,25 @@ public class SSD1306Factory extends AbstractFactoryBean<SSD1306> {
 	 * @return An SSD1306 instance.
 	 */
 	@Override
-	public SSD1306 createInstance() {
-		if(ssd1306 == null) {
-			Transport transport;
+	protected SSD1306 createInstance() {
+		Transport transport;
 
-			if(isRaspberryPi()) {
-				transport = new SPITransport(SpiChannel.CS1, RaspiPin.GPIO_15, RaspiPin.GPIO_16);
-				//transport = new I2CTransport(RaspiPin.GPIO_15, I2CBus.BUS_1, 0x3D);
-			} else {
-				log.warn("We don't seem to be running on a Raspberry Pi!");
-				log.warn("Providing you with a mock SSD1306 implementation.");
+		if(isRaspberryPi()) {
+			transport = new SPITransport(SpiChannel.CS1, RaspiPin.GPIO_15, RaspiPin.GPIO_16);
+			//transport = new I2CTransport(RaspiPin.GPIO_15, I2CBus.BUS_1, 0x3D);
+		} else {
+			log.warn("We don't seem to be running on a Raspberry Pi!");
+			log.warn("Providing you with a mock SSD1306 implementation.");
 
-				transport = new MockTransport();
-			}
-
-			ssd1306 = new SSD1306(128, 64, transport);
+			transport = new MockTransport();
 		}
 
-		return ssd1306;
+		return new SSD1306(128, 64, transport);
 	}
 
 	@Override
 	public Class<?> getObjectType() {
-		return ssd1306 != null ? ssd1306.getClass() : null;
+		return SSD1306.class;
 	}
 
 	private boolean isRaspberryPi() {

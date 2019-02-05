@@ -44,9 +44,17 @@ public class Config implements WebMvcConfigurer {
 		return new StandardServletMultipartResolver();
 	}
 
+	@Bean(name="ssd1306")
+	public SSD1306Factory ssd1306Factory() throws Exception {
+		SSD1306Factory factory = new SSD1306Factory();
+		factory.afterPropertiesSet();
+
+		return factory;
+	}
+
 	@Bean
-	public SSD1306 ssd1306() {
-		return new SSD1306Factory().createInstance();
+	public SSD1306 ssd1306() throws Exception {
+		return ssd1306Factory().getObject();
 	}
 
 	@Bean
