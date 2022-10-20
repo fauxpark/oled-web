@@ -1,7 +1,7 @@
 package net.fauxpark.oled.web.controller;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 @RequestMapping
 public class MainController {
-	private static final Logger log = LogManager.getLogger(MainController.class);
+	private static final Logger log = LoggerFactory.getLogger(MainController.class);
 
 	@Value("${build.version}")
 	private String buildVersion;
