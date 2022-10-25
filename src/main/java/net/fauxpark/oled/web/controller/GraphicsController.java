@@ -7,11 +7,7 @@ import javax.imageio.ImageIO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import net.fauxpark.oled.SSD1306;
@@ -51,7 +47,7 @@ public class GraphicsController {
 	 *
 	 * @return An empty JSON response.
 	 */
-	@RequestMapping(path="/text", method=RequestMethod.POST)
+	@PostMapping("/text")
 	public JsonResponse<Void> drawText(@RequestBody DrawTextRequest request) {
 		log.info("======== drawText");
 		log.info("request.getX()={}", request.getX());
@@ -100,7 +96,7 @@ public class GraphicsController {
 	 *
 	 * @return An empty JSON response.
 	 */
-	@RequestMapping(path="/image", method=RequestMethod.POST)
+	@PostMapping("/image")
 	public JsonResponse<Void> drawImage(@RequestPart("request") DrawImageRequest request, @RequestPart("file") MultipartFile file) {
 		log.info("======== drawImage");
 		log.info("request.getX()={}", request.getX());
@@ -138,7 +134,7 @@ public class GraphicsController {
 	 *
 	 * @return An empty JSON response.
 	 */
-	@RequestMapping(path="/line", method=RequestMethod.POST)
+	@PostMapping("/line")
 	public JsonResponse<Void> drawLine(@RequestBody DrawLineRequest request) {
 		log.info("======== drawLine");
 		log.info("request.getX0()={}", request.getX0());
@@ -166,7 +162,7 @@ public class GraphicsController {
 	 *
 	 * @return An empty JSON response.
 	 */
-	@RequestMapping(path="/rectangle", method=RequestMethod.POST)
+	@PostMapping("/rectangle")
 	public JsonResponse<Void> drawRectangle(@RequestBody DrawRectangleRequest request) {
 		log.info("======== drawRectangle");
 		log.info("request.getX()={}", request.getX());
@@ -199,7 +195,7 @@ public class GraphicsController {
 	 *
 	 * @return An empty JSON response.
 	 */
-	@RequestMapping(path="/arc", method=RequestMethod.POST)
+	@PostMapping("/arc")
 	public JsonResponse<Void> drawArc(@RequestBody DrawArcRequest request) {
 		log.info("======== drawArc");
 		log.info("request.getX()={}", request.getX());
@@ -232,7 +228,7 @@ public class GraphicsController {
 	 *
 	 * @return An empty JSON response.
 	 */
-	@RequestMapping(path="/circle", method=RequestMethod.POST)
+	@PostMapping("/circle")
 	public JsonResponse<Void> drawCircle(@RequestBody DrawCircleRequest request) {
 		log.info("======== drawCircle");
 		log.info("request.getX()={}", request.getX());

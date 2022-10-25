@@ -3,9 +3,8 @@ package net.fauxpark.oled.web.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -13,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @author fauxpark
  */
-@RestController
+@Controller
 @RequestMapping
 public class MainController {
 	private static final Logger log = LoggerFactory.getLogger(MainController.class);
@@ -27,7 +26,7 @@ public class MainController {
 	/**
 	 * Show the index page.
 	 */
-	@RequestMapping(method=RequestMethod.GET)
+	@GetMapping
 	public ModelAndView index() {
 		log.info("======== index");
 
