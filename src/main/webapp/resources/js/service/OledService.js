@@ -1,7 +1,7 @@
 /**
  * A service for controlling the display.
  */
-oled.service('OledService', ['ApiService', function(ApiService) {
+oled.service('OledService', ['ApiV1Service', function(ApiV1Service) {
 	return {
 		/**
 		 * Retrieve the display state.
@@ -9,7 +9,7 @@ oled.service('OledService', ['ApiService', function(ApiService) {
 		 * @param {Function} callback A callback to pass the response object onto.
 		 */
 		getState: function(callback) {
-			ApiService.get('api/state', callback);
+			ApiV1Service.get('state', callback);
 		},
 		/**
 		 * Start up the display.
@@ -17,7 +17,7 @@ oled.service('OledService', ['ApiService', function(ApiService) {
 		 * @param {Function} callback A callback to pass the response object onto.
 		 */
 		startup: function(callback) {
-			ApiService.post('api/startup', null, callback);
+			ApiV1Service.post('startup', null, callback);
 		},
 		/**
 		 * Shut down the display.
@@ -25,7 +25,7 @@ oled.service('OledService', ['ApiService', function(ApiService) {
 		 * @param {Function} callback A callback to pass the response object onto.
 		 */
 		shutdown: function(callback) {
-			ApiService.post('api/shutdown', null, callback);
+			ApiV1Service.post('shutdown', null, callback);
 		},
 		/**
 		 * Turn the display on.
@@ -33,7 +33,7 @@ oled.service('OledService', ['ApiService', function(ApiService) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		displayOn: function(callback) {
-			ApiService.post('api/on', null, callback);
+			ApiV1Service.post('on', null, callback);
 		},
 		/**
 		 * Turn the display off.
@@ -41,7 +41,7 @@ oled.service('OledService', ['ApiService', function(ApiService) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		displayOff: function(callback) {
-			ApiService.post('api/off', null, callback);
+			ApiV1Service.post('off', null, callback);
 		},
 		/**
 		 * Invert the display.
@@ -49,7 +49,7 @@ oled.service('OledService', ['ApiService', function(ApiService) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		invert: function(callback) {
-			ApiService.post('api/invert', null, callback);
+			ApiV1Service.post('invert', null, callback);
 		},
 		/**
 		 * Flip the display horizontally or vertically.
@@ -58,7 +58,7 @@ oled.service('OledService', ['ApiService', function(ApiService) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		flip: function(axis, callback) {
-			ApiService.post('api/flip', {
+			ApiV1Service.post('flip', {
 				axis: axis
 			}, callback);
 		},
@@ -76,7 +76,7 @@ oled.service('OledService', ['ApiService', function(ApiService) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		startScroll: function(vertical, direction, startPage, endPage, offset, rows, speed, step, callback) {
-			ApiService.post('api/scroll/start', {
+			ApiV1Service.post('scroll/start', {
 				vertical: vertical,
 				left: direction,
 				startPage: startPage,
@@ -93,7 +93,7 @@ oled.service('OledService', ['ApiService', function(ApiService) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		stopScroll: function(callback) {
-			ApiService.post('api/scroll/stop', null, callback);
+			ApiV1Service.post('scroll/stop', null, callback);
 		},
 		/**
 		 * Set the contrast level.
@@ -102,7 +102,7 @@ oled.service('OledService', ['ApiService', function(ApiService) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		setContrast: function(contrast, callback) {
-			ApiService.post('api/contrast', {
+			ApiV1Service.post('contrast', {
 				contrast: contrast
 			}, callback);
 		},
@@ -113,7 +113,7 @@ oled.service('OledService', ['ApiService', function(ApiService) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		setOffset: function(offset, callback) {
-			ApiService.post('api/offset', {
+			ApiV1Service.post('offset', {
 				offset: offset
 			}, callback);
 		}

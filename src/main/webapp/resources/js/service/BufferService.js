@@ -1,7 +1,7 @@
 /**
  * A service for accessing the display buffer contents.
  */
-oled.service('BufferService', ['ApiService', function(ApiService) {
+oled.service('BufferService', ['ApiV1Service', function(ApiV1Service) {
 	return {
 		/**
 		 * Retrieve the display buffer.
@@ -9,7 +9,7 @@ oled.service('BufferService', ['ApiService', function(ApiService) {
 		 * @param {Function} callback A callback to pass the response object onto.
 		 */
 		getBuffer: function(callback) {
-			ApiService.get('api/buffer', callback);
+			ApiV1Service.get('buffer', callback);
 		},
 		/**
 		 * Set the display buffer.
@@ -18,7 +18,7 @@ oled.service('BufferService', ['ApiService', function(ApiService) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		setBuffer: function(buffer, callback) {
-			ApiService.post('api/buffer', buffer, callback);
+			ApiV1Service.post('buffer', buffer, callback);
 		},
 		/**
 		 * Clear the display.
@@ -26,7 +26,7 @@ oled.service('BufferService', ['ApiService', function(ApiService) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		clear: function(callback) {
-			ApiService.post('api/clear', null, callback);
+			ApiV1Service.post('clear', null, callback);
 		},
 		/**
 		 * Turn a single pixel on or off.
@@ -37,7 +37,7 @@ oled.service('BufferService', ['ApiService', function(ApiService) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		setPixel: function(x, y, on, callback) {
-			ApiService.post('api/pixel', {
+			ApiV1Service.post('pixel', {
 				x: x,
 				y: y,
 				on: on

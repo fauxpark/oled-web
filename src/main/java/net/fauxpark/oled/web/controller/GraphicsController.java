@@ -34,7 +34,7 @@ import net.fauxpark.oled.web.service.MessageService;
  * @author fauxpark
  */
 @RestController
-@RequestMapping("/graphics")
+@RequestMapping("/api/v1/graphics")
 public class GraphicsController {
 	private static final Logger log = LoggerFactory.getLogger(ApiController.class);
 

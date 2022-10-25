@@ -1,7 +1,7 @@
 /**
  * A service for drawing graphics onto the display.
  */
-oled.service('GraphicsService', ['ApiService', function(ApiService) {
+oled.service('GraphicsService', ['ApiV1Service', function(ApiV1Service) {
 	return {
 		/**
 		 * Draw text on the display.
@@ -13,7 +13,7 @@ oled.service('GraphicsService', ['ApiService', function(ApiService) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		drawText: function(x, y, text, font, callback) {
-			ApiService.post('graphics/text', {
+			ApiV1Service.post('graphics/text', {
 				x: x,
 				y: y,
 				text: text,
@@ -27,7 +27,7 @@ oled.service('GraphicsService', ['ApiService', function(ApiService) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		drawImage: function(formData, callback) {
-			ApiService.postImage('graphics/image', formData, callback);
+			ApiV1Service.postImage('graphics/image', formData, callback);
 		},
 		/**
 		 * Draw a line on the display.
@@ -39,7 +39,7 @@ oled.service('GraphicsService', ['ApiService', function(ApiService) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		drawLine: function(x0, y0, x1, y1, callback) {
-			ApiService.post('graphics/line', {
+			ApiV1Service.post('graphics/line', {
 				x0: x0,
 				y0: y0,
 				x1: x1,
@@ -57,7 +57,7 @@ oled.service('GraphicsService', ['ApiService', function(ApiService) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		drawRectangle: function(x, y, width, height, filled, callback) {
-			ApiService.post('graphics/rectangle', {
+			ApiV1Service.post('graphics/rectangle', {
 				x: x,
 				y: y,
 				width: width,
@@ -76,7 +76,7 @@ oled.service('GraphicsService', ['ApiService', function(ApiService) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		drawArc: function(x, y, radius, startAngle, endAngle, callback) {
-			ApiService.post('graphics/arc', {
+			ApiV1Service.post('graphics/arc', {
 				x: x,
 				y: y,
 				radius: radius,
@@ -93,7 +93,7 @@ oled.service('GraphicsService', ['ApiService', function(ApiService) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		drawCircle: function(x, y, radius, callback) {
-			ApiService.post('graphics/circle', {
+			ApiV1Service.post('graphics/circle', {
 				x: x,
 				y: y,
 				radius: radius
@@ -106,7 +106,7 @@ oled.service('GraphicsService', ['ApiService', function(ApiService) {
 		 * @param {Function} [callback] A callback to pass the response object onto.
 		 */
 		getCharset: function(name, callback) {
-			ApiService.getCharset(name, callback);
+			ApiV1Service.getCharset(name, callback);
 		}
 	};
 }]);

@@ -25,7 +25,7 @@ import net.fauxpark.oled.web.service.MessageService;
  * @author fauxpark
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class ApiController {
 	private static final Logger log = LoggerFactory.getLogger(ApiController.class);
 
