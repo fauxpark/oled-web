@@ -3,11 +3,13 @@ package net.fauxpark.oled.web.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import net.fauxpark.oled.SSD1306;
 import net.fauxpark.oled.web.entity.DisplayBuffer;
 import net.fauxpark.oled.web.entity.DisplayState;
+import net.fauxpark.oled.web.entity.HealthCheck;
 import net.fauxpark.oled.web.entity.JsonResponse;
 import net.fauxpark.oled.web.entity.request.FlipRequest;
 import net.fauxpark.oled.web.entity.request.ScrollRequest;
@@ -31,6 +33,27 @@ public class ApiController {
 
     @Autowired
     private SSD1306 ssd1306;
+
+    @Value("${build.version}")
+    private String buildVersion;
+
+    @Value("${build.sha}")
+    private String buildSha;
+
+    /** API Healthcheck.
+     *
+     * @return A JSON response containing the API status and version.
+     */
+    @GetMapping
+    public HealthCheck healthCheck() {
+        log.info("======= healthCheck");
+
+        HealthCheck response = new HealthCheck();
+        response.setStatus("running");
+        response.setVersion(buildVersion + "-" + buildSha);
+
+        return response;
+    }
 
     /**
      * Get the display state.
