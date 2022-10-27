@@ -6,21 +6,21 @@ package net.fauxpark.oled.web.entity.request;
  * @author fauxpark
  */
 public class FlipRequest {
-	/**
-	 * The axis to flip on.
-	 */
-	private String axis;
+    /**
+     * The axis to flip on.
+     */
+    private String axis;
 
-	public String getAxis() {
-		return axis;
-	}
+    public String getAxis() {
+        return axis;
+    }
 
-	public void setAxis(String axis) {
-		this.axis = axis;
-	}
+    public void setAxis(String axis) {
+        this.axis = axis;
+    }
 
-	@Override
-	public String toString() {
-		return "FlipRequest [axis=" + axis + "]";
-	}
+    @Override
+    public String toString() {
+        return "FlipRequest [axis=" + axis + "]";
+    }
 }

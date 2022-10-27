@@ -10,12 +10,12 @@ import net.fauxpark.oled.web.factory.SSD1306Factory;
 @SpringBootApplication
 @PropertySource(value="classpath:build.properties", ignoreResourceNotFound=true)
 public class OledApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(OledApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(OledApplication.class, args);
+    }
 
-	@Bean
-	public SSD1306Factory ssd1306Factory() {
-		return new SSD1306Factory();
-	}
+    @Bean
+    public SSD1306Factory ssd1306Factory() {
+        return new SSD1306Factory();
+    }
 }

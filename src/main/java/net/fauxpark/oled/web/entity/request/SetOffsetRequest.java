@@ -6,21 +6,21 @@ package net.fauxpark.oled.web.entity.request;
  * @author fauxpark
  */
 public class SetOffsetRequest {
-	/**
-	 * The offset to set.
-	 */
-	private int offset;
+    /**
+     * The offset to set.
+     */
+    private int offset;
 
-	public int getOffset() {
-		return offset;
-	}
+    public int getOffset() {
+        return offset;
+    }
 
-	public void setOffset(int offset) {
-		this.offset = offset;
-	}
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
 
-	@Override
-	public String toString() {
-		return "SetOffsetRequest [offset=" + offset + "]";
-	}
+    @Override
+    public String toString() {
+        return "SetOffsetRequest [offset=" + offset + "]";
+    }
 }

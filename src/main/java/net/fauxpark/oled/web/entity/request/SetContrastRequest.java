@@ -6,21 +6,21 @@ package net.fauxpark.oled.web.entity.request;
  * @author fauxpark
  */
 public class SetContrastRequest {
-	/**
-	 * The contrast level to set.
-	 */
-	private int contrast;
+    /**
+     * The contrast level to set.
+     */
+    private int contrast;
 
-	public int getContrast() {
-		return contrast;
-	}
+    public int getContrast() {
+        return contrast;
+    }
 
-	public void setContrast(int contrast) {
-		this.contrast = contrast;
-	}
+    public void setContrast(int contrast) {
+        this.contrast = contrast;
+    }
 
-	@Override
-	public String toString() {
-		return "SetContrastRequest [contrast=" + contrast + "]";
-	}
+    @Override
+    public String toString() {
+        return "SetContrastRequest [contrast=" + contrast + "]";
+    }
 }

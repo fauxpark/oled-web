@@ -15,25 +15,25 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping
 public class MainController {
-	private static final Logger log = LoggerFactory.getLogger(MainController.class);
+    private static final Logger log = LoggerFactory.getLogger(MainController.class);
 
-	@Value("${build.version}")
-	private String buildVersion;
+    @Value("${build.version}")
+    private String buildVersion;
 
-	@Value("${build.sha}")
-	private String buildSha;
+    @Value("${build.sha}")
+    private String buildSha;
 
-	/**
-	 * Show the index page.
-	 */
-	@GetMapping
-	public ModelAndView index() {
-		log.info("======== index");
+    /**
+     * Show the index page.
+     */
+    @GetMapping
+    public ModelAndView index() {
+        log.info("======== index");
 
-		ModelAndView mav = new ModelAndView("index");
-		mav.addObject("buildVersion", buildVersion);
-		mav.addObject("buildSha", buildSha);
+        ModelAndView mav = new ModelAndView("index");
+        mav.addObject("buildVersion", buildVersion);
+        mav.addObject("buildSha", buildSha);
 
-		return mav;
-	}
+        return mav;
+    }
 }

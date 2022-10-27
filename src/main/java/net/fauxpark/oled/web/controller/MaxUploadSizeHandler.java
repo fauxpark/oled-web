@@ -13,19 +13,19 @@ import net.fauxpark.oled.web.service.MessageService;
 
 @ControllerAdvice
 public class MaxUploadSizeHandler {
-	private static final Logger log = LoggerFactory.getLogger(ApiController.class);
+    private static final Logger log = LoggerFactory.getLogger(ApiController.class);
 
-	@Autowired
-	private MessageService messageService;
+    @Autowired
+    private MessageService messageService;
 
-	@ExceptionHandler(MaxUploadSizeExceededException.class)
-	@ResponseBody
-	public JsonResponse<Void> handleMaxSizeException(MaxUploadSizeExceededException ex) {
-		log.info("======== handleMaxSizeException");
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    @ResponseBody
+    public JsonResponse<Void> handleMaxSizeException(MaxUploadSizeExceededException ex) {
+        log.info("======== handleMaxSizeException");
 
-		JsonResponse<Void> response = new JsonResponse<>();
-		response.setMessage(messageService.getMessage(MessageService.DISPLAY_IMAGE_SIZE_EXCEEDED));
+        JsonResponse<Void> response = new JsonResponse<>();
+        response.setMessage(messageService.getMessage(MessageService.DISPLAY_IMAGE_SIZE_EXCEEDED));
 
-		return response;
-	}
+        return response;
+    }
 }
