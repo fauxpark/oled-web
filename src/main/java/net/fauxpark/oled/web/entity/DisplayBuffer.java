@@ -28,12 +28,14 @@ public class DisplayBuffer {
      */
     private int[] buffer;
 
-    public DisplayBuffer() {}
-
-    public DisplayBuffer(int width, int height, int[] buffer) {
+    private DisplayBuffer(int width, int height, int[] buffer) {
         this.width = width;
         this.height = height;
         this.buffer = buffer;
+    }
+
+    public static DisplayBuffer from(int width, int height, int[] buffer) {
+        return new DisplayBuffer(width, height, buffer);
     }
 
     public int getWidth() {

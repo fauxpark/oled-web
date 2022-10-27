@@ -68,7 +68,7 @@ public class ApiController {
 
         JsonResponse<DisplayState> response = new JsonResponse<>();
         response.setOk(true);
-        response.setResult(new DisplayState(ssd1306));
+        response.setResult(DisplayState.from(ssd1306));
 
         return response;
     }
@@ -87,7 +87,7 @@ public class ApiController {
         if(!ssd1306.isInitialised()) {
             ssd1306.startup(false);
             response.setOk(true);
-            response.setResult(new DisplayState(ssd1306));
+            response.setResult(DisplayState.from(ssd1306));
         } else {
             response.setMessage(messageService.getMessage(MessageService.DISPLAY_ALREADY_INITIALISED));
         }
@@ -109,7 +109,7 @@ public class ApiController {
         if(ssd1306.isInitialised()) {
             ssd1306.shutdown();
             response.setOk(true);
-            response.setResult(new DisplayState(ssd1306));
+            response.setResult(DisplayState.from(ssd1306));
         } else {
             response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
         }
@@ -340,7 +340,7 @@ public class ApiController {
         JsonResponse<DisplayBuffer> response = new JsonResponse<>();
 
         if(ssd1306.isInitialised()) {
-            DisplayBuffer buffer = new DisplayBuffer(ssd1306.getWidth(), ssd1306.getHeight(), null);
+            DisplayBuffer buffer = DisplayBuffer.from(ssd1306.getWidth(), ssd1306.getHeight(), null);
             buffer.setBufferAsBytes(ssd1306.getBuffer());
             response.setOk(true);
             response.setResult(buffer);

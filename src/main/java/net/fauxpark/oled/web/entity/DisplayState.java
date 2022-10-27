@@ -58,9 +58,7 @@ public class DisplayState {
      */
     private int offset;
 
-    public DisplayState() {}
-
-    public DisplayState(SSD1306 ssd1306) {
+    private DisplayState(SSD1306 ssd1306) {
         width = ssd1306.getWidth();
         height = ssd1306.getHeight();
         initialised = ssd1306.isInitialised();
@@ -71,6 +69,10 @@ public class DisplayState {
         scrolling = ssd1306.isScrolling();
         contrast = ssd1306.getContrast();
         offset = ssd1306.getOffset();
+    }
+
+    public static DisplayState from(SSD1306 ssd1306) {
+        return new DisplayState(ssd1306);
     }
 
     public int getWidth() {
