@@ -2,7 +2,6 @@ package net.fauxpark.oled.web.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,17 +27,20 @@ import net.fauxpark.oled.web.service.MessageService;
 public class ApiController {
     private static final Logger log = LoggerFactory.getLogger(ApiController.class);
 
-    @Autowired
-    private MessageService messageService;
+    private final MessageService messageService;
 
-    @Autowired
-    private SSD1306 ssd1306;
+    private final SSD1306 ssd1306;
 
     @Value("${build.version}")
     private String buildVersion;
 
     @Value("${build.sha}")
     private String buildSha;
+
+    public ApiController(MessageService messageService, SSD1306 ssd1306) {
+        this.messageService = messageService;
+        this.ssd1306 = ssd1306;
+    }
 
     /** API Healthcheck.
      *

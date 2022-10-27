@@ -2,7 +2,6 @@ package net.fauxpark.oled.web.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,12 +14,15 @@ import net.fauxpark.oled.web.service.MessageService;
 public class MaxUploadSizeHandler {
     private static final Logger log = LoggerFactory.getLogger(ApiController.class);
 
-    @Autowired
-    private MessageService messageService;
+    private final MessageService messageService;
+
+    public MaxUploadSizeHandler(MessageService messageService) {
+        this.messageService = messageService;
+    }
 
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     @ResponseBody
-    public JsonResponse<Void> handleMaxSizeException(MaxUploadSizeExceededException ex) {
+    public JsonResponse<Void> handleMaxSizeException(MaxUploadSizeExceededException ignoredEx) {
         log.info("======== handleMaxSizeException");
 
         JsonResponse<Void> response = new JsonResponse<>();
