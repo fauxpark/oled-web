@@ -1,7 +1,8 @@
 package net.fauxpark.oled.web.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,9 +25,9 @@ import net.fauxpark.oled.web.service.MessageService;
  */
 @RestController
 @RequestMapping("/api/v1")
+@RequiredArgsConstructor
+@Slf4j
 public class ApiController {
-    private static final Logger log = LoggerFactory.getLogger(ApiController.class);
-
     private final MessageService messageService;
 
     private final SSD1306 ssd1306;
@@ -37,11 +38,6 @@ public class ApiController {
     @Value("${build.sha}")
     private String buildSha;
 
-    public ApiController(MessageService messageService, SSD1306 ssd1306) {
-        this.messageService = messageService;
-        this.ssd1306 = ssd1306;
-    }
-
     /** API Healthcheck.
      *
      * @return A JSON response containing the API status and version.
@@ -50,11 +46,10 @@ public class ApiController {
     public HealthCheck healthCheck() {
         log.info("======= healthCheck");
 
-        HealthCheck response = new HealthCheck();
-        response.setStatus("running");
-        response.setVersion(buildVersion + "-" + buildSha);
-
-        return response;
+        return HealthCheck.builder()
+            .status("running")
+            .version(buildVersion + "-" + buildSha)
+            .build();
     }
 
     /**
@@ -66,11 +61,10 @@ public class ApiController {
     public JsonResponse<DisplayState> getState() {
         log.info("======== getState");
 
-        JsonResponse<DisplayState> response = new JsonResponse<>();
-        response.setOk(true);
-        response.setResult(DisplayState.from(ssd1306));
-
-        return response;
+        return JsonResponse.<DisplayState>builder()
+            .ok(true)
+            .result(DisplayState.from(ssd1306))
+            .build();
     }
 
     /**
@@ -82,17 +76,18 @@ public class ApiController {
     public JsonResponse<DisplayState> startup() {
         log.info("======== startup");
 
-        JsonResponse<DisplayState> response = new JsonResponse<>();
+        var builder = JsonResponse.<DisplayState>builder();
 
         if(!ssd1306.isInitialised()) {
             ssd1306.startup(false);
-            response.setOk(true);
-            response.setResult(DisplayState.from(ssd1306));
+            builder
+                .ok(true)
+                .result(DisplayState.from(ssd1306));
         } else {
-            response.setMessage(messageService.getMessage(MessageService.DISPLAY_ALREADY_INITIALISED));
+            builder.message(messageService.getMessage(MessageService.DISPLAY_ALREADY_INITIALISED));
         }
 
-        return response;
+        return builder.build();
     }
 
     /**
@@ -104,17 +99,18 @@ public class ApiController {
     public JsonResponse<DisplayState> shutdown() {
         log.info("======== shutdown");
 
-        JsonResponse<DisplayState> response = new JsonResponse<>();
+        var builder = JsonResponse.<DisplayState>builder();
 
         if(ssd1306.isInitialised()) {
             ssd1306.shutdown();
-            response.setOk(true);
-            response.setResult(DisplayState.from(ssd1306));
+            builder
+                .ok(true)
+                .result(DisplayState.from(ssd1306));
         } else {
-            response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
+            builder.message(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
         }
 
-        return response;
+        return builder.build();
     }
 
     /**
@@ -126,17 +122,18 @@ public class ApiController {
     public JsonResponse<Boolean> displayOn() {
         log.info("======== displayOn");
 
-        JsonResponse<Boolean> response = new JsonResponse<>();
+        var builder = JsonResponse.<Boolean>builder();
 
         if(ssd1306.isInitialised()) {
             ssd1306.setDisplayOn(true);
-            response.setOk(true);
-            response.setResult(ssd1306.isDisplayOn());
+            builder
+                .ok(true)
+                .result(ssd1306.isDisplayOn());
         } else {
-            response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
+            builder.message(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
         }
 
-        return response;
+        return builder.build();
     }
 
     /**
@@ -148,17 +145,18 @@ public class ApiController {
     public JsonResponse<Boolean> displayOff() {
         log.info("======== displayOff");
 
-        JsonResponse<Boolean> response = new JsonResponse<>();
+        var builder = JsonResponse.<Boolean>builder();
 
         if(ssd1306.isInitialised()) {
             ssd1306.setDisplayOn(false);
-            response.setOk(true);
-            response.setResult(ssd1306.isDisplayOn());
+            builder
+                .ok(true)
+                .result(ssd1306.isDisplayOn());
         } else {
-            response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
+            builder.message(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
         }
 
-        return response;
+        return builder.build();
     }
 
     /**
@@ -170,17 +168,17 @@ public class ApiController {
     public JsonResponse<Void> clear() {
         log.info("======== clear");
 
-        JsonResponse<Void> response = new JsonResponse<>();
+        var builder = JsonResponse.<Void>builder();
 
         if(ssd1306.isInitialised()) {
             ssd1306.clear();
             ssd1306.display();
-            response.setOk(true);
+            builder.ok(true);
         } else {
-            response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
+            builder.message(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
         }
 
-        return response;
+        return builder.build();
     }
 
     /**
@@ -192,17 +190,18 @@ public class ApiController {
     public JsonResponse<Boolean> invert() {
         log.info("======== invert");
 
-        JsonResponse<Boolean> response = new JsonResponse<>();
+        var builder = JsonResponse.<Boolean>builder();
 
         if(ssd1306.isInitialised()) {
             ssd1306.setInverted(!ssd1306.isInverted());
-            response.setOk(true);
-            response.setResult(ssd1306.isInverted());
+            builder
+                .ok(true)
+                .result(ssd1306.isInverted());
         } else {
-            response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
+            builder.message(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
         }
 
-        return response;
+        return builder.build();
     }
 
     /**
@@ -215,27 +214,29 @@ public class ApiController {
     @PostMapping("/flip")
     public JsonResponse<Boolean> flip(@RequestBody FlipRequest request) {
         log.info("======== flip");
-        log.info("request.getAxis()={}", request.getAxis());
+        log.info("request={}", request);
 
-        JsonResponse<Boolean> response = new JsonResponse<>();
+        var builder = JsonResponse.<Boolean>builder();
 
         if(ssd1306.isInitialised()) {
             if(request.getAxis().equals("h")) {
                 ssd1306.setHFlipped(!ssd1306.isHFlipped());
-                response.setOk(true);
-                response.setResult(ssd1306.isHFlipped());
+                builder
+                    .ok(true)
+                    .result(ssd1306.isHFlipped());
             } else if(request.getAxis().equals("v")) {
                 ssd1306.setVFlipped(!ssd1306.isVFlipped());
-                response.setOk(true);
-                response.setResult(ssd1306.isVFlipped());
+                builder
+                    .ok(true)
+                    .result(ssd1306.isVFlipped());
             } else {
-                response.setMessage(messageService.getMessage(MessageService.DISPLAY_FLIP_INVALID_AXIS, request.getAxis()));
+                builder.message(messageService.getMessage(MessageService.DISPLAY_FLIP_INVALID_AXIS, request.getAxis()));
             }
         } else {
-            response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
+            builder.message(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
         }
 
-        return response;
+        return builder.build();
     }
 
     /**
@@ -248,23 +249,24 @@ public class ApiController {
     @PostMapping("/contrast")
     public JsonResponse<Integer> setContrast(@RequestBody SetContrastRequest request) {
         log.info("======== setContrast");
-        log.info("request.getContrast()={}", request.getContrast());
+        log.info("request={}", request);
 
-        JsonResponse<Integer> response = new JsonResponse<>();
+        var builder = JsonResponse.<Integer>builder();
 
         if(ssd1306.isInitialised()) {
             if(request.getContrast() >= 0 && request.getContrast() < 256) {
                 ssd1306.setContrast(request.getContrast());
-                response.setOk(true);
-                response.setResult(ssd1306.getContrast());
+                builder
+                    .ok(true)
+                    .result(ssd1306.getContrast());
             } else {
-                response.setMessage(messageService.getMessage(MessageService.DISPLAY_CONTRAST_INVALID_LEVEL, request.getContrast()));
+                builder.message(messageService.getMessage(MessageService.DISPLAY_CONTRAST_INVALID_LEVEL, request.getContrast()));
             }
         } else {
-            response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
+            builder.message(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
         }
 
-        return response;
+        return builder.build();
     }
 
     /**
@@ -277,23 +279,24 @@ public class ApiController {
     @PostMapping("/offset")
     public JsonResponse<Integer> setOffset(@RequestBody SetOffsetRequest request) {
         log.info("======== setOffset");
-        log.info("request.getOffset()={}", request.getOffset());
+        log.info("request={}", request);
 
-        JsonResponse<Integer> response = new JsonResponse<>();
+        var builder = JsonResponse.<Integer>builder();
 
         if(ssd1306.isInitialised()) {
             if(request.getOffset() >= 0 && request.getOffset() < 64) {
                 ssd1306.setOffset(request.getOffset());
-                response.setOk(true);
-                response.setResult(ssd1306.getOffset());
+                builder
+                    .ok(true)
+                    .result(ssd1306.getOffset());
             } else {
-                response.setMessage(messageService.getMessage(MessageService.DISPLAY_OFFSET_INVALID_OFFSET, request.getOffset()));
+                builder.message(messageService.getMessage(MessageService.DISPLAY_OFFSET_INVALID_OFFSET, request.getOffset()));
             }
         } else {
-            response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
+            builder.message(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
         }
 
-        return response;
+        return builder.build();
     }
 
     /**
@@ -306,26 +309,25 @@ public class ApiController {
     @PostMapping("/pixel")
     public JsonResponse<Boolean> setPixel(@RequestBody SetPixelRequest request) {
         log.info("======== setPixel");
-        log.info("request.getX()={}", request.getX());
-        log.info("request.getY()={}", request.getY());
-        log.info("request.isOn()={}", request.isOn());
+        log.info("request={}", request);
 
-        JsonResponse<Boolean> response = new JsonResponse<>();
+        var builder = JsonResponse.<Boolean>builder();
 
         if(ssd1306.isInitialised()) {
             if(request.getX() >= 0 && request.getX() < ssd1306.getWidth() && request.getY() >= 0 && request.getY() < ssd1306.getHeight()) {
                 ssd1306.setPixel(request.getX(), request.getY(), request.isOn());
                 ssd1306.display();
-                response.setOk(true);
-                response.setResult(ssd1306.getPixel(request.getX(), request.getY()));
+                builder
+                    .ok(true)
+                    .result(ssd1306.getPixel(request.getX(), request.getY()));
             } else {
-                response.setMessage(messageService.getMessage(MessageService.DISPLAY_PIXEL_INVALID_COORDINATES, request.getX(), request.getY()));
+                builder.message(messageService.getMessage(MessageService.DISPLAY_PIXEL_INVALID_COORDINATES, request.getX(), request.getY()));
             }
         } else {
-            response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
+            builder.message(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
         }
 
-        return response;
+        return builder.build();
     }
 
     /**
@@ -337,18 +339,22 @@ public class ApiController {
     public JsonResponse<DisplayBuffer> getBuffer() {
         log.info("======== getBuffer");
 
-        JsonResponse<DisplayBuffer> response = new JsonResponse<>();
+        var builder = JsonResponse.<DisplayBuffer>builder();
 
         if(ssd1306.isInitialised()) {
-            DisplayBuffer buffer = DisplayBuffer.from(ssd1306.getWidth(), ssd1306.getHeight(), null);
+            var buffer = DisplayBuffer.builder()
+                .width(ssd1306.getWidth())
+                .height(ssd1306.getHeight())
+                .build();
             buffer.setBufferAsBytes(ssd1306.getBuffer());
-            response.setOk(true);
-            response.setResult(buffer);
+            builder
+                .ok(true)
+                .result(buffer);
         } else {
-            response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
+            builder.message(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
         }
 
-        return response;
+        return builder.build();
     }
 
     /**
@@ -363,21 +369,21 @@ public class ApiController {
         log.info("buffer.getHeight()={}", buffer.getHeight());
         log.info("buffer.getBuffer().length={}", buffer.getBuffer().length);
 
-        JsonResponse<Void> response = new JsonResponse<>();
+        var builder = JsonResponse.<Void>builder();
 
         if(ssd1306.isInitialised()) {
             if(buffer.getBuffer().length == ssd1306.getBuffer().length) {
-                response.setOk(true);
+                builder.ok(true);
                 ssd1306.setBuffer(buffer.getBufferAsBytes());
                 ssd1306.display();
             } else {
-                response.setMessage(messageService.getMessage(MessageService.DISPLAY_BUFFER_SIZE_MISMATCH, buffer.getBuffer().length, ssd1306.getBuffer().length));
+                builder.message(messageService.getMessage(MessageService.DISPLAY_BUFFER_SIZE_MISMATCH, buffer.getBuffer().length, ssd1306.getBuffer().length));
             }
         } else {
-            response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
+            builder.message(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
         }
 
-        return response;
+        return builder.build();
     }
 
     /**
@@ -390,16 +396,9 @@ public class ApiController {
     @PostMapping("/scroll/start")
     public JsonResponse<Boolean> startScroll(@RequestBody ScrollRequest request) {
         log.info("======== startScroll");
-        log.info("request.isVertical()={}", request.isVertical());
-        log.info("request.isLeft()={}", request.isLeft());
-        log.info("request.getStartPage()={}", request.getStartPage());
-        log.info("request.getEndPage()={}", request.getEndPage());
-        log.info("request.getOffset()={}", request.getOffset());
-        log.info("request.getRows()={}", request.getRows());
-        log.info("request.getSpeed()={}", request.getSpeed());
-        log.info("request.getStep()={}", request.getStep());
+        log.info("request={}", request);
 
-        JsonResponse<Boolean> response = new JsonResponse<>();
+        var builder = JsonResponse.<Boolean>builder();
 
         if(ssd1306.isInitialised()) {
             if(!ssd1306.isScrolling()) {
@@ -410,16 +409,17 @@ public class ApiController {
                 }
 
                 ssd1306.startScroll();
-                response.setOk(true);
-                response.setResult(ssd1306.isScrolling());
+                builder
+                    .ok(true)
+                    .result(ssd1306.isScrolling());
             } else {
-                response.setMessage(messageService.getMessage(MessageService.DISPLAY_SCROLL_ALREADY_ACTIVE));
+                builder.message(messageService.getMessage(MessageService.DISPLAY_SCROLL_ALREADY_ACTIVE));
             }
         } else {
-            response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
+            builder.message(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
         }
 
-        return response;
+        return builder.build();
     }
 
     /**
@@ -431,21 +431,22 @@ public class ApiController {
     public JsonResponse<Boolean> stopScroll() {
         log.info("======== stopScroll");
 
-        JsonResponse<Boolean> response = new JsonResponse<>();
+        var builder = JsonResponse.<Boolean>builder();
 
         if(ssd1306.isInitialised()) {
             if(ssd1306.isScrolling()) {
                 ssd1306.stopScroll();
                 ssd1306.display();
-                response.setOk(true);
-                response.setResult(ssd1306.isScrolling());
+                builder
+                    .ok(true)
+                    .result(ssd1306.isScrolling());
             } else {
-                response.setMessage(messageService.getMessage(MessageService.DISPLAY_SCROLL_NOT_ACTIVE));
+                builder.message(messageService.getMessage(MessageService.DISPLAY_SCROLL_NOT_ACTIVE));
             }
         } else {
-            response.setMessage(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
+            builder.message(messageService.getMessage(MessageService.DISPLAY_NOT_INITIALISED));
         }
 
-        return response;
+        return builder.build();
     }
 }

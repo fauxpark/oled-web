@@ -1,5 +1,7 @@
 package net.fauxpark.oled.web.entity;
 
+import lombok.Data;
+
 import net.fauxpark.oled.SSD1306;
 
 /**
@@ -7,6 +9,7 @@ import net.fauxpark.oled.SSD1306;
  *
  * @author fauxpark
  */
+@Data
 public class DisplayState {
     /**
      * The width in pixels of the display.
@@ -73,90 +76,5 @@ public class DisplayState {
 
     public static DisplayState from(SSD1306 ssd1306) {
         return new DisplayState(ssd1306);
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public boolean isInitialised() {
-        return initialised;
-    }
-
-    public void setInitialised(boolean initialised) {
-        this.initialised = initialised;
-    }
-
-    public boolean isDisplayOn() {
-        return displayOn;
-    }
-
-    public void setDisplayOn(boolean displayOn) {
-        this.displayOn = displayOn;
-    }
-
-    public boolean isInverted() {
-        return inverted;
-    }
-
-    public void setInverted(boolean inverted) {
-        this.inverted = inverted;
-    }
-
-    public boolean ishFlipped() {
-        return hFlipped;
-    }
-
-    public void sethFlipped(boolean hFlipped) {
-        this.hFlipped = hFlipped;
-    }
-
-    public boolean isvFlipped() {
-        return vFlipped;
-    }
-
-    public void setvFlipped(boolean vFlipped) {
-        this.vFlipped = vFlipped;
-    }
-
-    public boolean isScrolling() {
-        return scrolling;
-    }
-
-    public void setScrolling(boolean scrolling) {
-        this.scrolling = scrolling;
-    }
-
-    public int getContrast() {
-        return contrast;
-    }
-
-    public void setContrast(int contrast) {
-        this.contrast = contrast;
-    }
-
-    public int getOffset() {
-        return offset;
-    }
-
-    public void setOffset(int offset) {
-        this.offset = offset;
-    }
-
-    @Override
-    public String toString() {
-        return "DisplayState [width=" + width + ", height=" + height + ", initialised=" + initialised + ", displayOn=" + displayOn + ", inverted=" + inverted + ", hFlipped=" + hFlipped + ", vFlipped=" + vFlipped + ", scrolling=" + scrolling + ", contrast=" + contrast + ", offset=" + offset + "]";
     }
 }

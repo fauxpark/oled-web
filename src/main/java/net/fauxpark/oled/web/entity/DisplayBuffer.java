@@ -1,5 +1,8 @@
 package net.fauxpark.oled.web.entity;
 
+import lombok.Builder;
+import lombok.Data;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -7,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  * @author fauxpark
  */
+@Data
+@Builder
 public class DisplayBuffer {
     /**
      * The width of the buffer.
@@ -27,40 +32,6 @@ public class DisplayBuffer {
      * @see DisplayBuffer#setBufferAsBytes(byte[])
      */
     private int[] buffer;
-
-    private DisplayBuffer(int width, int height, int[] buffer) {
-        this.width = width;
-        this.height = height;
-        this.buffer = buffer;
-    }
-
-    public static DisplayBuffer from(int width, int height, int[] buffer) {
-        return new DisplayBuffer(width, height, buffer);
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public int[] getBuffer() {
-        return buffer;
-    }
-
-    public void setBuffer(int[] buffer) {
-        this.buffer = buffer;
-    }
 
     /**
      * Retrieve the buffer's contents as a byte array.
@@ -92,10 +63,5 @@ public class DisplayBuffer {
         }
 
         this.buffer = intArray;
-    }
-
-    @Override
-    public String toString() {
-        return "DisplayBuffer [width=" + width + ", height=" + height + ", buffer.length=" + buffer.length + "]";
     }
 }

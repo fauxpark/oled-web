@@ -3,8 +3,8 @@ package net.fauxpark.oled.web.factory;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.AbstractFactoryBean;
 
@@ -20,9 +20,8 @@ import net.fauxpark.oled.transport.Transport;
  *
  * @author fauxpark
  */
+@Slf4j
 public class SSD1306Factory extends AbstractFactoryBean<SSD1306> {
-    private static final Logger log = LoggerFactory.getLogger(SSD1306Factory.class);
-
     @Value("${oled.transport:mock}")
     private String oledTransport;
 

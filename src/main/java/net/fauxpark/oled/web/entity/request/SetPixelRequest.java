@@ -1,10 +1,13 @@
 package net.fauxpark.oled.web.entity.request;
 
+import lombok.Data;
+
 /**
  * A JSON request to turn a pixel on the display on or off.
  *
  * @author fauxpark
  */
+@Data
 public class SetPixelRequest {
     /**
      * The X position of the pixel to set.
@@ -20,33 +23,4 @@ public class SetPixelRequest {
      * Whether to turn the pixel on or off.
      */
     private boolean on;
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public boolean isOn() {
-        return on;
-    }
-
-    public void setOn(boolean on) {
-        this.on = on;
-    }
-
-    @Override
-    public String toString() {
-        return "SetPixelRequest [x=" + x + ", y=" + y + ", on=" + on + "]";
-    }
 }
